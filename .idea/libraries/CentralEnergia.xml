@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="CentralEnergia">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/CentralEnergia/CentralEnergia.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/CentralEnergia/javadoc.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

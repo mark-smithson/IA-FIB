@@ -1,0 +1,20 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/servlet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/iText-2.1.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/appframework-1.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/junit.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/swtgraphics2d.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/swing-layout-1.0.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/gnujaxp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/jfreechart-1.0.13-experimental.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/jfreechart-1.0.13.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/jfreechart-1.0.13-swt.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/swing-worker-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Practica 1 - Local Search/AIMA/dist/lib/jcommon-1.0.16.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
