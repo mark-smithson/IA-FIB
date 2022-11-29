@@ -146,7 +146,7 @@
 	=>
 	(bind ?alch (yes-or-no-p "Sueles beber alcohol con frecuencia? si o no "))
     ;Falta hecho? slot??
-	(send ?alch put-bebe_alcohol ?alch)
+	(send ?bebAlc put-bebe_alcohol ?alch)
 )
 
 (defrule PREGUNTES::askF
@@ -284,4 +284,136 @@
 		(send ?DolorI put-dolor_articulaciones_tronco_inferior ?dolorartI)
 
 	)
+)
+
+;;PREGUNTES SOBRE POSSIBLES ENFERMETATS;;
+
+(defrule PREGUNTES::askArtritis
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?Eartritis <- (object(is-a Enfermedades))
+	=>
+	(bind ?artritis (yes-or-no-p "Padeces de artritis? si o no "))
+    ;Falta hecho? slot??
+	(send ?Eartritis put-artritis ?artritis)
+)
+
+(defrule PREGUNTES::askArtrosis
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?Eartrosis <- (object(is-a Enfermedades))
+	=>
+	(bind ?artrosis (yes-or-no-p "Padeces de artrosis? si o no "))
+    ;Falta hecho? slot??
+	(send ?Eartrosis put-artrosis ?artrosis)
+)
+
+(defrule PREGUNTES::askDepression
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?EDepresion <- (object(is-a Enfermedades))
+	=>
+	(bind ?depresion (yes-or-no-p "Padeces de depresión? si o no "))
+    ;Falta hecho? slot??
+	(send ?EDepresion put-depresion ?depresion)
+)
+
+(defrule PREGUNTES::askDiabetes ;tipos de diabates???
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?EDiabetes <- (object(is-a Enfermedades))
+	=>
+	(bind ?diabetes (yes-or-no-p "Padeces de diabetes? si o no "))
+    ;Falta hecho? slot??
+	(send ?EDiabetes put-diabetes ?diabetes)
+)
+
+(defrule PREGUNTES::askCor
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?Ecoronarias <- (object(is-a Enfermedades))
+	=>
+	(bind ?coronarias (yes-or-no-p "Padeces de alguna enfermedad coronaria? si o no "))
+    ;Falta hecho? slot??
+	(send ?Ecoronarias put-enfermedades_coronarias ?coronarias)
+)
+
+(defrule PREGUNTES::askCardiovascular
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?Ecardiovascular <- (object(is-a Enfermedades))
+	=>
+	(bind ?cardiovascular (yes-or-no-p "Padeces de alguna enfermedad cardiovascular? si o no "))
+    ;Falta hecho? slot??
+	(send ?Ecardiovascular put-enfermedades_cardiovasculares ?cardiovascular)
+)
+
+(defrule PREGUNTES::askBalance
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?Eequilibrio <- (object(is-a Enfermedades))
+	=>
+	(bind ?faltae (yes-or-no-p "Sientes una considerable falta de equilibrio? si o no "))
+    ;Falta hecho? slot??
+	(send ?Eequilibrio put-falta_equilibrio ?faltae)
+)
+
+(defrule PREGUNTES::askFibromialgia
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?EFibromialgia <- (object(is-a Enfermedades))
+	=>
+	(bind ?fibro (yes-or-no-p "Padeces de fibromialgia? si o no "))
+    ;Falta hecho? slot??
+	(send ?EFibromialgia put-fibromialgia ?fibro)
+)
+
+(defrule PREGUNTES::askBloodPressure
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?Ehipertension <- (object(is-a Enfermedades))
+	=>
+	(bind ?hipertension (yes-or-no-p "Padeces de hipertensión? si o no "))
+    ;Falta hecho? slot??
+	(send ?Ehipertension put-hipertension ?hipertension)
+)
+
+(defrule PREGUNTES::askIctus
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?EIctus<- (object(is-a Enfermedades))
+	=>
+	(bind ?ictus (yes-or-no-p "Padeces de ictus? si o no "))
+    ;Falta hecho? slot??
+	(send ?EIctus put-ictus ?ictus)
+)
+
+(defrule PREGUNTES::askObesidad ;;BMI index?
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?Eobesidad <- (object(is-a Enfermedades))
+	=>
+	(bind ?obesidad (yes-or-no-p "Padeces de obesidad? si o no "))
+    ;Falta hecho? slot??
+	(send ?Eobesidad put-obesidad ?obesidad)
+)
+
+(defrule PREGUNTES::askOsteoporosis
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?Eosteoporosis <- (object(is-a Enfermedades))
+	=>
+	(bind ?osteo (yes-or-no-p "Padeces de osteoporosis? si o no "))
+    ;Falta hecho? slot??
+	(send ?Eosteoporosis put-osteoporosis ?osteo)
+)
+
+(defrule PREGUNTES::askParkinson
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?Eparkinson <- (object(is-a Enfermedades))
+	=>
+	(bind ?parkinson (yes-or-no-p "Padeces de parkinson? si o no "))
+    ;Falta hecho? slot??
+	(send ?Eparkinson put-parkinson ?parkinson)
 )
