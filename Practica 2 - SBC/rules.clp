@@ -1,5 +1,5 @@
 ;
-; (load ontologia_prac.clp)
+; (load ontologia_prac.clp) -
 ;
 ;
 
