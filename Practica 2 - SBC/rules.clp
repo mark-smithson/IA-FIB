@@ -278,11 +278,10 @@
 	(bind ?dolorart (yes-or-no-p "Te duelen las articulaciones con frecuencia? si o no "))
     ;Falta hecho? slot??
 	(if (eq ?dolorart TRUE) then
-		(bind ?dolorartS (yes-or-no-p "Suele ser en las articulaciones superiores si o no"))
+		(bind ?dolorartS (yes-or-no-p "Suele ser en las articulaciones superiores si o no "))
 		(send ?DolorS put-dolor_articulaciones_tronco_superior ?dolorartS)
-		(bind ?dolorartI (yes-or-no-p "Suele ser en las articulaciones inferiores si o no"))
+		(bind ?dolorartI (yes-or-no-p "Suele ser en las articulaciones inferiores si o no "))
 		(send ?DolorI put-dolor_articulaciones_tronco_inferior ?dolorartI)
-
 	)
 )
 
