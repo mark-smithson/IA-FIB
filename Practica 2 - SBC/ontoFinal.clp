@@ -140,6 +140,9 @@
     (slot duracion_aerobico
         (type INTEGER)
         (create-accessor read-write))
+    (slot nombreAero
+        (type STRING)
+        (create-accessor read-write))
 )
 
 (defclass bailar
@@ -185,6 +188,9 @@
     (slot duracion_equilibrio
         (type INTEGER)
         (create-accessor read-write))
+    (slot nombreEqui
+        (type STRING)
+        (create-accessor read-write))
 )
 
 (defclass andar_de_puntillas
@@ -229,6 +235,9 @@
     (pattern-match reactive)
     (slot duracion_flexibilidad
         (type INTEGER)
+        (create-accessor read-write))
+    (slot nombreFlexi
+        (type STRING)
         (create-accessor read-write))
 )
 
@@ -289,6 +298,9 @@
         (create-accessor read-write))
     (slot repeticiones
         (type INTEGER)
+        (create-accessor read-write))
+    (slot nombreMusc
+        (type STRING)
         (create-accessor read-write))
 )
 
@@ -500,15 +512,19 @@
     )
 
     ([ejaerobico] of Aerobico
+        (nombreAero "ejaerobico")
     )
 
     ([ejequilibrio] of Equilibrio
+        (nombreEqui "ejequilibrio")
     )
 
     ([ejflexibilidad] of Flexibilidad
+        (nombreFlexi "ejflexibilidad")
     )
 
     ([ejmusculacion] of Musculacion
+        (nombreMusc "ejmusculacion")
     )
 
     ([faltaequilib] of falta_equilibrio
