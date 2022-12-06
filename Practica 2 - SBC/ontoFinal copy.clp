@@ -427,7 +427,6 @@
         (create-accessor read-write))
     (slot edad
         (type INTEGER)
-        (range 65 120)
         (create-accessor read-write))
     (slot mobilidad_reducida
         (type SYMBOL)
@@ -459,10 +458,12 @@
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
+    (multislot formado_por
+        (type INSTANCE)
+        (create-accessor read-write))
     (slot dia
         (type STRING)
         (create-accessor read-write))
-    
 )
 
 (definstances instances
