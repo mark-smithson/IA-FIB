@@ -2,7 +2,88 @@
 ;;; ontoFinal.clp
 ;;; Translated by owl2clips
 ;;; Translated to CLIPS from ontology ontoFinal.owl
-;;; :Date 05/12/2022 10:48:06
+;;; :Date 06/12/2022 01:44:28
+
+(defclass Enfermedades
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (multislot mejorable_con
+        (type INSTANCE)
+        (create-accessor read-write))
+)
+
+(defclass artritis
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass artrosis
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass depresion
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass diabetes
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass enfermedades_cardiovasculares
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass enfermedades_coronarias
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass falta_equilibrio
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass fibromialgia
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass hipertension
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass obesidad
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass osteoporosis
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass parkinson
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
 
 (defclass Fase
     (is-a USER)
@@ -313,51 +394,6 @@
         (create-accessor read-write))
 )
 
-(defclass Enfermedades
-    (is-a USER)
-    (role concrete)
-    (pattern-match reactive)
-    (slot artritis
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot artrosis
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot depresion
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot diabetes
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot enfermedades_cardiovasculares
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot enfermedades_coronarias
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot falta_equilibrio
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot fibromialgia
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot hipertension
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot ictus
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot obesidad
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot osteoporosis
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot parkinson
-        (type SYMBOL)
-        (create-accessor read-write))
-)
-
 (defclass Persona
     (is-a USER)
     (role concrete)
@@ -437,6 +473,66 @@
          (operaciones_recientes  "false")
          (pasea_con_frecuencia  "true")
          (tirones_frecuentemente  "false")
+    )
+
+    ([artritis] of artritis
+         (mejorable_con  [ejaerobico] [ejflexibilidad] [ejmusculacion])
+    )
+
+    ([artrosis] of artrosis
+         (mejorable_con  [ejaerobico] [ejflexibilidad] [ejmusculacion])
+    )
+
+    ([cardiovasculares] of enfermedades_cardiovasculares
+         (mejorable_con  [ejaerobico] [ejequilibrio] [ejflexibilidad] [ejmusculacion])
+    )
+
+    ([coronarias] of enfermedades_coronarias
+         (mejorable_con  [ejaerobico] [ejequilibrio] [ejflexibilidad] [ejmusculacion])
+    )
+
+    ([depresion] of depresion
+         (mejorable_con  [ejaerobico] [ejequilibrio] [ejflexibilidad])
+    )
+
+    ([diabetes] of diabetes
+         (mejorable_con  [ejaerobico] [ejequilibrio] [ejmusculacion])
+    )
+
+    ([ejaerobico] of Aerobico
+    )
+
+    ([ejequilibrio] of Equilibrio
+    )
+
+    ([ejflexibilidad] of Flexibilidad
+    )
+
+    ([ejmusculacion] of Musculacion
+    )
+
+    ([faltaequilib] of falta_equilibrio
+         (mejorable_con  [ejaerobico] [ejequilibrio])
+    )
+
+    ([fibromialgia] of fibromialgia
+         (mejorable_con  [ejaerobico] [ejflexibilidad])
+    )
+
+    ([hipertension] of hipertension
+         (mejorable_con  [ejaerobico] [ejmusculacion])
+    )
+
+    ([obesidad] of obesidad
+         (mejorable_con  [ejaerobico] [ejequilibrio] [ejflexibilidad] [ejmusculacion])
+    )
+
+    ([osteoporosis] of osteoporosis
+         (mejorable_con  [ejaerobico] [ejequilibrio] [ejflexibilidad] [ejmusculacion])
+    )
+
+    ([parkinson] of parkinson
+         (mejorable_con  [ejaerobico] [ejequilibrio])
     )
 
 )

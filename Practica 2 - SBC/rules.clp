@@ -287,132 +287,174 @@
 
 ;;PREGUNTES SOBRE POSSIBLES ENFERMETATS;;
 
-(defrule PREGUNTES::askArtritis
-	(newPersona)
-    ?x <- (object(is-a Persona))
-	?Eartritis <- (object(is-a Enfermedades))
-	=>
-	(bind ?artritis (yes-or-no-p "Padeces de artritis? si o no "))
-    ;Falta hecho? slot??
-	(send ?Eartritis put-artritis ?artritis)
-)
-
 (defrule PREGUNTES::askArtrosis
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?Eartrosis <- (object(is-a Enfermedades))
+	?Eartrosis <- (object(is-a artrosis))
 	=>
-	(bind ?artrosis (yes-or-no-p "Padeces de artrosis? si o no "))
+	(bind ?artrosiis (yes-or-no-p "Padeces de artrosis? si o no "))
+	
     ;Falta hecho? slot??
-	(send ?Eartrosis put-artrosis ?artrosis)
+	;(send ?Eartrosis put-artrosis ?artrosiis)
+	(if (eq ?artrosiis TRUE) then
+		(slot-insert$ ?x padece_de 1 ?Eartrosis)
+	)
 )
+
+(defrule PREGUNTES::askArtritis
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	?Eartritis <- (object(is-a artritis))
+	=>
+	(bind ?artritis (yes-or-no-p "Padeces de artritis? si o no "))
+    ;Falta hecho? slot??
+	;(send ?Eartritis put-artritis ?artritis)
+	(if (eq ?artritis TRUE) then
+		(slot-insert$ ?x padece_de 1 ?Eartritis)
+	)
+)
+
 
 (defrule PREGUNTES::askDepression
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?EDepresion <- (object(is-a Enfermedades))
+	?EDepresion <- (object(is-a depresion))
 	=>
 	(bind ?depresion (yes-or-no-p "Padeces de depresión? si o no "))
     ;Falta hecho? slot??
-	(send ?EDepresion put-depresion ?depresion)
+	;(send ?EDepresion put-depresion ?depresion)
+	(if (eq ?depresion TRUE) then
+		(slot-insert$ ?x padece_de 1 ?EDepresion)
+	)
 )
 
 (defrule PREGUNTES::askDiabetes ;tipos de diabates???
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?EDiabetes <- (object(is-a Enfermedades))
+	?EDiabetes <- (object(is-a diabetes))
 	=>
 	(bind ?diabetes (yes-or-no-p "Padeces de diabetes? si o no "))
     ;Falta hecho? slot??
-	(send ?EDiabetes put-diabetes ?diabetes)
+	;(send ?EDiabetes put-diabetes ?diabetes)
+	(if (eq ?diabetes TRUE) then
+		(slot-insert$ ?x padece_de 1 ?EDiabetes)
+	)
 )
 
 (defrule PREGUNTES::askCor
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?Ecoronarias <- (object(is-a Enfermedades))
+	?Ecoronarias <- (object(is-a enfermedades_cardiovasculares))
 	=>
 	(bind ?coronarias (yes-or-no-p "Padeces de alguna enfermedad coronaria? si o no "))
     ;Falta hecho? slot??
-	(send ?Ecoronarias put-enfermedades_coronarias ?coronarias)
+	;(send ?Ecoronarias put-enfermedades_coronarias ?coronarias)
+	(if (eq ?coronarias TRUE) then
+		(slot-insert$ ?x padece_de 1 ?Ecoronarias)
+	)
 )
 
 (defrule PREGUNTES::askCardiovascular
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?Ecardiovascular <- (object(is-a Enfermedades))
+	?Ecardiovascular <- (object(is-a enfermedades_cardiovasculares))
 	=>
 	(bind ?cardiovascular (yes-or-no-p "Padeces de alguna enfermedad cardiovascular? si o no "))
     ;Falta hecho? slot??
-	(send ?Ecardiovascular put-enfermedades_cardiovasculares ?cardiovascular)
+	;(send ?Ecardiovascular put-enfermedades_cardiovasculares ?cardiovascular)
+	(if (eq ?cardiovascular TRUE) then
+		(slot-insert$ ?x padece_de 1 ?Ecardiovascular)
+	)
 )
 
 (defrule PREGUNTES::askBalance
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?Eequilibrio <- (object(is-a Enfermedades))
+	?Eequilibrio <- (object(is-a falta_equilibrio))
 	=>
 	(bind ?faltae (yes-or-no-p "Sientes una considerable falta de equilibrio? si o no "))
     ;Falta hecho? slot??
-	(send ?Eequilibrio put-falta_equilibrio ?faltae)
+	;(send ?Eequilibrio put-falta_equilibrio ?faltae)
+	(if (eq ?faltae TRUE) then
+		(slot-insert$ ?x padece_de 1 ?Eequilibrio)
+	)
 )
 
 (defrule PREGUNTES::askFibromialgia
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?EFibromialgia <- (object(is-a Enfermedades))
+	?EFibromialgia <- (object(is-a fibromialgia))
 	=>
 	(bind ?fibro (yes-or-no-p "Padeces de fibromialgia? si o no "))
     ;Falta hecho? slot??
-	(send ?EFibromialgia put-fibromialgia ?fibro)
+	;(send ?EFibromialgia put-fibromialgia ?fibro)
+	(if (eq ?fibro TRUE) then
+		(slot-insert$ ?x padece_de 1 ?EFibromialgia)
+	)
 )
 
 (defrule PREGUNTES::askBloodPressure
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?Ehipertension <- (object(is-a Enfermedades))
+	?Ehipertension <- (object(is-a hipertension))
 	=>
 	(bind ?hipertension (yes-or-no-p "Padeces de hipertensión? si o no "))
     ;Falta hecho? slot??
-	(send ?Ehipertension put-hipertension ?hipertension)
+	;(send ?Ehipertension put-hipertension ?hipertension)
+	(if (eq ?hipertension TRUE) then
+		(slot-insert$ ?x padece_de 1 ?Ehipertension)
+	)
 )
 
-(defrule PREGUNTES::askIctus
-	(newPersona)
-    ?x <- (object(is-a Persona))
-	?EIctus<- (object(is-a Enfermedades))
-	=>
-	(bind ?ictus (yes-or-no-p "Padeces de ictus? si o no "))
-    ;Falta hecho? slot??
-	(send ?EIctus put-ictus ?ictus)
-)
 
 (defrule PREGUNTES::askObesidad ;;BMI index?
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?Eobesidad <- (object(is-a Enfermedades))
+	?Eobesidad <- (object(is-a obesidad))
 	=>
 	(bind ?obesidad (yes-or-no-p "Padeces de obesidad? si o no "))
     ;Falta hecho? slot??
-	(send ?Eobesidad put-obesidad ?obesidad)
+	;(send ?Eobesidad put-obesidad ?obesidad)
+	(if (eq ?obesidad TRUE) then
+		(slot-insert$ ?x padece_de 1 ?Eobesidad)
+	)
 )
 
 (defrule PREGUNTES::askOsteoporosis
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?Eosteoporosis <- (object(is-a Enfermedades))
+	?Eosteoporosis <- (object(is-a osteoporosis))
 	=>
 	(bind ?osteo (yes-or-no-p "Padeces de osteoporosis? si o no "))
     ;Falta hecho? slot??
-	(send ?Eosteoporosis put-osteoporosis ?osteo)
+	;(send ?Eosteoporosis put-osteoporosis ?osteo)
+	(if (eq ?osteo TRUE) then
+		(slot-insert$ ?x padece_de 1 ?Eosteoporosis)
+	)
 )
 
 (defrule PREGUNTES::askParkinson
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?Eparkinson <- (object(is-a Enfermedades))
+	?Eparkinson <- (object(is-a parkinson))
 	=>
 	(bind ?parkinson (yes-or-no-p "Padeces de parkinson? si o no "))
     ;Falta hecho? slot??
-	(send ?Eparkinson put-parkinson ?parkinson)
+	;(send ?Eparkinson put-parkinson ?parkinson)
+	(if (eq ?parkinson TRUE) then
+		(slot-insert$ ?x padece_de 1 ?Eparkinson)
+	)
+)
+
+(defmodule FILTRE_1 (import MAIN ?ALL) (import PREGUNTES ?ALL)(export ?ALL))
+
+;descartar les instancies dels exercicis no presents en la relació mejorable_con
+
+(deffunction eliminar_noMejorables (?f)
+	(bind ?enf (find-all-instances ((?e Enfermedades)) (not (eq ( member ?f ?e:mejorable_con) FALSE))))
+	(loop-for-count (?i 1 (length ?enf)) do
+		(bind ?j (nth$ ?i ?enf))
+		(bind ?pos (member ?f (send ?j get-mejorable_con)))
+		(if (not (eq ?pos FALSE)) then (slot-delete$ ?j mejorable_con ?pos ?pos))
+	)
 )
