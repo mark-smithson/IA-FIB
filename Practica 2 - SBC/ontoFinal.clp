@@ -183,8 +183,8 @@
     (is-a Ejercicio)
     (role concrete)
     (pattern-match reactive)
-    (slot peso_ejercicio
-        (type FLOAT)
+    (slot series
+        (type INTEGER)
         (create-accessor read-write))
     (slot repeticiones
         (type INTEGER)
@@ -393,6 +393,9 @@
     (slot edad
         (type INTEGER)
         (range 65 120)
+        (create-accessor read-write))
+    (slot disponibilidad
+        (type INTEGER)
         (create-accessor read-write))
     (slot mobilidad_reducida
         (type SYMBOL)
@@ -651,31 +654,4 @@
          (mejorable_con  [ejaerobico] [ejequilibrio])
     )
 
-    ([Dia_1] of Sesion
-        (dia "Dia 1")
-    )
-
-    ([Dia_2] of Sesion
-        (dia "Dia 2")
-    )
-
-    ([Dia_3] of Sesion
-        (dia "Dia 3")
-    )
-
-    ([Dia_4] of Sesion
-        (dia "Dia 4")
-    )
-
-    ([Dia_5] of Sesion
-        (dia "Dia 5")
-    )
-
-    ([Dia_6] of Sesion
-        (dia "Dia 6")
-    )
-
-    ([Dia_7] of Sesion
-        (dia "Dia 7")
-    )
 )

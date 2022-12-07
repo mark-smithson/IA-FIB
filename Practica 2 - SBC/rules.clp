@@ -53,13 +53,29 @@
        else FALSE)
 )
 
-(deffunction assignExercise (?ejercicio ?sesion)
-	(bind ?ejsSes (send ?sesion get-EjPrincipal))
-	(bind ?ejsSes (insert$ ?ejsSes (+(length$ ?ejsSes)1)?ejercicio))
-	(send ?sesion put-EjPrincipal ?ejsSes)
-
+(deffunction assignExercise (?ejercicio ?sesion ?calentamientorec)
+	;2 ej principal 1 calentamiento y rec
+	
+	(switch ?calentamientorec 
+		(case 1 then 
+		(bind ?ejsSes (send ?sesion get-Calentamiento))
+		(bind ?ejsSesR (send ?sesion get-Estiramientos))
+		(bind ?ejsSes (insert$ ?ejsSes (+(length$ ?ejsSes)1)?ejercicio))
+		(bind ?ejsSesR (insert$ ?ejsSesR (+(length$ ?ejsSesR)1)?ejercicio))
+		(send ?sesion put-Calentamiento ?ejsSes)
+		(send ?sesion put-Estiramientos ?ejsSesR)
+		)
+		(case 2 then
+		(bind ?ejsSes (send ?sesion get-EjPrincipal))
+		(bind ?ejsSes (insert$ ?ejsSes (+(length$ ?ejsSes)1)?ejercicio))
+		(send ?sesion put-EjPrincipal ?ejsSes)
+		)
+	)
 )
 
+(deftemplate dispt
+	(slot d)
+)
 
 (defmodule MAIN (export ?ALL))
 
@@ -73,6 +89,7 @@
 	;(make-instance p of Persona)
     (focus PREGUNTES)
 )
+
 
 (defmodule PREGUNTES (export ?ALL) (import MAIN ?ALL))
 
@@ -124,6 +141,43 @@
 	=>
 	(bind ?intensity (ask-int "Que intensidad prefieres para tu plan del 1 al 10? "))
     (send ?x put-preferencia_intensidad ?intensity)
+)
+
+(defrule PREGUNTES::askAvailability
+	(newPersona)
+    ?x <- (object(is-a Persona))
+	=>
+	(bind ?availability (ask-int "Que disponibilidad tienes? (3-7)"))
+    (send ?x put-disponibilidad ?availability)
+	(bind ?count 1)
+	(while (<= ?count ?availability) do
+		(switch ?count
+			(case 1 then
+				(make-instance [Dia_1] of Sesion (dia (str-cat "Dia " ?count) ))
+			)
+			(case 2 then
+				(make-instance [Dia_2] of Sesion (dia (str-cat "Dia " ?count) ))
+			)
+			(case 3 then
+				(make-instance [Dia_3] of Sesion (dia (str-cat "Dia " ?count) ))
+			)
+			(case 4 then
+				(make-instance [Dia_4] of Sesion (dia (str-cat "Dia " ?count) ))
+			)
+			(case 5 then
+				(make-instance [Dia_5] of Sesion (dia (str-cat "Dia " ?count) ))
+			)
+			(case 6 then
+				(make-instance [Dia_6] of Sesion (dia (str-cat "Dia " ?count) ))
+			)
+			(case 7 then
+				(make-instance [Dia_7] of Sesion (dia (str-cat "Dia " ?count) ))
+			)
+
+		)	
+		(bind ?count (+ ?count 1))
+	)	
+
 )
 
 
@@ -275,9 +329,10 @@
 		(send ?OperI put-operaciones_recientes_inferior ?operI)
 		(if (eq ?operI FALSE) then (assert (OperacionesInferiorOK)))
 	)
-	else
+	(if (neq ?operaciones TRUE) then
 	(assert (OperacionesSuperiorOK))
 	(assert (OperacionesInferiorOK))
+	)
 
 )
 
@@ -319,9 +374,10 @@
 		(send ?DolorI put-dolor_articulaciones_tronco_inferior ?dolorartI)
 		(if (eq ?dolorartI FALSE) then (assert (TroncoInferiorOK)))
 	)
-	else 
+	(if (neq ?dolorart TRUE) then
 	 (assert (TroncoSuperiorOK))
 	 (assert (TroncoInferiorOK))
+	)
 
 )
 
@@ -524,10 +580,28 @@
 	(TroncoInferiorOK)
 	(or (depresion)(diabetes)(enfermedades_coronarias)(hipertension)(obesidad))
 	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
 	=>
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "bailar") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (or (eq (?intA) 1) (eq (?intA) 2))
+		(send ?exe put-duracion_aerobico 30)
+	)
+	(if (or (eq (?intA) 3) (eq (?intA) 4))
+		(send ?exe put-duracion_aerobico 45)
+	)
+
+	(if (or (eq (?intA) 5) (eq (?intA) 6) (eq (?intA) 7))
+		(send ?exe put-duracion_aerobico 60)
+	)
+
+
+	(if (or (eq (?intA) 8) (eq (?intA) 9) (eq (?intA) 10))
+		(send ?exe put-duracion_aerobico 90)
+	)
+
 )
 
 (defrule ejBici
@@ -603,7 +677,7 @@
 	(TroncoInferiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (diabetes)(hipertension)(obesidad)(osteoporosis)(fibromialgia))
+	(or (diabetes)(hipertension)(obesidad)(osteoporosis)(fibromialgia)(Faltaequilibrio))
 	?p<-(planprueba ?planPrueba)
 	=>
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "andar_de_puntillas") 0)))
@@ -618,7 +692,7 @@
 	(OperacionesSuperiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (diabetes)(hipertension)(obesidad)(fibromialgia))
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(Faltaequilibrio))
 	?p<-(planprueba ?planPrueba)
 	=>
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "flexion_de_cadera") 0)))
@@ -633,7 +707,7 @@
 	(OperacionesSuperiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (diabetes)(hipertension)(obesidad)(fibromialgia))
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(Faltaequilibrio))
 	?p<-(planprueba ?planPrueba)
 	=>
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "extension_de_cadera") 0)))
@@ -646,7 +720,7 @@
 	(TroncoInferiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(osteoporosis))
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(osteoporosis)(Faltaequilibrio))
 	?p<-(planprueba ?planPrueba)
 	=>
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "levantamiento_lateral_pierna") 0)))
@@ -656,7 +730,7 @@
 
 (defrule ejTaiChi
 	(newPersona)
-	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(osteoporosis)(parkinson)(depresion))
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(osteoporosis)(parkinson)(depresion)(Faltaequilibrio))
 	?p<-(planprueba ?planPrueba)
 	=>
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "tai_chi") 0)))
@@ -987,16 +1061,22 @@
 (defrule assignEnfermedad
 	(declare (salience 0))
 	(newPersona)
+	;?dt<- (dispt (d ?d))
 	?ej <- (object
 		(is-a ?class&: (subclassp ?class Ejercicio))
 		(parte_de ?planPrueba&:(neq ?planPrueba [nil]))
 	)
 	?ses<- (object (is-a Sesion))
+	;?disponibilidad <- (Disp ?i&:(> ?i 0))
 	(not (done ?ej ?ses))
 	=>
-	(assert (done ?ej ?ses))
-	;llamar función assign
-	(assignExercise ?ej ?ses)
+		
+			;(printout t crlf ?d crlf)
+			(assert (done ?ej ?ses))
+			;llamar función assign
+			(if (eq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 1 ))
+			(if (neq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 2))
+			
 )
 
 (defrule noMoreAssignacions
@@ -1034,13 +1114,31 @@
 		(printout t crlf (upcase (send ?sesion get-dia)))
 		(printout t crlf)
 
-
+		(bind ?calentamientos (send ?sesion get-Calentamiento))
 		(bind ?principales (send ?sesion get-EjPrincipal))
+		(bind ?estiramientos (send ?sesion get-Estiramientos))
 		
-		(printout t "  " "Ejercio :" crlf)
+		(printout t crlf)
+		(printout t "  " "Calentamiento:" crlf)
+		(printout t crlf)
+		(foreach ?calentamiento ?calentamientos do
+			(printout t "    " (send ?calentamiento get-nombreEj))
+			(printout t crlf)
+		)
 
+		(printout t crlf)
+		(printout t "  " "Ejercio :" crlf)
+		(printout t crlf)
 		(foreach ?ej ?principales do
 			(printout t "    " (send ?ej get-nombreEj))
+			(printout t crlf)
+		)
+
+		(printout t crlf)
+		(printout t "  " "Estiramientos:" crlf)
+		(printout t crlf)
+		(foreach ?estiramiento ?estiramientos do
+			(printout t "    " (send ?estiramiento get-nombreEj))
 			(printout t crlf)
 		)
 
