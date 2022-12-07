@@ -436,8 +436,6 @@
 )
 
 (definstances instances
-   
-
     ([Media] of CondicionFisica
          (ahoga_subir_escalera  "true")
          (bebe_alcohol  "true")
@@ -479,6 +477,8 @@
          (mejorable_con  [ejaerobico] [ejequilibrio] [ejmusculacion])
     )
 
+    ;; AEROBICO
+
     ([ejaerobico] of Aerobico
         (nombreEj "aerobico")
     )
@@ -497,6 +497,99 @@
     )
     ([bici] of Aerobico
         (nombreEj "bici")
+    )
+
+
+    ;; EQUILIBRIO
+    ([andar_de_puntillas] of Equilibrio
+        (nombreEj "andar_de_puntillas")
+    )
+
+    ([flexion_de_cadera] of Equilibrio
+        (nombreEj "flexion_de_cadera")
+    )
+
+    ([extension_de_cadera] of Equilibrio
+        (nombreEj "extension_de_cadera")
+    )
+
+    ([levantamiento_lateral_pierna] of Equilibrio
+        (nombreEj "levantamiento_lateral_pierna")
+    )
+
+    ([tai_chi] of Equilibrio
+         (nombreEj "tai_chi")
+    )
+
+    ;; FLEXIBILIDAD
+    ([estiramientos_cuadriceps] of Flexibilidad
+        (nombreEj "estiramientos_cuadriceps")
+    )
+
+    ([estiramientos_muneca] of Flexibilidad
+        (nombreEj "estiramientos_muneca")
+    )
+
+    ([estiramientos_cuadriceps] of Flexibilidad
+        (nombreEj "estiramientos_cuadriceps")
+    )
+
+    ([estiramientos_pantorrillas] of Flexibilidad
+        (nombreEj "estiramientos_pantorrillas")
+    )
+
+    ([estiramientos_tendones_muslo] of Flexibilidad
+        (nombreEj "estiramientos_tendones_muslo")
+    )
+
+    ([estiramientos_tobillos] of Flexibilidad
+        (nombreEj "estiramientos_tobillos")
+    )
+
+    ([estiramientos_triceps] of Flexibilidad
+        (nombreEj "estiramientos_triceps")
+    )
+
+    ([rotacion_cadera] of Flexibilidad
+        (nombreEj "rotacion_cadera")
+    )
+
+    ([rotacion_hombros] of Flexibilidad
+        (nombreEj "rotacion_hombros")
+    )
+
+    ;; MUSCULACION
+
+    ([curl_biceps] of Musculacion
+        (nombreEj "curl_biceps")
+    )
+
+    ([elevacion_piernas_lados] of Musculacion
+        (nombreEj "elevacion_piernas_lados")
+    )
+
+    ([extension_rodilla] of Musculacion
+        (nombreEj "extension_rodilla")
+    )
+
+    ([extension_triceps] of Musculacion
+        (nombreEj "extension_triceps")
+    )
+
+    ([flexion_hombros] of Musculacion
+        (nombreEj "flexion_hombros")
+    )
+
+    ([flexion_plantar] of Musculacion
+        (nombreEj "flexion_plantar")
+    )
+
+    ([levantar_brazos] of Musculacion
+        (nombreEj "levantar_brazos")
+    )
+
+    ([levantarse_silla] of Musculacion
+        (nombreEj "levantarse_silla")
     )
 
     ([ejequilibrio] of Equilibrio
