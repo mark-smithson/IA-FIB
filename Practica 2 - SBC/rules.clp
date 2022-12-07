@@ -133,7 +133,7 @@
 	=>
 	(bind ?redMob (yes-or-no-p "Eres una persona con movilidad reducida? si o no "))
     (send ?x put-mobilidad_reducida ?redMob)
-
+	(if (eq ?redMob FALSE) then (assert (RedMobOK)))
 )
 
 ;;	Preguntes sobre la condició física ;;
@@ -262,12 +262,19 @@
 (defrule PREGUNTES::askOperations
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?OperR <- (object(is-a CondicionFisica))
+	?OperS <- (object(is-a CondicionFisica))
+	?OperI<- (object(is-a CondicionFisica))
 	=>
 	(bind ?operaciones (yes-or-no-p "Has tenido alguna operación reciente? si o no "))
     ;Falta hecho? slot??
-	(send ?OperR put-operaciones_recientes ?operaciones)
-	(if (eq ?operaciones FALSE) then (assert (OperadoOK)))
+	(if (eq ?operaciones TRUE) then
+		(bind ?operS (yes-or-no-p "Es en el tronco superior si o no "))
+		(send ?OperS put-operaciones_recientes_superior ?operS)
+		(if (eq ?operS FALSE) then (assert (OperacionesSuperiorOK)))
+		(bind ?operI (yes-or-no-p "Es en el tronco inferior si o no "))
+		(send ?OperI put-operaciones_recientes_inferior ?operI)
+		(if (eq ?operI FALSE) then (assert (OperacionesInferiorOK)))
+	)
 )
 
 (defrule PREGUNTES::askWalking
@@ -501,8 +508,11 @@
 
 ;Per cada exercici escull si poden formar part del plan de newPersona o no
 
+;Exercicis aeròbics
 (defrule ejBaile
 	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(or (depresion)(diabetes)(enfermedades_coronarias)(hipertension)(obesidad))
 	?p<-(planprueba ?planPrueba)
@@ -514,7 +524,9 @@
 
 (defrule ejBici
 	(newPersona)
+	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
+	(RedMobOK)
 	(or (depresion)(diabetes)(coronarias)(cardiovascular)(hipertension)(obesidad)(artritis)(fibromialgia))
 	?p<-(planprueba ?planPrueba)
 	=>
@@ -523,9 +535,23 @@
 	(send ?exe put-parte_de ?planPrueba)
 )
 
+(defrule ejBiciSuperior
+	(newPersona)
+	(TroncoSuperiorOK)
+	(OperacionesSuperiorOK)
+	(or (depresion)(diabetes)(coronarias)(cardiovascular)(hipertension)(obesidad)(artritis)(fibromialgia))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "biciSuperior") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
 (defrule ejCaminar
 	(newPersona)
 	(TroncoInferiorOK)
+	(RedMobOK)
+	(OperacionesInferiorOK)
 	(or (depresion)(diabetes)(coronarias)(cardiovascular)(hipertension)(obesidad)(artritis)(fibromialgia)(osteoporosis)(artrosis))
 	?p<-(planprueba ?planPrueba)
 	=>
@@ -537,6 +563,8 @@
 (defrule ejCorrer
 	(newPersona)
 	(TroncoInferiorOK)
+	(RedMobOK)
+	(OperacionesInferiorOK)
 	(or (depresion)(diabetes)(coronarias)(hipertension)(obesidad))
 	?p<-(planprueba ?planPrueba)
 	=>
@@ -549,13 +577,394 @@
 	(newPersona)
 	(TroncoSuperiorOK)
 	(TroncoInferiorOK)
-	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis))
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(OperacionesSuperiorOK)
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(fibromialgia))
 	?p<-(planprueba ?planPrueba)
 	=>
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "nadar") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 )
+
+;Exercicis D'EQUILIBRI
+
+(defrule ejAndarPuntillas
+	(newPersona)
+	(TroncoInferiorOK)
+	(OperacionesInferiorOK)
+	(RedMobOK)
+	(or (diabetes)(hipertension)(obesidad)(osteoporosis)(fibromialgia))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "andar_de_puntillas") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejFlexionDeCadera
+	(newPersona)
+	(TroncoInferiorOK)
+	(TroncoSuperiorOK)
+	(OperacionesSuperiorOK)
+	(OperacionesInferiorOK)
+	(RedMobOK)
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "flexion_de_cadera") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejExtensionDeCadera
+	(newPersona)
+	(TroncoInferiorOK)
+	(TroncoSuperiorOK)
+	(OperacionesSuperiorOK)
+	(OperacionesInferiorOK)
+	(RedMobOK)
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "extension_de_cadera") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejLevLateralPierna
+	(newPersona)
+	(TroncoInferiorOK)
+	(OperacionesInferiorOK)
+	(RedMobOK)
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(osteoporosis))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "levantamiento_lateral_pierna") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejTaiChi
+	(newPersona)
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(osteoporosis)(parkinson)(depresion))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "tai_chi") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+;Exercicis FLEXIBILITAT
+
+(defrule ejEstCuadriceps
+	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "estiramientos_cuadriceps") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejEstMuneca
+	(newPersona)
+	(OperacionesSuperiorOK)
+	(TroncoSuperiorOK)
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "estiramientos_muneca") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejEstPantorrillas
+	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "estiramientos_pantorrillas") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejTendonesMuslo
+	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "estiramientos_tendones_muslo") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejTobillos
+	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "estiramientos_tobillos") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejEstTriceps
+	(newPersona)
+	(OperacionesSuperiorOK)
+	(TroncoSuperiorOK)
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "estiramientos_triceps") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejRotCader
+	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "rotacion_cadera") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejRotHombros
+	(newPersona)
+	(OperacionesSuperiorOK)
+	(TroncoSuperiorOK)
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "rotacion_hombros") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+;Exercicis MUSCULACIÓ
+
+(defrule ejCurlBiceps
+	(newPersona)
+	(OperacionesSuperiorOK)
+	(TroncoSuperiorOK)
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "curl_biceps") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejElevacionPiernasLados
+	(newPersona)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "elevacion_piernas_lados") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejExtensionRodilla
+	(newPersona)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "extension_rodilla") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejExtensionTriceps
+	(newPersona)
+	(OperacionesSuperiorOK)
+	(TroncoSuperiorOK)
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "extension_triceps") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejFlexionHombros
+	(newPersona)
+	(OperacionesSuperiorOK)
+	(TroncoSuperiorOK)
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "flexion_hombros") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejFlexionPlantar
+	(newPersona)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "flexion_plantar") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejLevantarBrazos
+	(newPersona)
+	(OperacionesSuperiorOK)
+	(TroncoSuperiorOK)
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "levantar_brazos") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejLevantarseSilla
+	(newPersona)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "levantarse_silla") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+;Exercicis CALENTAMENT
+
+(defrule ejCBiceps
+	(newPersona)
+	(OperacionesSuperiorOK)
+	(TroncoSuperiorOK)
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Extension de biceps") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejCTriceps
+	(newPersona)
+	(OperacionesSuperiorOK)
+	(TroncoSuperiorOK)
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Extension de triceps") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejCSpinning
+	(newPersona)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Spinning calmado") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejCEspalda
+	(newPersona)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Extension de espalda") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejCTobillo
+	(newPersona)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Rotaciones de tobillo") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejCQuadriceps
+	(newPersona)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Extension de quadriceps") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejCCadera
+	(newPersona)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Rotaciones de cadera") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejCGemelo
+	(newPersona)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Extension de gemelo") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
 
 (defrule noMoreFilters
 	(newPersona)
@@ -565,7 +974,7 @@
 
 (defmodule ASSIGNACIO (import MAIN ?ALL) (import PREGUNTES ?ALL)(import FILTRE_1 ?ALL)(export ?ALL))
 
-(defrule assignArtrosis
+(defrule assignEnfermedad
 	(declare (salience 0))
 	(newPersona)
 	?ej <- (object
@@ -578,22 +987,6 @@
 	(assert (done ?ej ?ses))
 	;llamar función assign
 	(assignExercise ?ej ?ses)
-)
-
-(defrule assignDiabetes
-	(declare (salience 0))
-	(newPersona)
-	?ej <- (object
-		(is-a ?class&: (subclassp ?class Ejercicio))
-		(parte_de ?planPrueba&:(neq ?planPrueba [nil]))
-	)
-	?ses<- (object (is-a Sesion))
-	(not (done ?ej ?ses))
-	=>
-	(assert (done ?ej ?ses))
-	;llamar función assign
-	(assignExercise ?ej ?ses)
-
 )
 
 (defrule noMoreAssignacions

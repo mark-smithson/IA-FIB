@@ -363,7 +363,10 @@
     (slot fuma
         (type SYMBOL)
         (create-accessor read-write))
-    (slot operaciones_recientes
+    (slot operaciones_recientes_superior
+        (type SYMBOL)
+        (create-accessor read-write))
+    (slot operaciones_recientes_inferior
         (type SYMBOL)
         (create-accessor read-write))
     (slot pasea_con_frecuencia
@@ -448,7 +451,8 @@
          (dieta_variada  "true")
          (duerme_bien  "true")
          (fuma  "true")
-         (operaciones_recientes  "false")
+         (operaciones_recientes_superior  "false")
+         (operaciones_recientes_inferior "true")
          (pasea_con_frecuencia  "true")
          (tirones_frecuentemente  "false")
     )
