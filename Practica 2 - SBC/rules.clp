@@ -965,6 +965,8 @@
 	(send ?exe put-parte_de ?planPrueba)
 )
 
+;faltan estiramientos creo
+
 
 (defrule noMoreFilters
 	(newPersona)
