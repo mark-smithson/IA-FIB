@@ -436,14 +436,7 @@
 )
 
 (definstances instances
-    ([Marta] of Persona
-         (tiene  [Media])
-         (altura  167)
-         (edad  70)
-         (nombre  "Marta")
-         (peso  70)
-         (sexo  "F")
-    )
+   
 
     ([Media] of CondicionFisica
          (ahoga_subir_escalera  "true")

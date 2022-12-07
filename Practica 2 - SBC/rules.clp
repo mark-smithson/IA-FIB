@@ -53,6 +53,14 @@
        else FALSE)
 )
 
+(deffunction assignExercise (?ejercicio ?sesion)
+	(bind ?ejsSes (send ?sesion get-EjPrincipal))
+	(bind ?ejsSes (insert$ ?ejsSes (+(length$ ?ejsSes)1)?ejercicio))
+	(send ?sesion put-EjPrincipal ?ejsSes)
+
+)
+
+
 (defmodule MAIN (export ?ALL))
 
 ;Aquí podríamos dar la bienvenida
@@ -71,10 +79,11 @@
 
 (defrule PREGUNTES::askName
 	(newPersona)
-    ?x <- (object(is-a Persona))
+    ;?x <- (object(is-a Persona))
 	=>
 	(bind ?name (stringg-question "Como te llamas? "))
-	(send ?x put-nombre)
+	(bind ?x (make-instance ?name of Persona))
+	(send ?x put-nombre ?name)
 )
 
 (defrule PREGUNTES::askAge
@@ -494,9 +503,8 @@
 	(not (done ?ej ?ses))
 	=>
 	(assert (done ?ej ?ses))
-	(bind ?ejsSes (send ?ses get-EjPrincipal))
-	(bind ?ejsSes (insert$ ?ejsSes (+(length$ ?ejsSes)1)?ej))
-	(send ?ses put-EjPrincipal ?ejsSes)
+	;llamar función assign
+	(assignExercise ?ej ?ses)
 
 )
 
@@ -511,6 +519,7 @@
 
 (defrule printPlanilla
 	(newPersona)
+	?x<-(object(is-a Persona))
 	=>
 	(bind ?exercicis (find-all-instances ((?e Ejercicio))
 		(neq (send ?e get-parte_de)[nil])
@@ -525,6 +534,7 @@
 	(printout t "--------------------------------------------------------------" crlf)
 	(printout t "------------------- Plan de ejercicios -----------------------" crlf)
 	(printout t "--------------------------------------------------------------" crlf)
+	(printout t "Hola " (send ?x get-nombre) ", este es el plan de entrenamiento que hemos creado para ti" crlf)
 	(printout t crlf)
 
 
