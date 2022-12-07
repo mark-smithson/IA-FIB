@@ -146,6 +146,7 @@
 	(bind ?stairs (yes-or-no-p "Te ahogas al subir las escaleras? si o no "))
     ;Falta hecho? slot??
 	(send ?ahogEsc put-ahoga_subir_escalera ?stairs)
+	(if (eq ?stairs FALSE) then (assert (StairsOK)))
 )
 
 (defrule PREGUNTES::askAlcohol
@@ -156,6 +157,7 @@
 	(bind ?alch (yes-or-no-p "Sueles beber alcohol con frecuencia? si o no "))
     ;Falta hecho? slot??
 	(send ?bebAlc put-bebe_alcohol ?alch)
+	(if (eq ?alch FALSE) then (assert (AlcoholOK)))
 )
 
 (defrule PREGUNTES::askF
@@ -166,6 +168,7 @@
 	(bind ?caidas (yes-or-no-p "Tienes caídas frecuentes? si o no "))
     ;Falta hecho? slot??
 	(send ?caidasF put-caidas_frecuentemente ?caidas)
+	(if (eq ?caidas FALSE) then (assert (CaidasOK)))
 )
 
 (defrule PREGUNTES::askTired
@@ -176,6 +179,7 @@
 	(bind ?cansancio (yes-or-no-p "Te sueles cansar rápidamente? si o no "))
     ;Falta hecho? slot??
 	(send ?cansancioR put-cansancio_rapido ?cansancio)
+	(if (eq ?cansancio FALSE) then (assert (CansancioOK)))
 )
 
 (defrule PREGUNTES::askJunkFood
@@ -186,6 +190,7 @@
 	(bind ?cbasura (yes-or-no-p "Sueles comer comida basura con frecuencia? si o no "))
     ;Falta hecho? slot??
 	(send ?comBasura put-comida_basura ?cbasura)
+	(if (eq ?cbasura FALSE) then (assert (CBasuraOK)))
 )
 
 (defrule PREGUNTES::askShopping
@@ -196,6 +201,7 @@
 	(bind ?compra (yes-or-no-p "Sueles ir a comprar con frecuencia? si o no "))
     ;Falta hecho? slot??
 	(send ?compraF put-compra_con_frecuencia ?compra)
+	(if (eq ?compra TRUE) then (assert (ComprasOK)))
 )
 
 (defrule PREGUNTES::askRunning
@@ -206,6 +212,7 @@
 	(bind ?corre (yes-or-no-p "Sueles ir a correr con frecuencia? si o no "))
     ;Falta hecho? slot??
 	(send ?CorrerF put-corre_con_frecuencia ?corre)
+	(if (eq ?corre TRUE) then (assert (RunningOK)))
 )
 
 (defrule PREGUNTES::askSports
@@ -216,6 +223,7 @@
 	(bind ?deporte (yes-or-no-p "Sueles practicar algún deporte con frecuencia? si o no "))
     ;Falta hecho? slot??
 	(send ?DeporteF put-deporte_con_frecuencia ?deporte)
+	(if (eq ?deporte TRUE) then (assert (DeporteOK)))
 )
 
 (defrule PREGUNTES::askDiet
@@ -226,6 +234,7 @@
 	(bind ?dieta (yes-or-no-p "Tienes una dieta variada? si o no "))
     ;Falta hecho? slot??
 	(send ?DietaV put-dieta_variada ?dieta)
+	(if (eq ?dieta TRUE) then (assert (DietaOK)))
 )
 
 (defrule PREGUNTES::askSleep
@@ -236,6 +245,7 @@
 	(bind ?duerme (yes-or-no-p "Sueles dormir bien? si o no "))
     ;Falta hecho? slot??
 	(send ?DuermeB put-duerme_bien ?duerme)
+	(if (eq ?duerme TRUE) then (assert (DuermeOK)))
 )
 
 (defrule PREGUNTES::askSmoking
@@ -246,6 +256,7 @@
 	(bind ?fuma (yes-or-no-p "Fumas? si o no "))
     ;Falta hecho? slot??
 	(send ?FumaF put-fuma ?fuma)
+	(if (eq ?fuma FALSE) then (assert (FumaOK)))
 )
 
 (defrule PREGUNTES::askOperations
@@ -256,6 +267,7 @@
 	(bind ?operaciones (yes-or-no-p "Has tenido alguna operación reciente? si o no "))
     ;Falta hecho? slot??
 	(send ?OperR put-operaciones_recientes ?operaciones)
+	(if (eq ?operaciones FALSE) then (assert (OperadoOK)))
 )
 
 (defrule PREGUNTES::askWalking
@@ -266,6 +278,7 @@
 	(bind ?pasea (yes-or-no-p "Sueles salir a pasear con frecuencia? si o no "))
     ;Falta hecho? slot??
 	(send ?PaseaF put-pasea_con_frecuencia ?pasea)
+	(if (eq ?pasea TRUE) then (assert (PaseaOK)))
 )
 
 (defrule PREGUNTES::askMusclePull
@@ -276,6 +289,7 @@
 	(bind ?tirones (yes-or-no-p "Sueles tener tirones con frecuencia? si o no "))
     ;Falta hecho? slot??
 	(send ?tironesF put-tirones_frecuentemente ?tirones)
+	(if (eq ?tirones FALSE) then (assert (TironesOK)))
 )
 
 (defrule PREGUNTES::askPain
@@ -289,8 +303,10 @@
 	(if (eq ?dolorart TRUE) then
 		(bind ?dolorartS (yes-or-no-p "Suele ser en las articulaciones superiores si o no "))
 		(send ?DolorS put-dolor_articulaciones_tronco_superior ?dolorartS)
+		(if (eq ?dolorartS FALSE) then (assert (TroncoSuperiorOK)))
 		(bind ?dolorartI (yes-or-no-p "Suele ser en las articulaciones inferiores si o no "))
 		(send ?DolorI put-dolor_articulaciones_tronco_inferior ?dolorartI)
+		(if (eq ?dolorartI FALSE) then (assert (TroncoInferiorOK)))
 	)
 )
 
@@ -322,6 +338,7 @@
 	;(send ?Eartritis put-artritis ?artritis)
 	(if (eq ?artritis TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eartritis)
+		(assert(artritis))
 	)
 )
 
@@ -336,6 +353,7 @@
 	;(send ?EDepresion put-depresion ?depresion)
 	(if (eq ?depresion TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EDepresion)
+		(assert(depresion))
 	)
 )
 
@@ -349,6 +367,7 @@
 	;(send ?EDiabetes put-diabetes ?diabetes)
 	(if (eq ?diabetes TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EDiabetes)
+		(assert(diabetes))
 	)
 )
 
@@ -362,6 +381,7 @@
 	;(send ?Ecoronarias put-enfermedades_coronarias ?coronarias)
 	(if (eq ?coronarias TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ecoronarias)
+		(assert(coronarias))
 	)
 )
 
@@ -375,6 +395,7 @@
 	;(send ?Ecardiovascular put-enfermedades_cardiovasculares ?cardiovascular)
 	(if (eq ?cardiovascular TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ecardiovascular)
+		(assert(cardiovascular))
 	)
 )
 
@@ -388,6 +409,7 @@
 	;(send ?Eequilibrio put-falta_equilibrio ?faltae)
 	(if (eq ?faltae TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eequilibrio)
+		(assert(Faltaequilibrio))
 	)
 )
 
@@ -401,6 +423,7 @@
 	;(send ?EFibromialgia put-fibromialgia ?fibro)
 	(if (eq ?fibro TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EFibromialgia)
+		(assert(fibromialgia))
 	)
 )
 
@@ -414,6 +437,7 @@
 	;(send ?Ehipertension put-hipertension ?hipertension)
 	(if (eq ?hipertension TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ehipertension)
+		(assert(hipertension))
 	)
 )
 
@@ -428,6 +452,7 @@
 	;(send ?Eobesidad put-obesidad ?obesidad)
 	(if (eq ?obesidad TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eobesidad)
+		(assert(obesidad))
 	)
 )
 
@@ -441,6 +466,7 @@
 	;(send ?Eosteoporosis put-osteoporosis ?osteo)
 	(if (eq ?osteo TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eosteoporosis)
+		(assert(osteoporosis))
 	)
 )
 
@@ -454,6 +480,7 @@
 	;(send ?Eparkinson put-parkinson ?parkinson)
 	(if (eq ?parkinson TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eparkinson)
+		(assert(parkinson))
 	)
 	
 )
@@ -472,14 +499,60 @@
 
 (defmodule FILTRE_1 (import MAIN ?ALL) (import PREGUNTES ?ALL)(export ?ALL))
 
-;descartar les instancies dels exercicis no presents en la relació mejorable_con
+;Per cada exercici escull si poden formar part del plan de newPersona o no
 
-(defrule ejAero
+(defrule ejBaile
 	(newPersona)
-	(artrosis)
+	(TroncoInferiorOK)
+	(or (depresion)(diabetes)(enfermedades_coronarias)(hipertension)(obesidad))
 	?p<-(planprueba ?planPrueba)
 	=>
-	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "aerobico") 0)))
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "bailar") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejBici
+	(newPersona)
+	(TroncoInferiorOK)
+	(or (depresion)(diabetes)(coronarias)(cardiovascular)(hipertension)(obesidad)(artritis)(fibromialgia))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "bici") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejCaminar
+	(newPersona)
+	(TroncoInferiorOK)
+	(or (depresion)(diabetes)(coronarias)(cardiovascular)(hipertension)(obesidad)(artritis)(fibromialgia)(osteoporosis)(artrosis))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "caminar") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejCorrer
+	(newPersona)
+	(TroncoInferiorOK)
+	(or (depresion)(diabetes)(coronarias)(hipertension)(obesidad))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "correr") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+)
+
+(defrule ejNadar
+	(newPersona)
+	(TroncoSuperiorOK)
+	(TroncoInferiorOK)
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis))
+	?p<-(planprueba ?planPrueba)
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "nadar") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 )
@@ -493,6 +566,21 @@
 (defmodule ASSIGNACIO (import MAIN ?ALL) (import PREGUNTES ?ALL)(import FILTRE_1 ?ALL)(export ?ALL))
 
 (defrule assignArtrosis
+	(declare (salience 0))
+	(newPersona)
+	?ej <- (object
+		(is-a ?class&: (subclassp ?class Ejercicio))
+		(parte_de ?planPrueba&:(neq ?planPrueba [nil]))
+	)
+	?ses<- (object (is-a Sesion))
+	(not (done ?ej ?ses))
+	=>
+	(assert (done ?ej ?ses))
+	;llamar función assign
+	(assignExercise ?ej ?ses)
+)
+
+(defrule assignDiabetes
 	(declare (salience 0))
 	(newPersona)
 	?ej <- (object
@@ -556,5 +644,5 @@
 	)
 
 	(printout t crlf "FIN" crlf crlf)
-	(exit)
+	;(exit)
 )

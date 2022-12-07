@@ -483,6 +483,22 @@
         (nombreEj "aerobico")
     )
 
+    ([caminar] of Aerobico
+        (nombreEj "caminar")
+    )
+    ([bailar] of Aerobico
+        (nombreEj "bailar")
+    )
+    ([nadar] of Aerobico
+        (nombreEj "nadar")
+    )
+    ([correr] of Aerobico
+        (nombreEj "correr")
+    )
+    ([bici] of Aerobico
+        (nombreEj "bici")
+    )
+
     ([ejequilibrio] of Equilibrio
     )
 

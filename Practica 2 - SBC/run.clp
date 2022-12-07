@@ -2,6 +2,8 @@
 (load rules.clp)
 (reset)
 (run)
+
+
 Fake
 66
 160
@@ -24,11 +26,11 @@ s
 s
 s
 s
-s
-s
-s
 n
 n
+n
+n
+s
 n
 n
 n
