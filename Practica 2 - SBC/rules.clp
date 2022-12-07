@@ -504,7 +504,6 @@
 	(newPersona)
 	=>
 	(focus RESPOSTA)
-	(printout t crlf "--noMoreAssig--" crlf)
 )
 
 
@@ -513,7 +512,6 @@
 (defrule printPlanilla
 	(newPersona)
 	=>
-	(printout t "-------****---------" crlf)
 	(bind ?exercicis (find-all-instances ((?e Ejercicio))
 		(neq (send ?e get-parte_de)[nil])
 	))
@@ -525,7 +523,7 @@
 	(printout t crlf)
 
 	(printout t "--------------------------------------------------------------" crlf)
-	(printout t "------------------- Plan de ejercicios -------------------" crlf)
+	(printout t "------------------- Plan de ejercicios -----------------------" crlf)
 	(printout t "--------------------------------------------------------------" crlf)
 	(printout t crlf)
 
