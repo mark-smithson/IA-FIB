@@ -275,6 +275,10 @@
 		(send ?OperI put-operaciones_recientes_inferior ?operI)
 		(if (eq ?operI FALSE) then (assert (OperacionesInferiorOK)))
 	)
+	else
+	(assert (OperacionesSuperiorOK))
+	(assert (OperacionesInferiorOK))
+
 )
 
 (defrule PREGUNTES::askWalking
@@ -315,6 +319,10 @@
 		(send ?DolorI put-dolor_articulaciones_tronco_inferior ?dolorartI)
 		(if (eq ?dolorartI FALSE) then (assert (TroncoInferiorOK)))
 	)
+	else 
+	 (assert (TroncoSuperiorOK))
+	 (assert (TroncoInferiorOK))
+
 )
 
 ;;PREGUNTES SOBRE POSSIBLES ENFERMETATS;;
@@ -965,7 +973,7 @@
 	(send ?exe put-parte_de ?planPrueba)
 )
 
-;faltan estiramientos creo
+;faltan estiramientos
 
 
 (defrule noMoreFilters
