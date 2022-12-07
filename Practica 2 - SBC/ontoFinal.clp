@@ -478,11 +478,6 @@
     )
 
     ;; AEROBICO
-
-    ([ejaerobico] of Aerobico
-        (nombreEj "aerobico")
-    )
-
     ([caminar] of Aerobico
         (nombreEj "caminar")
     )
@@ -499,6 +494,9 @@
         (nombreEj "bici")
     )
 
+    ([biciSuperior] of Aerobico
+        (nombreEj "biciSuperior")
+    )
 
     ;; EQUILIBRIO
     ([andar_de_puntillas] of Equilibrio
@@ -592,14 +590,6 @@
         (nombreEj "levantarse_silla")
     )
 
-    ([ejequilibrio] of Equilibrio
-    )
-
-    ([ejflexibilidad] of Flexibilidad
-    )
-
-    ([ejmusculacion] of Musculacion
-    )
 
     ([faltaequilib] of falta_equilibrio
          (mejorable_con  [ejaerobico] [ejequilibrio])
@@ -625,13 +615,31 @@
          (mejorable_con  [ejaerobico] [ejequilibrio])
     )
 
-    ([Lunes] of Sesion
-        (dia "lunes")
+    ([Dia_1] of Sesion
+        (dia "Dia 1")
     )
 
-    ([Martes] of Sesion
-        (dia "martes")
+    ([Dia_2] of Sesion
+        (dia "Dia 2")
     )
 
+    ([Dia_3] of Sesion
+        (dia "Dia 3")
+    )
 
+    ([Dia_4] of Sesion
+        (dia "Dia 4")
+    )
+
+    ([Dia_5] of Sesion
+        (dia "Dia 5")
+    )
+
+    ([Dia_6] of Sesion
+        (dia "Dia 6")
+    )
+
+    ([Dia_7] of Sesion
+        (dia "Dia 7")
+    )
 )
