@@ -557,7 +557,6 @@
     )
 
     ;; MUSCULACION
-
     ([curl_biceps] of Musculacion
         (nombreEj "curl_biceps")
     )
@@ -588,6 +587,39 @@
 
     ([levantarse_silla] of Musculacion
         (nombreEj "levantarse_silla")
+    )
+
+    ;; CALENTAMIENTO
+    ([CBiceps] of Ejs_Calentamiento
+        (nombreEj "Extension de biceps")
+    )
+
+    ([CTriceps] of Ejs_Calentamiento
+        (nombreEj "Extension de triceps")
+    )
+
+    ([CSpinning] of Ejs_Calentamiento
+        (nombreEj "Spinning calmado")
+    )
+
+    ([CEspalda] of Ejs_Calentamiento
+        (nombreEj "Extension de espalda")
+    )
+
+    ([CTobillo] of Ejs_Calentamiento
+        (nombreEj "Rotaciones de tobillo")
+    )
+
+    ([CQuadriceps] of Ejs_Calentamiento
+        (nombreEj "Extension de quadriceps")
+    )
+
+    ([CCadera] of Ejs_Calentamiento
+        (nombreEj "Rotaciones de cadera")
+    )
+
+    ([CGemelo] of Ejs_Calentamiento
+        (nombreEj "Extension de gemelo")
     )
 
 
