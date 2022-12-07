@@ -12,25 +12,35 @@
 #    Object Properties
 #################################################################
 
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Calentamiento
+:Calentamiento rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain :Sesion ;
+               rdfs:range :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#EjPrincipal
+:EjPrincipal rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Sesion ;
+             rdfs:range :Aerobico ,
+                        :Equilibrio ,
+                        :Flexibilidad ,
+                        :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Estiramientos
+:Estiramientos rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdfs:domain :Sesion ;
+               rdfs:range :Estiramientos .
+
+
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#compuesto_por
 :compuesto_por rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf owl:topObjectProperty ;
                rdfs:domain :Plan ;
                rdfs:range :Sesion .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#contiene
-:contiene rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf owl:topObjectProperty ;
-          rdfs:domain :Fase ;
-          rdfs:range :Ejercicio .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#formado_por
-:formado_por rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf owl:topObjectProperty ;
-             rdfs:domain :Sesion ;
-             rdfs:range :Fase .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#mejorable_con
@@ -340,18 +350,8 @@
           rdfs:subClassOf :Ejercicio .
 
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Calentamiento
-:Calentamiento rdf:type owl:Class ;
-               rdfs:subClassOf :Fase .
-
-
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#CondicionFisica
 :CondicionFisica rdf:type owl:Class .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Ej_Principal
-:Ej_Principal rdf:type owl:Class ;
-              rdfs:subClassOf :Fase .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Ejercicio
@@ -377,10 +377,6 @@
                rdfs:subClassOf :Ejercicio .
 
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Fase
-:Fase rdf:type owl:Class .
-
-
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Flexibilidad
 :Flexibilidad rdf:type owl:Class ;
               rdfs:subClassOf :Ejercicio .
@@ -397,11 +393,6 @@
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Plan
 :Plan rdf:type owl:Class .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Recuperamiento
-:Recuperamiento rdf:type owl:Class ;
-                rdfs:subClassOf :Fase .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Sesion
@@ -758,26 +749,6 @@
                 :Equilibrio
                 :Flexibilidad
                 :Musculacion
-              )
-] .
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :Calentamiento
-                :Ej_Principal
-                :Recuperamiento
-              )
-] .
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :CondicionFisica
-                :Ejercicio
-                :Enfermedades
-                :Fase
-                :Persona
-                :Plan
-                :Sesion
               )
 ] .
 

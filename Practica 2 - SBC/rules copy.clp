@@ -523,3 +523,288 @@
 
 
 
+
+(deffunction eliminar_noMejorables (?f)
+	(bind ?enf (find-all-instances ((?e Enfermedades)) (not (eq ( member ?f ?e:mejorable_con) FALSE))))
+	(loop-for-count (?i 1 (length$ ?enf)) do
+		(bind ?j (nth$ ?i ?enf))
+		(bind ?pos (member ?f (send ?j get-mejorable_con)))
+		(if (not (eq ?pos FALSE)) then (slot-delete$ ?j mejorable_con ?pos ?pos))
+	)
+)
+
+(defrule FILTRE_1::filtrarPorEnfermedadEjercicios 
+	?x <- (object(is-a Persona))
+	=>
+	(bind ?p (send ?x get-padece_de))
+	(loop-for-count (?i 1 (length$ ?p)) do
+		(bind ?aux (nth$ ?i ?p))
+		(bind ?ejercicios (find-all-instances ((?inst Ejercicio))TRUE))
+			(loop-for-count (?j 1 (length$ ?ejercicios)) do
+				(bind ?aux2 (nth$ ?j ?ejercicios))
+				(eliminar_noMejorables ?aux2)
+				(send ?aux2 delete)
+				)
+		)
+	(assert (filtro1))
+	(focus SELECCIO)
+)
+
+
+
+;;;; selecciona els exercicis restants
+
+(defmodule SELECCIO (import MAIN ?ALL)(import PREGUNTES ?ALL)(import FILTRE_1 ?ALL)(export ?ALL))
+
+(deftemplate validos 
+	(multislot ejerciciosValidos (type INSTANCE) (allowed-classes Ejercicio))
+)
+
+(defclass Asig 
+	(is-a USER)
+	(role concrete)
+	(multislot ejs
+		(type INSTANCE)
+		(allowed-classes Ejercicio)
+		(create-accessor read-write)
+		)
+)
+
+(defrule SELECCIO::crea-instancia-asig
+	(filtro1)
+	=>
+	(make-instance aux of Asig)
+		(printout t crlf "--se crea asig--" crlf)
+
+)
+
+(defrule SELECCIO::inicializaEjs 
+	(filtro1)
+	(not(validos))
+	?x <- (object(is-a Persona))
+	=>
+	(bind ?ejercicios (assert(validos)))
+	(bind ?ejv (find-all-instances ((?ej Ejercicio)) TRUE))
+	(modify ?ejercicios (ejerciciosValidos ?ejv))
+
+	(assert (ejsIni))
+	;(printout t crlf "-****aaaa****-" crlf)	
+)
+
+(defrule creaSesiones 
+(printout t crlf "-****aaaa****-" crlf)	
+	(ejsIni)
+	(not (sesiones_creadas))
+	?x <- (object(is-a Persona))
+	?programa <- (object(is-a Plan))
+	?ej_v <- (validos (ejerciciosValidos $?ej_validos))
+	=>
+	(if (eq (length$ $?ej_validos) 0) then
+		(assert (problemas "Lo sentimos, hemos detectado que no se encuentra en condiciones para hacer deporte. Vuelva a intentar cuando se haya recuperado."))
+		(focus RESPOSTA)
+		else 
+			(bind ?ifase (make-instance (sym-cat f)of Fase))
+			(bind ?inst (make-instance (sym-cat s) of Sesion))
+				; Miramos la asignación de ejercicios (mientras no lleguemos al tiempo mínimo y queden ejercicios por asignar)
+				
+					; Determinamos repeticiones por nivel
+					(while (not (eq (length$ $?ej_validos) 0)) do
+							(bind ?ejerciciov (nth$ (+ (mod (random) (length$ $?ej_validos)) 1) $?ej_validos))
+							;(send ?inst_e put-Tiene ?ejercicio)
+							(slot-insert$ ?ifase formado_por 1 ?ejerciciov )
+						)
+						(slot-insert$ ?programa compuesto_por 1 ?ifase)
+					
+				)
+
+			; Unimos sesión a programa
+			
+	(assert (sesiones_creadas))
+	(focus RESPOSTA)
+)
+
+(defmodule RESPOSTA (import SELECCIO ?ALL) (import MAIN ?ALL)(import PREGUNTES ?ALL)(import FILTRE_1 ?ALL)(export ?ALL))
+
+;imprimeix la resposta
+(defrule printAnswer 
+	(sesiones_creadas)
+    ?plan <- (object(is-a Plan))
+	?x <- (object(is-a Persona))
+  =>
+	(printout t crlf "**************************************************************************************************************" crlf crlf)
+	(printout t "Hola " (send ?x get-nombre) ", este es el plan de entrenamiento que hemos creado para ti" crlf)
+	(bind ?sesiones (send ?plan get-compuesto_por))
+
+
+	(bind ?ejsesion (send ?sesiones get-formado_por))
+    (loop-for-count (?j 1 (length ?ejsesion)) do
+	(if (eq (class ?j) Aerobico) then
+		(printout t "  " (send ?j get-nombreAero) crlf)
+	)
+
+	(if (eq (class ?j) Equilibrio) then
+		(printout t "  " (send ?j get-nombreEqui) crlf)
+	)
+
+	(if (eq (class ?j) Flexibilidad) then
+		(printout t "  " (send ?j get-nombreFlexi) crlf)
+	)
+
+	(if (eq (class ?j) Musculacion) then
+		(printout t "  " (send ?j get-nombreMusc) crlf)
+	)
+        
+	)
+)
+
+(defrule printProblem 
+  (declare (salience 100))
+  (problemas ?item)
+  =>
+	(printout t crlf "**************************************************************************************************************" crlf crlf)
+  ;(printout t crlf crlf)
+  (format t " %s%n%n%n" ?item)
+  (halt)
+)
+(deffunction eliminar_noMejorables (?f)
+	(bind ?enf (find-all-instances ((?e Enfermedades)) (not (eq ( member ?f ?e:mejorable_con) FALSE))))
+	(loop-for-count (?i 1 (length$ ?enf)) do
+		(bind ?j (nth$ ?i ?enf))
+		(bind ?pos (member ?f (send ?j get-mejorable_con)))
+		(if (not (eq ?pos FALSE)) then (slot-delete$ ?j mejorable_con ?pos ?pos))
+	)
+)
+
+(defrule FILTRE_1::filtrarPorEnfermedadEjercicios 
+	?x <- (object(is-a Persona))
+	=>
+	(bind ?p (send ?x get-padece_de))
+	(loop-for-count (?i 1 (length$ ?p)) do
+		(bind ?aux (nth$ ?i ?p))
+		(bind ?ejercicios (find-all-instances ((?inst Ejercicio))TRUE))
+			(loop-for-count (?j 1 (length$ ?ejercicios)) do
+				(bind ?aux2 (nth$ ?j ?ejercicios))
+				(eliminar_noMejorables ?aux2)
+				(send ?aux2 delete)
+				)
+		)
+	(assert (filtro1))
+	(focus SELECCIO)
+)
+
+
+
+;;;; selecciona els exercicis restants
+
+(defmodule SELECCIO (import MAIN ?ALL)(import PREGUNTES ?ALL)(import FILTRE_1 ?ALL)(export ?ALL))
+
+(deftemplate validos 
+	(multislot ejerciciosValidos (type INSTANCE) (allowed-classes Ejercicio))
+)
+
+(defclass Asig 
+	(is-a USER)
+	(role concrete)
+	(multislot ejs
+		(type INSTANCE)
+		(allowed-classes Ejercicio)
+		(create-accessor read-write)
+		)
+)
+
+(defrule SELECCIO::crea-instancia-asig
+	(filtro1)
+	=>
+	(make-instance aux of Asig)
+		(printout t crlf "--se crea asig--" crlf)
+
+)
+
+(defrule SELECCIO::inicializaEjs 
+	(filtro1)
+	(not(validos))
+	?x <- (object(is-a Persona))
+	=>
+	(bind ?ejercicios (assert(validos)))
+	(bind ?ejv (find-all-instances ((?ej Ejercicio)) TRUE))
+	(modify ?ejercicios (ejerciciosValidos ?ejv))
+
+	(assert (ejsIni))
+	;(printout t crlf "-****aaaa****-" crlf)	
+)
+
+(defrule creaSesiones 
+(printout t crlf "-****aaaa****-" crlf)	
+	(ejsIni)
+	(not (sesiones_creadas))
+	?x <- (object(is-a Persona))
+	?programa <- (object(is-a Plan))
+	?ej_v <- (validos (ejerciciosValidos $?ej_validos))
+	=>
+	(if (eq (length$ $?ej_validos) 0) then
+		(assert (problemas "Lo sentimos, hemos detectado que no se encuentra en condiciones para hacer deporte. Vuelva a intentar cuando se haya recuperado."))
+		(focus RESPOSTA)
+		else 
+			(bind ?ifase (make-instance (sym-cat f)of Fase))
+			(bind ?inst (make-instance (sym-cat s) of Sesion))
+				; Miramos la asignación de ejercicios (mientras no lleguemos al tiempo mínimo y queden ejercicios por asignar)
+				
+					; Determinamos repeticiones por nivel
+					(while (not (eq (length$ $?ej_validos) 0)) do
+							(bind ?ejerciciov (nth$ (+ (mod (random) (length$ $?ej_validos)) 1) $?ej_validos))
+							;(send ?inst_e put-Tiene ?ejercicio)
+							(slot-insert$ ?ifase formado_por 1 ?ejerciciov )
+						)
+						(slot-insert$ ?programa compuesto_por 1 ?ifase)
+					
+				)
+
+			; Unimos sesión a programa
+			
+	(assert (sesiones_creadas))
+	(focus RESPOSTA)
+)
+
+(defmodule RESPOSTA (import SELECCIO ?ALL) (import MAIN ?ALL)(import PREGUNTES ?ALL)(import FILTRE_1 ?ALL)(export ?ALL))
+
+;imprimeix la resposta
+(defrule printAnswer 
+	(sesiones_creadas)
+    ?plan <- (object(is-a Plan))
+	?x <- (object(is-a Persona))
+  =>
+	(printout t crlf "**************************************************************************************************************" crlf crlf)
+	(printout t "Hola " (send ?x get-nombre) ", este es el plan de entrenamiento que hemos creado para ti" crlf)
+	(bind ?sesiones (send ?plan get-compuesto_por))
+
+
+	(bind ?ejsesion (send ?sesiones get-formado_por))
+    (loop-for-count (?j 1 (length ?ejsesion)) do
+	(if (eq (class ?j) Aerobico) then
+		(printout t "  " (send ?j get-nombreAero) crlf)
+	)
+
+	(if (eq (class ?j) Equilibrio) then
+		(printout t "  " (send ?j get-nombreEqui) crlf)
+	)
+
+	(if (eq (class ?j) Flexibilidad) then
+		(printout t "  " (send ?j get-nombreFlexi) crlf)
+	)
+
+	(if (eq (class ?j) Musculacion) then
+		(printout t "  " (send ?j get-nombreMusc) crlf)
+	)
+        
+	)
+)
+
+(defrule printProblem 
+  (declare (salience 100))
+  (problemas ?item)
+  =>
+	(printout t crlf "**************************************************************************************************************" crlf crlf)
+  ;(printout t crlf crlf)
+  (format t " %s%n%n%n" ?item)
+  (halt)
+)

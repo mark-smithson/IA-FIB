@@ -2,125 +2,14 @@
 ;;; ontoFinal.clp
 ;;; Translated by owl2clips
 ;;; Translated to CLIPS from ontology ontoFinal.owl
-;;; :Date 06/12/2022 01:44:28
-
-(defclass Enfermedades
-    (is-a USER)
-    (role concrete)
-    (pattern-match reactive)
-    (multislot mejorable_con
-        (type INSTANCE)
-        (create-accessor read-write))
-)
-
-(defclass artritis
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass artrosis
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass depresion
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass diabetes
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass enfermedades_cardiovasculares
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-    (slot nombreec
-        (type STRING)
-        (create-accessor read-write))
-)
-
-(defclass enfermedades_coronarias
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass falta_equilibrio
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass fibromialgia
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass hipertension
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass obesidad
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass osteoporosis
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass parkinson
-    (is-a Enfermedades)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass Fase
-    (is-a USER)
-    (role concrete)
-    (pattern-match reactive)
-    (multislot contiene
-        (type INSTANCE)
-        (create-accessor read-write))
-)
-
-(defclass Calentamiento
-    (is-a Fase)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass Ej_Principal
-    (is-a Fase)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass Recuperamiento
-    (is-a Fase)
-    (role concrete)
-    (pattern-match reactive)
-)
+;;; :Date 07/12/2022 12:13:02
 
 (defclass Ejercicio
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
-    (slot nombre
-        (type STRING)
+    (slot parte_de
+        (type INSTANCE)
         (create-accessor read-write))
     (slot aire_libre
         (type SYMBOL)
@@ -137,6 +26,10 @@
     (slot intensidad
         (type STRING)
         (create-accessor read-write))
+
+    (slot nombreEj
+        (type STRING)
+        (create-accessor read-write))
 )
 
 (defclass Aerobico
@@ -145,9 +38,6 @@
     (pattern-match reactive)
     (slot duracion_aerobico
         (type INTEGER)
-        (create-accessor read-write))
-    (slot nombreAero
-        (type STRING)
         (create-accessor read-write))
 )
 
@@ -194,9 +84,6 @@
     (slot duracion_equilibrio
         (type INTEGER)
         (create-accessor read-write))
-    (slot nombreEqui
-        (type STRING)
-        (create-accessor read-write))
 )
 
 (defclass andar_de_puntillas
@@ -241,9 +128,6 @@
     (pattern-match reactive)
     (slot duracion_flexibilidad
         (type INTEGER)
-        (create-accessor read-write))
-    (slot nombreFlexi
-        (type STRING)
         (create-accessor read-write))
 )
 
@@ -305,9 +189,6 @@
     (slot repeticiones
         (type INTEGER)
         (create-accessor read-write))
-    (slot nombreMusc
-        (type STRING)
-        (create-accessor read-write))
 )
 
 (defclass curl_biceps
@@ -354,6 +235,87 @@
 
 (defclass levantarse_silla
     (is-a Musculacion)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass Enfermedades
+    (is-a USER)
+    (role concrete)
+    (pattern-match reactive)
+    (multislot mejorable_con
+        (type INSTANCE)
+        (create-accessor read-write))
+)
+
+(defclass artritis
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass artrosis
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass depresion
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass diabetes
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass enfermedades_cardiovasculares
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass enfermedades_coronarias
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass falta_equilibrio
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass fibromialgia
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass hipertension
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass obesidad
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass osteoporosis
+    (is-a Enfermedades)
+    (role concrete)
+    (pattern-match reactive)
+)
+
+(defclass parkinson
+    (is-a Enfermedades)
     (role concrete)
     (pattern-match reactive)
 )
@@ -459,10 +421,18 @@
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
+    (multislot Calentamiento
+        (type INSTANCE)
+        (create-accessor read-write))
+    (multislot EjPrincipal
+        (type INSTANCE)
+        (create-accessor read-write))
+    (multislot Estiramientos
+        (type INSTANCE)
+        (create-accessor read-write))
     (slot dia
         (type STRING)
         (create-accessor read-write))
-    
 )
 
 (definstances instances
@@ -502,7 +472,6 @@
 
     ([cardiovasculares] of enfermedades_cardiovasculares
          (mejorable_con  [ejaerobico] [ejequilibrio] [ejflexibilidad] [ejmusculacion])
-         (nombreec "enfermedad cardiovascular")
     )
 
     ([coronarias] of enfermedades_coronarias
@@ -518,19 +487,16 @@
     )
 
     ([ejaerobico] of Aerobico
-        (nombreAero "ejaerobico")
+        (nombreEj "aerobico")
     )
 
     ([ejequilibrio] of Equilibrio
-        (nombreEqui "ejequilibrio")
     )
 
     ([ejflexibilidad] of Flexibilidad
-        (nombreFlexi "ejflexibilidad")
     )
 
     ([ejmusculacion] of Musculacion
-        (nombreMusc "ejmusculacion")
     )
 
     ([faltaequilib] of falta_equilibrio
@@ -556,5 +522,14 @@
     ([parkinson] of parkinson
          (mejorable_con  [ejaerobico] [ejequilibrio])
     )
+
+    ([Lunes] of Sesion
+        (dia "lunes")
+    )
+
+    ([Martes] of Sesion
+        (dia "martes")
+    )
+
 
 )
