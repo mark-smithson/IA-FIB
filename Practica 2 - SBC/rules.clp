@@ -207,7 +207,7 @@
 	(newPersona)
     ?x <- (object(is-a Persona))
 	=>
-	(bind ?availability (ask-int "Que disponibilidad tienes? (3-7)"))
+	(bind ?availability (ask-int "Que disponibilidad tienes? (3-7) "))
 	(if (or (> ?availability 7) (< ?availability 3) ) then (printout t crlf "Lo sentimos, no cumples con los requisitos de disponibilidad" crlf)(exit))
     (send ?x put-disponibilidad ?availability)
 	(bind ?count 1)
