@@ -1191,7 +1191,7 @@
         else (send ?exe put-duracionEj 3)
     )
 )
-
+;
 (defrule ejCGemelo
 	(newPersona)
 	(OperacionesInferiorOK)
