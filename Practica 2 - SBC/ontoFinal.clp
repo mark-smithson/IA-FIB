@@ -17,9 +17,6 @@
     (slot en_casa
         (type SYMBOL)
         (create-accessor read-write))
-    (slot frecuencia
-        (type INTEGER)
-        (create-accessor read-write))
     (slot gimnasio
         (type SYMBOL)
         (create-accessor read-write))
@@ -39,6 +36,9 @@
         (type INTEGER)
         (create-accessor read-write))
     (slot repeticiones
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot frecuencia
         (type INTEGER)
         (create-accessor read-write))
 )
