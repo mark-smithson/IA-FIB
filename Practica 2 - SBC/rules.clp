@@ -73,9 +73,59 @@
 	)
 )
 
-(deftemplate dispt
-	(slot d)
+(deffunction duracionSesion (?sesion)
+	(bind ?count 0)
+	(bind ?calentamientos (send ?sesion get-Calentamiento))
+	(bind ?principales (send ?sesion get-EjPrincipal))
+	(bind ?estiramientos (send ?sesion get-Estiramientos))
+
+	(foreach ?calentamiento ?calentamientos do
+		(bind ?count (+ ?count (send ?calentamiento get-duracionEj)))
+	)
+
+	; Sum time principales
+	(foreach ?principal ?principales do
+		(bind ?count (+ ?count (send ?principal get-duracionEj)))
+	)
+
+	; Sum time recuperaciones
+	(foreach ?estiramiento ?estiramientos do
+		(bind ?count (+ ?count (send ?estiramiento get-duracionEj)))
+	)
+
+	; Return
+	(return ?count)
 )
+
+
+(deffunction duracionOK (?sesion ?ejercicio ?persona)
+	(bind ?intPersona (send ?persona get-preferencia_intensidad))
+
+
+	(if (or (eq ?intPersona 1) (eq ?intPersona 2)) then
+		(bind ?maxDuracion 30)
+	)
+
+	(if (or (eq ?intPersona 3) (eq ?intPersona 4)) then
+		(bind ?maxDuracion 45)
+	)
+
+	(if (or (eq ?intPersona 5) (eq ?intPersona 6) (eq ?intPersona 7)) then
+		(bind ?maxDuracion 60)
+	)
+
+	(if (or (eq ?intPersona 8) (eq ?intPersona 9) (eq ?intPersona 10)) then
+		(bind ?maxDuracion 90)
+	)
+
+	(bind ?duracionS (duracionSesion ?sesion) )
+
+	(if (> (+ ?duracionS (send ?ejercicio get-duracionEj)) ?maxDuracion) 
+		then (return FALSE)
+		else (return TRUE)
+	)
+)
+
 
 (defmodule MAIN (export ?ALL))
 
@@ -586,22 +636,10 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (or (eq (?intA) 1) (eq (?intA) 2))
-		(send ?exe put-duracion_aerobico 30)
-	)
-	(if (or (eq (?intA) 3) (eq (?intA) 4))
-		(send ?exe put-duracion_aerobico 45)
-	)
-
-	(if (or (eq (?intA) 5) (eq (?intA) 6) (eq (?intA) 7))
-		(send ?exe put-duracion_aerobico 60)
-	)
-
-
-	(if (or (eq (?intA) 8) (eq (?intA) 9) (eq (?intA) 10))
-		(send ?exe put-duracion_aerobico 90)
-	)
-
+	;(if (< intA 5) 
+	;	then (send ?exe put-duracionEj 10)
+	;	else (send ?exe put-duracionEj 20)
+	;)
 )
 
 (defrule ejBici
@@ -615,6 +653,11 @@
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "bici") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
+	;(bind ?intA (send ?x get-preferencia_intensidad))
+	;(if (< intA 5) 
+	;	then (send ?exe put-duracionEj 10)
+	;	else (send ?exe put-duracionEj 20)
+	;)
 )
 
 (defrule ejBiciSuperior
@@ -627,6 +670,11 @@
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "biciSuperior") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
+	;(bind ?intA (send ?x get-preferencia_intensidad))
+	;(if (< intA 5) 
+	;	then (send ?exe put-duracionEj 10)
+	;	else (send ?exe put-duracionEj 20)
+	;)
 )
 
 (defrule ejCaminar
@@ -640,6 +688,11 @@
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "caminar") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
+	;(bind ?intA (send ?x get-preferencia_intensidad))
+	;(if (< intA 5) 
+	;	then (send ?exe put-duracionEj 10)
+	;	else (send ?exe put-duracionEj 20)
+	;)
 )
 
 (defrule ejCorrer
@@ -653,6 +706,11 @@
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "correr") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
+	;(bind ?intA (send ?x get-preferencia_intensidad))
+	;(if (< intA 5) 
+	;	then (send ?exe put-duracionEj 10)
+	;	else (send ?exe put-duracionEj 20)
+	;)
 )
 
 (defrule ejNadar
@@ -668,6 +726,12 @@
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "nadar") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
+	;(bind ?intA (send ?x get-preferencia_intensidad))
+	;(printout t crlf ?intA crlf)
+	;(if (< (intA) (5)) 
+	;	then (send ?exe put-duracionEj 10)
+	;	else (send ?exe put-duracionEj 20)
+	;)
 )
 
 ;Exercicis D'EQUILIBRI
@@ -1070,7 +1134,7 @@
 	;?disponibilidad <- (Disp ?i&:(> ?i 0))
 	(not (done ?ej ?ses))
 	=>
-		
+			
 			;(printout t crlf ?d crlf)
 			(assert (done ?ej ?ses))
 			;llamar función assign

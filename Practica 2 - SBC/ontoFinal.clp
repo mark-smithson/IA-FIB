@@ -30,15 +30,17 @@
     (slot nombreEj
         (type STRING)
         (create-accessor read-write))
+
+    (slot duracionEj
+        (type INTEGER)
+        (create-accessor read-write))
 )
 
 (defclass Aerobico
     (is-a Ejercicio)
     (role concrete)
     (pattern-match reactive)
-    (slot duracion_aerobico
-        (type INTEGER)
-        (create-accessor read-write))
+    
 )
 
 (defclass bailar
@@ -81,9 +83,6 @@
     (is-a Ejercicio)
     (role concrete)
     (pattern-match reactive)
-    (slot duracion_equilibrio
-        (type INTEGER)
-        (create-accessor read-write))
 )
 
 (defclass andar_de_puntillas
@@ -126,9 +125,6 @@
     (is-a Ejercicio)
     (role concrete)
     (pattern-match reactive)
-    (slot duracion_flexibilidad
-        (type INTEGER)
-        (create-accessor read-write))
 )
 
 (defclass estiramientos_cuadriceps
