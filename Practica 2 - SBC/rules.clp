@@ -636,10 +636,10 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	;(if (< intA 5) 
-	;	then (send ?exe put-duracionEj 10)
-	;	else (send ?exe put-duracionEj 20)
-	;)
+	(if (< ?intA 5) 
+		then (send ?exe put-duracionEj 10)
+		else (send ?exe put-duracionEj 20)
+	)
 )
 
 (defrule ejBici
@@ -1131,15 +1131,18 @@
 		(parte_de ?planPrueba&:(neq ?planPrueba [nil]))
 	)
 	?ses<- (object (is-a Sesion))
+	?x <- (object (is-a Persona))
 	;?disponibilidad <- (Disp ?i&:(> ?i 0))
 	(not (done ?ej ?ses))
 	=>
 			
 			;(printout t crlf ?d crlf)
-			(assert (done ?ej ?ses))
-			;llamar función assign
-			(if (eq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 1 ))
-			(if (neq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 2))
+			(if (duracionOK ?ses ?ej ?x) then
+				(assert (done ?ej ?ses))
+				;llamar función assign
+				(if (eq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 1 ))
+				(if (neq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 2))
+			)
 			
 )
 
@@ -1195,6 +1198,8 @@
 		(printout t crlf)
 		(foreach ?ej ?principales do
 			(printout t "    " (send ?ej get-nombreEj))
+			(printout t "    " (send ?ej get-duracionEj))
+			(printout t " min")
 			(printout t crlf)
 		)
 
