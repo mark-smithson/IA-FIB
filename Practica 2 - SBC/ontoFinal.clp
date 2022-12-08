@@ -482,123 +482,123 @@
 
     ;; AEROBICO
     ([caminar] of Aerobico
-        (nombreEj "caminar")
+        (nombreEj "Caminar")
     )
     ([bailar] of Aerobico
-        (nombreEj "bailar")
+        (nombreEj "Bailar")
     )
     ([nadar] of Aerobico
-        (nombreEj "nadar")
+        (nombreEj "Nadar")
     )
     ([correr] of Aerobico
-        (nombreEj "correr")
+        (nombreEj "Correr")
     )
     ([bici] of Aerobico
-        (nombreEj "bici")
+        (nombreEj "Bici")
     )
 
     ([biciSuperior] of Aerobico
-        (nombreEj "biciSuperior")
+        (nombreEj "Bici de tren superior")
     )
 
     ;; EQUILIBRIO
     ([andar_de_puntillas] of Equilibrio
-        (nombreEj "andar_de_puntillas")
+        (nombreEj "Andar de puntillas")
     )
 
     ([flexion_de_cadera] of Equilibrio
-        (nombreEj "flexion_de_cadera")
+        (nombreEj "Flexión de cadera")
     )
 
     ([extension_de_cadera] of Equilibrio
-        (nombreEj "extension_de_cadera")
+        (nombreEj "Extensión de cadera")
     )
 
     ([levantamiento_lateral_pierna] of Equilibrio
-        (nombreEj "levantamiento_lateral_pierna")
+        (nombreEj "Levantamiento lateral pierna")
     )
 
     ([tai_chi] of Equilibrio
-         (nombreEj "tai_chi")
+         (nombreEj "Tai chi")
     )
 
     ;; FLEXIBILIDAD
     ([estiramientos_cuadriceps] of Flexibilidad
-        (nombreEj "estiramientos_cuadriceps")
+        (nombreEj "Estiramientos de cuádriceps")
     )
 
     ([estiramientos_muneca] of Flexibilidad
-        (nombreEj "estiramientos_muneca")
+        (nombreEj "Estiramientos de muñeca")
     )
 
-    ([estiramientos_cuadriceps] of Flexibilidad
-        (nombreEj "estiramientos_cuadriceps")
-    )
+   ; ([estiramientos_cuadriceps] of Flexibilidad
+    ;    (nombreEj "Estiramientos_cuadriceps")
+    ;)
 
     ([estiramientos_pantorrillas] of Flexibilidad
-        (nombreEj "estiramientos_pantorrillas")
+        (nombreEj "Estiramientos de pantorrillas")
     )
 
     ([estiramientos_tendones_muslo] of Flexibilidad
-        (nombreEj "estiramientos_tendones_muslo")
+        (nombreEj "Estiramientos de tendones muslo")
     )
 
     ([estiramientos_tobillos] of Flexibilidad
-        (nombreEj "estiramientos_tobillos")
+        (nombreEj "Estiramientos de tobillos")
     )
 
     ([estiramientos_triceps] of Flexibilidad
-        (nombreEj "estiramientos_triceps")
+        (nombreEj "Estiramientos de tríceps")
     )
 
     ([rotacion_cadera] of Flexibilidad
-        (nombreEj "rotacion_cadera")
+        (nombreEj "Rotación de cadera")
     )
 
     ([rotacion_hombros] of Flexibilidad
-        (nombreEj "rotacion_hombros")
+        (nombreEj "Rotación de hombros")
     )
 
     ;; MUSCULACION
     ([curl_biceps] of Musculacion
-        (nombreEj "curl_biceps")
+        (nombreEj "Curl bíceps")
     )
 
     ([elevacion_piernas_lados] of Musculacion
-        (nombreEj "elevacion_piernas_lados")
+        (nombreEj "Elevación de piernas a lados")
     )
 
     ([extension_rodilla] of Musculacion
-        (nombreEj "extension_rodilla")
+        (nombreEj "Extensión de rodilla")
     )
 
     ([extension_triceps] of Musculacion
-        (nombreEj "extension_triceps")
+        (nombreEj "Extensión de tríceps")
     )
 
     ([flexion_hombros] of Musculacion
-        (nombreEj "flexion_hombros")
+        (nombreEj "Flexión de hombros")
     )
 
     ([flexion_plantar] of Musculacion
-        (nombreEj "flexion_plantar")
+        (nombreEj "Flexión plantar")
     )
 
     ([levantar_brazos] of Musculacion
-        (nombreEj "levantar_brazos")
+        (nombreEj "Levantar brazos")
     )
 
     ([levantarse_silla] of Musculacion
-        (nombreEj "levantarse_silla")
+        (nombreEj "Levantarse de la silla")
     )
 
     ;; CALENTAMIENTO
     ([CBiceps] of Ejs_Calentamiento
-        (nombreEj "Extension de biceps")
+        (nombreEj "Extensión de bíceps")
     )
 
     ([CTriceps] of Ejs_Calentamiento
-        (nombreEj "Extension de triceps")
+        (nombreEj "Extensión de tríceps")
     )
 
     ([CSpinning] of Ejs_Calentamiento
@@ -606,7 +606,7 @@
     )
 
     ([CEspalda] of Ejs_Calentamiento
-        (nombreEj "Extension de espalda")
+        (nombreEj "Extensión de espalda")
     )
 
     ([CTobillo] of Ejs_Calentamiento
@@ -614,7 +614,7 @@
     )
 
     ([CQuadriceps] of Ejs_Calentamiento
-        (nombreEj "Extension de quadriceps")
+        (nombreEj "Extensión de quádriceps")
     )
 
     ([CCadera] of Ejs_Calentamiento
@@ -622,7 +622,7 @@
     )
 
     ([CGemelo] of Ejs_Calentamiento
-        (nombreEj "Extension de gemelo")
+        (nombreEj "Extensión de gemelo")
     )
 
 
