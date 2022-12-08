@@ -1,9 +1,9 @@
-(load ontoFinal.clp)
+(load onto.clp)
 (load rules.clp)
 (reset)
 (run)
 
-ABCD
+Relampago
 70
 170
 65

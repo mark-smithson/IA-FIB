@@ -1,8 +1,8 @@
-(load ontoFinal.clp)
+(load onto.clp)
 (load rules.clp)
 (reset)
 (run)
-ABCD
+Antonio
 70
 160
 65
