@@ -34,6 +34,13 @@
     (slot duracionEj
         (type INTEGER)
         (create-accessor read-write))
+
+    (slot series
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot repeticiones
+        (type INTEGER)
+        (create-accessor read-write))
 )
 
 (defclass Aerobico
@@ -179,12 +186,6 @@
     (is-a Ejercicio)
     (role concrete)
     (pattern-match reactive)
-    (slot series
-        (type INTEGER)
-        (create-accessor read-write))
-    (slot repeticiones
-        (type INTEGER)
-        (create-accessor read-write))
 )
 
 (defclass curl_biceps

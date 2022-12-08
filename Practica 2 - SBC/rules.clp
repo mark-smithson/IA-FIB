@@ -906,6 +906,11 @@
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Estiramientos de tendones muslo") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (< ?intA 5) 
+		then (send ?exe put-duracionEj 2)
+		else (send ?exe put-duracionEj 4)
+	)
 )
 
 (defrule ejTobillos
@@ -972,7 +977,7 @@
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
-	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Rotacion de hombros") 0)))
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Rotación de hombros") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
@@ -997,8 +1002,15 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 8)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 8)
+        then 
+			(send ?exe put-series 2 )
+			(send ?exe put-repeticiones 8)
+			(send ?exe put-duracionEj 3)
+		
+        else (send ?exe put-series 3) 
+			 (send ?exe put-repeticiones 8)
+		  	 (send ?exe put-duracionEj 5.5)
+		
     )
 )
 
@@ -1016,8 +1028,15 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 9)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 12)
+        then 
+			 (send ?exe put-series 2) 
+		     (send ?exe put-repeticiones 9)
+			 (send ?exe put-duracionEj 4)
+		
+        else (send ?exe put-series 3) 
+		     (send ?exe put-repeticiones 12)
+			 (send ?exe put-duracionEj 7)
+		
     )
 )
 
@@ -1035,8 +1054,14 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 9)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 12)
+        then (send ?exe put-series 2)
+		     (send ?exe put-repeticiones 9)
+			 (send ?exe put-duracionEj 4)
+		
+        else (send ?exe put-series 3)
+		     (send ?exe put-repeticiones 12)
+			 (send ?exe put-duracionEj 7)
+		
     )
 )
 
@@ -1053,8 +1078,14 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 5)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 8)
+        then (send ?exe put-series 2)
+		     (send ?exe put-repeticiones 5)
+			  (send ?exe put-duracionEj 3)
+		
+        else (send ?exe put-series 3)
+		     (send ?exe put-repeticiones 8)
+			 (send ?exe put-duracionEj 5.5)
+		
     )
 )
 
@@ -1071,8 +1102,14 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 5)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 8)
+        then (send ?exe put-series 2)
+		     (send ?exe put-repeticiones 5)
+			 (send ?exe put-duracionEj 3)
+		
+        else (send ?exe put-series 3)
+		     (send ?exe put-repeticiones 8)
+			 (send ?exe put-duracionEj 5.5)
+		
     )
 )
 
@@ -1090,8 +1127,14 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 12)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 15)
+        then (send ?exe put-series 2)
+		     (send ?exe put-repeticiones 12)
+			 (send ?exe put-duracionEj 2.5)
+		
+        else (send ?exe put-series 3) 
+		     (send ?exe put-repeticiones 15)
+			 (send ?exe put-duracionEj 5)
+		
     )
 )
 
@@ -1108,8 +1151,14 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 12)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 15)
+        then (send ?exe put-series 2)
+		    (send ?exe put-repeticiones 12)
+			(send ?exe put-duracionEj 2.5)
+			
+        else (send ?exe put-series 3)
+		    (send ?exe put-repeticiones 15)
+			(send ?exe put-duracionEj 5)
+			
     )
 )
 
@@ -1127,8 +1176,14 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 9)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 12)
+        then (send ?exe put-series 2) 
+		     (send ?exe put-repeticiones 9)
+		     (send ?exe put-duracionEj 4)
+			
+        else (send ?exe put-series 3) 
+		     (send ?exe put-repeticiones 12)
+		 	 (send ?exe put-duracionEj 7)
+			
     )
 )
 
@@ -1363,6 +1418,8 @@
 		(printout t crlf)
 		(foreach ?calentamiento ?calentamientos do
 			(printout t "    " (send ?calentamiento get-nombreEj))
+			(printout t "    " (send ?calentamiento get-duracionEj))
+			(printout t " min")
 			(printout t crlf)
 		)
 
@@ -1370,10 +1427,19 @@
 		(printout t "  " "Ejercio :" crlf)
 		(printout t crlf)
 		(foreach ?ej ?principales do
-			(printout t "    " (send ?ej get-nombreEj))
-			(printout t "    " (send ?ej get-duracionEj))
-			(printout t " min")
-			(printout t crlf)
+			(if (eq (class ?ej) Musculacion) then 
+				(printout t "    " (send ?ej get-nombreEj))
+				(printout t "    " (send ?ej get-series))
+				(printout t " series")
+				(printout t "    " (send ?ej get-repeticiones))
+				(printout t " repeticiones")
+				(printout t crlf)
+			else 
+				(printout t "    " (send ?ej get-nombreEj))
+				(printout t "    " (send ?ej get-duracionEj))
+				(printout t " min")
+				(printout t crlf)
+			)
 		)
 
 		(printout t crlf)
@@ -1381,6 +1447,8 @@
 		(printout t crlf)
 		(foreach ?estiramiento ?estiramientos do
 			(printout t "    " (send ?estiramiento get-nombreEj))
+			(printout t "    " (send ?estiramiento get-duracionEj))
+			(printout t " min")
 			(printout t crlf)
 		)
 
