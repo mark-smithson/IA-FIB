@@ -17,9 +17,6 @@
     (slot en_casa
         (type SYMBOL)
         (create-accessor read-write))
-    (slot frecuencia
-        (type INTEGER)
-        (create-accessor read-write))
     (slot gimnasio
         (type SYMBOL)
         (create-accessor read-write))
@@ -32,6 +29,16 @@
         (create-accessor read-write))
 
     (slot duracionEj
+        (type INTEGER)
+        (create-accessor read-write))
+
+    (slot series
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot repeticiones
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot frecuencia
         (type INTEGER)
         (create-accessor read-write))
 )
@@ -179,12 +186,6 @@
     (is-a Ejercicio)
     (role concrete)
     (pattern-match reactive)
-    (slot series
-        (type INTEGER)
-        (create-accessor read-write))
-    (slot repeticiones
-        (type INTEGER)
-        (create-accessor read-write))
 )
 
 (defclass curl_biceps

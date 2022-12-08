@@ -99,31 +99,38 @@
 
 
 (deffunction duracionOK (?sesion ?ejercicio ?persona)
-	(bind ?intPersona (send ?persona get-preferencia_intensidad))
+
+	(bind ?frec (send ?ejercicio get-frecuencia))
+	(if (> ?frec 0) then 
+		(bind ?intPersona (send ?persona get-preferencia_intensidad))
 
 
-	(if (or (eq ?intPersona 1) (eq ?intPersona 2)) then
-		(bind ?maxDuracion 30)
+		(if (or (eq ?intPersona 1) (eq ?intPersona 2)) then
+			(bind ?maxDuracion 30)
+		)
+
+		(if (or (eq ?intPersona 3) (eq ?intPersona 4)) then
+			(bind ?maxDuracion 45)
+		)
+
+		(if (or (eq ?intPersona 5) (eq ?intPersona 6) (eq ?intPersona 7)) then
+			(bind ?maxDuracion 60)
+		)
+
+		(if (or (eq ?intPersona 8) (eq ?intPersona 9) (eq ?intPersona 10)) then
+			(bind ?maxDuracion 90)
+		)
+
+		(bind ?duracionS (duracionSesion ?sesion) )
+
+		(if (> (+ ?duracionS (send ?ejercicio get-duracionEj)) ?maxDuracion) 
+			then (return FALSE)
+			else (return TRUE)
+		)
+	else (return FALSE)
 	)
 
-	(if (or (eq ?intPersona 3) (eq ?intPersona 4)) then
-		(bind ?maxDuracion 45)
-	)
-
-	(if (or (eq ?intPersona 5) (eq ?intPersona 6) (eq ?intPersona 7)) then
-		(bind ?maxDuracion 60)
-	)
-
-	(if (or (eq ?intPersona 8) (eq ?intPersona 9) (eq ?intPersona 10)) then
-		(bind ?maxDuracion 90)
-	)
-
-	(bind ?duracionS (duracionSesion ?sesion) )
-
-	(if (> (+ ?duracionS (send ?ejercicio get-duracionEj)) ?maxDuracion) 
-		then (return FALSE)
-		else (return TRUE)
-	)
+	
 )
 
 
@@ -158,6 +165,7 @@
     ?x <- (object(is-a Persona))
 	=>
 	(bind ?age (ask-int "Cuantos años tienes? "))
+	(if (< ?age 65) then (printout t crlf "Lo sentimos, no cumples con los requisitos de edad" crlf)(exit))
     (send ?x put-edad ?age)
 )
 
@@ -190,6 +198,8 @@
     ?x <- (object(is-a Persona))
 	=>
 	(bind ?intensity (ask-int "Que intensidad prefieres para tu plan del 1 al 10? "))
+	(if (or (> ?intensity 10) (< ?intensity 1) ) then (printout t crlf "Lo sentimos, el número introducido no está entra 1 y 10" crlf)(exit))
+
     (send ?x put-preferencia_intensidad ?intensity)
 )
 
@@ -197,7 +207,8 @@
 	(newPersona)
     ?x <- (object(is-a Persona))
 	=>
-	(bind ?availability (ask-int "Que disponibilidad tienes? (3-7)"))
+	(bind ?availability (ask-int "Que disponibilidad tienes? (3-7) "))
+	(if (or (> ?availability 7) (< ?availability 3) ) then (printout t crlf "Lo sentimos, no cumples con los requisitos de disponibilidad" crlf)(exit))
     (send ?x put-disponibilidad ?availability)
 	(bind ?count 1)
 	(while (<= ?count ?availability) do
@@ -640,6 +651,11 @@
 		then (send ?exe put-duracionEj 10)
 		else (send ?exe put-duracionEj 20)
 	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejBici
@@ -659,6 +675,11 @@
 		then (send ?exe put-duracionEj 10)
 		else (send ?exe put-duracionEj 20)
 	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejBiciSuperior
@@ -676,6 +697,11 @@
 	(if (< ?intA 5) 
 		then (send ?exe put-duracionEj 10)
 		else (send ?exe put-duracionEj 20)
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
 	)
 )
 
@@ -696,6 +722,11 @@
 		then (send ?exe put-duracionEj 10)
 		else (send ?exe put-duracionEj 20)
 	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejCorrer
@@ -714,6 +745,18 @@
 	(if (< ?intA 5) 
 		then (send ?exe put-duracionEj 10)
 		else (send ?exe put-duracionEj 20)
+	)
+
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
+
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
 	)
 )
 
@@ -736,6 +779,12 @@
 		then (send ?exe put-duracionEj 10)
 		else (send ?exe put-duracionEj 20)
 	)
+
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 ;Exercicis D'EQUILIBRI
@@ -756,6 +805,11 @@
 	(if (< ?intA 5) 
 		then (send ?exe put-duracionEj 2)
 		else (send ?exe put-duracionEj 5)
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
 	)
 )
 
@@ -778,6 +832,11 @@
 		then (send ?exe put-duracionEj 2)
 		else (send ?exe put-duracionEj 4)
 	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejExtensionDeCadera
@@ -799,6 +858,11 @@
 		then (send ?exe put-duracionEj 2)
 		else (send ?exe put-duracionEj 4)
 	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejLevLateralPierna
@@ -818,6 +882,11 @@
 		then (send ?exe put-duracionEj 2)
 		else (send ?exe put-duracionEj 4)
 	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejTaiChi
@@ -833,6 +902,11 @@
 	(if (< ?intA 5) 
 		then (send ?exe put-duracionEj 10)
 		else (send ?exe put-duracionEj 20)
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
 	)
 )
 
@@ -855,6 +929,11 @@
 		then (send ?exe put-duracionEj 2)
 		else (send ?exe put-duracionEj 4)
 	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejEstMuneca
@@ -872,6 +951,11 @@
 	(if (< ?intA 5) 
 		then (send ?exe put-duracionEj 2)
 		else (send ?exe put-duracionEj 4)
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
 	)
 )
 
@@ -892,6 +976,11 @@
 		then (send ?exe put-duracionEj 2)
 		else (send ?exe put-duracionEj 4)
 	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejTendonesMuslo
@@ -906,6 +995,16 @@
 	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Estiramientos de tendones muslo") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (< ?intA 5) 
+		then (send ?exe put-duracionEj 2)
+		else (send ?exe put-duracionEj 4)
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejTobillos
@@ -925,6 +1024,11 @@
 		then (send ?exe put-duracionEj 2)
 		else (send ?exe put-duracionEj 4)
 	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejEstTriceps
@@ -942,6 +1046,11 @@
 	(if (< ?intA 5) 
 		then (send ?exe put-duracionEj 2)
 		else (send ?exe put-duracionEj 4)
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
 	)
 )
 
@@ -962,6 +1071,11 @@
 		then (send ?exe put-duracionEj 2)
 		else (send ?exe put-duracionEj 4)
 	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejRotHombros
@@ -972,13 +1086,18 @@
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
-	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Rotacion de hombros") 0)))
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Rotación de hombros") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
 	(if (< ?intA 5) 
 		then (send ?exe put-duracionEj 2)
 		else (send ?exe put-duracionEj 4)
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
 	)
 )
 
@@ -997,9 +1116,21 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 8)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 8)
+        then 
+			(send ?exe put-series 2 )
+			(send ?exe put-repeticiones 8)
+			(send ?exe put-duracionEj 3)
+		
+        else (send ?exe put-series 3) 
+			 (send ?exe put-repeticiones 8)
+		  	 (send ?exe put-duracionEj 5.5)
+		
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejElevacionPiernasLados
@@ -1016,9 +1147,21 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 9)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 12)
+        then 
+			 (send ?exe put-series 2) 
+		     (send ?exe put-repeticiones 9)
+			 (send ?exe put-duracionEj 4)
+		
+        else (send ?exe put-series 3) 
+		     (send ?exe put-repeticiones 12)
+			 (send ?exe put-duracionEj 7)
+		
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejExtensionRodilla
@@ -1035,9 +1178,20 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 9)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 12)
+        then (send ?exe put-series 2)
+		     (send ?exe put-repeticiones 9)
+			 (send ?exe put-duracionEj 4)
+		
+        else (send ?exe put-series 3)
+		     (send ?exe put-repeticiones 12)
+			 (send ?exe put-duracionEj 7)
+		
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejExtensionTriceps
@@ -1053,9 +1207,20 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 5)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 8)
+        then (send ?exe put-series 2)
+		     (send ?exe put-repeticiones 5)
+			  (send ?exe put-duracionEj 3)
+		
+        else (send ?exe put-series 3)
+		     (send ?exe put-repeticiones 8)
+			 (send ?exe put-duracionEj 5.5)
+		
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejFlexionHombros
@@ -1071,9 +1236,20 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 5)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 8)
+        then (send ?exe put-series 2)
+		     (send ?exe put-repeticiones 5)
+			 (send ?exe put-duracionEj 3)
+		
+        else (send ?exe put-series 3)
+		     (send ?exe put-repeticiones 8)
+			 (send ?exe put-duracionEj 5.5)
+		
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejFlexionPlantar
@@ -1090,9 +1266,20 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 12)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 15)
+        then (send ?exe put-series 2)
+		     (send ?exe put-repeticiones 12)
+			 (send ?exe put-duracionEj 2.5)
+		
+        else (send ?exe put-series 3) 
+		     (send ?exe put-repeticiones 15)
+			 (send ?exe put-duracionEj 5)
+		
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejLevantarBrazos
@@ -1108,9 +1295,20 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 12)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 15)
+        then (send ?exe put-series 2)
+		    (send ?exe put-repeticiones 12)
+			(send ?exe put-duracionEj 2.5)
+			
+        else (send ?exe put-series 3)
+		    (send ?exe put-repeticiones 15)
+			(send ?exe put-duracionEj 5)
+			
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejLevantarseSilla
@@ -1127,9 +1325,20 @@
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
     (if (< ?intA 5)
-        then (send ?exe put-series 2 send ?exe put-repeticiones 9)
-        else (send ?exe put-series 3 send ?exe put-repeticiones 12)
+        then (send ?exe put-series 2) 
+		     (send ?exe put-repeticiones 9)
+		     (send ?exe put-duracionEj 4)
+			
+        else (send ?exe put-series 3) 
+		     (send ?exe put-repeticiones 12)
+		 	 (send ?exe put-duracionEj 7)
+			
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 ;Exercicis CALENTAMENT
@@ -1150,6 +1359,11 @@
         then (send ?exe put-duracionEj 1)
         else (send ?exe put-duracionEj 1)
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejCTriceps
@@ -1168,6 +1382,11 @@
         then (send ?exe put-duracionEj 1)
         else (send ?exe put-duracionEj 1)
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejCSpinning
@@ -1187,6 +1406,11 @@
         then (send ?exe put-duracionEj 2)
         else (send ?exe put-duracionEj 3)
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejCEspalda
@@ -1206,6 +1430,11 @@
         then (send ?exe put-duracionEj 2)
         else (send ?exe put-duracionEj 3)
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejCTobillo
@@ -1225,6 +1454,11 @@
         then (send ?exe put-duracionEj 0.5)
         else (send ?exe put-duracionEj 1.5)
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejCQuadriceps
@@ -1244,6 +1478,11 @@
         then (send ?exe put-duracionEj 2)
         else (send ?exe put-duracionEj 3)
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 (defrule ejCCadera
@@ -1263,6 +1502,11 @@
         then (send ?exe put-duracionEj 2)
         else (send ?exe put-duracionEj 3)
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 ;
 (defrule ejCGemelo
@@ -1282,6 +1526,11 @@
         then (send ?exe put-duracionEj 2)
         else (send ?exe put-duracionEj 3)
     )
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1)
+		else (send ?exe put-frecuencia 3)
+	)
 )
 
 ;faltan estiramientos
@@ -1315,6 +1564,9 @@
 				;llamar función assign
 				(if (eq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 1 ))
 				(if (neq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 2))
+				(bind ?frec (send ?ej get-frecuencia))
+				(bind ?f (- ?frec 1))
+				(send ?ej put-frecuencia ?f)
 			)
 			
 )
@@ -1363,6 +1615,8 @@
 		(printout t crlf)
 		(foreach ?calentamiento ?calentamientos do
 			(printout t "    " (send ?calentamiento get-nombreEj))
+			(printout t "    " (send ?calentamiento get-duracionEj))
+			(printout t " min")
 			(printout t crlf)
 		)
 
@@ -1370,10 +1624,19 @@
 		(printout t "  " "Ejercio :" crlf)
 		(printout t crlf)
 		(foreach ?ej ?principales do
-			(printout t "    " (send ?ej get-nombreEj))
-			(printout t "    " (send ?ej get-duracionEj))
-			(printout t " min")
-			(printout t crlf)
+			(if (eq (class ?ej) Musculacion) then 
+				(printout t "    " (send ?ej get-nombreEj))
+				(printout t "    " (send ?ej get-series))
+				(printout t " series")
+				(printout t "    " (send ?ej get-repeticiones))
+				(printout t " repeticiones")
+				(printout t crlf)
+			else 
+				(printout t "    " (send ?ej get-nombreEj))
+				(printout t "    " (send ?ej get-duracionEj))
+				(printout t " min")
+				(printout t crlf)
+			)
 		)
 
 		(printout t crlf)
@@ -1381,6 +1644,8 @@
 		(printout t crlf)
 		(foreach ?estiramiento ?estiramientos do
 			(printout t "    " (send ?estiramiento get-nombreEj))
+			(printout t "    " (send ?estiramiento get-duracionEj))
+			(printout t " min")
 			(printout t crlf)
 		)
 
