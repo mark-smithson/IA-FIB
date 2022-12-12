@@ -1594,11 +1594,35 @@
 
 	(printout t crlf)
 
-	(printout t "--------------------------------------------------------------" crlf)
-	(printout t "------------------- Plan de ejercicios -----------------------" crlf)
-	(printout t "--------------------------------------------------------------" crlf)
-	(printout t "Hola " (send ?x get-nombre) ", este es el plan de entrenamiento que hemos creado para ti" crlf)
+	;;Calcular bmi index: (kg / m^2)
+	(bind ?pes (send ?x get-peso))
+	(bind ?altura (/ (send ?x get-altura) 100)) ;passat a metres
+	(bind ?altura2 (* ?altura ?altura) )
+	(bind ?bmiPersona (/ ?pes ?altura2))
+	(if (< ?bmiPersona 18.5) then (bind ?resBMI " por debajo de lo saludable"))
+	(if (and (> ?bmiPersona 18.4) (< ?bmiPersona 25)) then (bind ?resBMI " saludable"))
+	(if (and (> ?bmiPersona 24)(< ?bmiPersona 30)) then (bind ?resBMI " sobrepeso"))
+	(if (> ?bmiPersona 30) then (bind ?resBMI " obesidad"))
+
+
+
+
+
+
+
+	(printout t "Hola " (send ?x get-nombre) ", con tus respuestas hemos hecho el siguiente análisis:" crlf)
 	(printout t crlf)
+
+	(printout t "---------------------------------------------------------------------------------------------------" crlf)
+	(printout t "|	Nombre: " (send ?x get-nombre) "															|" crlf)
+	(printout t "|	Índice de Masa Corporal (IMC): " ?bmiPersona " ---> " ?resBMI "								|" crlf)
+	(printout t "|	Condición física: 																			|" crlf)
+	(printout t "---------------------------------------------------------------------------------------------------" crlf)
+
+	(printout t crlf)
+	(printout t "Con este análisis, tu disponibilidad y preferencia de intensidad hemos creado el siguiente plan de entrenamiento para ti: " crlf)
+	(printout t crlf)
+
 
 
 	(foreach ?sesion ?dias do
