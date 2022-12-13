@@ -439,23 +439,7 @@
 )
 
 (definstances instances
-    ([Media] of CondicionFisica
-         (ahoga_subir_escalera  "true")
-         (bebe_alcohol  "true")
-         (caidas_frecuentemente  "false")
-         (cansancio_rapido  "false")
-         (comida_basura  "false")
-         (compra_con_frecuencia  "true")
-         (corre_con_frecuencia  "false")
-         (deporte_con_frecuencia  "true")
-         (dieta_variada  "true")
-         (duerme_bien  "true")
-         (fuma  "true")
-         (operaciones_recientes_superior  "false")
-         (operaciones_recientes_inferior "true")
-         (pasea_con_frecuencia  "true")
-         (tirones_frecuentemente  "false")
-    )
+    
 
     ([artritis] of artritis
          (mejorable_con  [ejaerobico] [ejflexibilidad] [ejmusculacion])
