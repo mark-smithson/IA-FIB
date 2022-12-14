@@ -321,6 +321,9 @@
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
+    (slot CondFisica
+        (type STRING)
+        (create-accessor read-write))
     (slot ahoga_subir_escalera
         (type SYMBOL)
         (create-accessor read-write))
@@ -372,6 +375,15 @@
     (slot tirones_frecuentemente
         (type SYMBOL)
         (create-accessor read-write))
+    (slot Cbaja
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot Cmedia
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot Calta
+        (type INTEGER)
+        (create-accessor read-write))
 )
 
 (defclass Persona
@@ -407,6 +419,9 @@
         (type INTEGER)
         (create-accessor read-write))
     (slot sexo
+        (type STRING)
+        (create-accessor read-write))
+    (slot imc 
         (type STRING)
         (create-accessor read-write))
 )

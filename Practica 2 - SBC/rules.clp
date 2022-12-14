@@ -53,6 +53,7 @@
        else FALSE)
 )
 
+
 (deffunction assignExercise (?ejercicio ?sesion ?calentamientorec)
 	;2 ej principal 1 calentamiento y rec
 	
@@ -129,10 +130,32 @@
 		)
 	else (return FALSE)
 	)
-
-	
 )
 
+(deffunction ActBaja (?cfisica)
+	(bind ?cbaja (send ?cfisica get-Cbaja))
+	(bind ?cbaja (+ ?cbaja 1))
+	(send ?cfisica put-Cbaja ?cbaja)
+	;(printout t crlf "baja ara és: " ?cbaja crlf)
+)
+
+(deffunction ActAlta (?cfisica)
+	(bind ?calta (send ?cfisica get-Calta))
+	(bind ?calta (+ ?calta 1))
+	(send ?cfisica put-Calta ?calta)
+	;(printout t crlf "alta ara és: " ?calta crlf)
+)
+
+(deffunction calcIMC (?x ?c)
+	;;Calcular bmi index: (kg / m^2)
+	(bind ?pes (send ?x get-peso))
+	(bind ?altura (/ (send ?x get-altura) 100)) ;passat a metres
+	(bind ?altura2 (* ?altura ?altura) )
+	(bind ?bmiPersona (/ ?pes ?altura2))
+	(send ?x put-imc ?bmiPersona)
+	(if (or (< ?bmiPersona 18.5) (> ?bmiPersona 24)) then (ActBaja ?c)
+	 else (ActAlta ?c))
+)
 
 (defmodule MAIN (export ?ALL))
 
@@ -259,7 +282,11 @@
 	(bind ?stairs (yes-or-no-p "Te ahogas al subir las escaleras? si o no "))
     (bind ?c (make-instance of CondicionFisica))
 	(send ?c put-ahoga_subir_escalera ?stairs)
-	(if (eq ?stairs FALSE) then (assert (StairsOK)))
+	(if (eq ?stairs FALSE) then
+		(assert (StairsOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	)
 )
 
 (defrule PREGUNTES::askAlcohol
@@ -269,7 +296,11 @@
 	=>
 	(bind ?alch (yes-or-no-p "Sueles beber alcohol con frecuencia? si o no "))
 	(send ?c put-bebe_alcohol ?alch)
-	(if (eq ?alch FALSE) then (assert (AlcoholOK)))
+	(if (eq ?alch FALSE) then
+		(assert (AlcoholOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	)
 )
 
 (defrule PREGUNTES::askF
@@ -279,7 +310,11 @@
 	=>
 	(bind ?caidas (yes-or-no-p "Tienes caídas frecuentes? si o no "))
 	(send ?c put-caidas_frecuentemente ?caidas)
-	(if (eq ?caidas FALSE) then (assert (CaidasOK)))
+	(if (eq ?caidas FALSE) then
+		(assert (CaidasOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	)
 )
 
 (defrule PREGUNTES::askTired
@@ -289,7 +324,11 @@
 	=>
 	(bind ?cansancio (yes-or-no-p "Te sueles cansar rápidamente? si o no "))
 	(send ?c put-cansancio_rapido ?cansancio)
-	(if (eq ?cansancio FALSE) then (assert (CansancioOK)))
+	(if (eq ?cansancio FALSE) then
+		(assert (CansancioOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	)
 )
 
 (defrule PREGUNTES::askJunkFood
@@ -299,7 +338,11 @@
 	=>
 	(bind ?cbasura (yes-or-no-p "Sueles comer comida basura con frecuencia? si o no "))
 	(send ?c put-comida_basura ?cbasura)
-	(if (eq ?cbasura FALSE) then (assert (CBasuraOK)))
+	(if (eq ?cbasura FALSE) then
+		(assert (CBasuraOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	)
 )
 
 (defrule PREGUNTES::askShopping
@@ -309,7 +352,11 @@
 	=>
 	(bind ?compra (yes-or-no-p "Sueles ir a comprar con frecuencia? si o no "))
 	(send ?c put-compra_con_frecuencia ?compra)
-	(if (eq ?compra TRUE) then (assert (ComprasOK)))
+	(if (eq ?compra TRUE) then
+		(assert (ComprasOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	)
 )
 
 (defrule PREGUNTES::askRunning
@@ -319,7 +366,12 @@
 	=>
 	(bind ?corre (yes-or-no-p "Sueles ir a correr con frecuencia? si o no "))
 	(send ?c put-corre_con_frecuencia ?corre)
-	(if (eq ?corre TRUE) then (assert (RunningOK)))
+	(if (eq ?corre TRUE) then
+		(assert (RunningOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	
+	)
 )
 
 (defrule PREGUNTES::askSports
@@ -329,7 +381,11 @@
 	=>
 	(bind ?deporte (yes-or-no-p "Sueles practicar algún deporte con frecuencia? si o no "))
 	(send ?c put-deporte_con_frecuencia ?deporte)
-	(if (eq ?deporte TRUE) then (assert (DeporteOK)))
+	(if (eq ?deporte TRUE) then
+		(assert (DeporteOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	)
 )
 
 (defrule PREGUNTES::askDiet
@@ -339,7 +395,12 @@
 	=>
 	(bind ?dieta (yes-or-no-p "Tienes una dieta variada? si o no "))
 	(send ?c put-dieta_variada ?dieta)
-	(if (eq ?dieta TRUE) then (assert (DietaOK)))
+	(if (eq ?dieta TRUE) then
+		(assert (DietaOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	
+	)
 )
 
 (defrule PREGUNTES::askSleep
@@ -349,7 +410,11 @@
 	=>
 	(bind ?duerme (yes-or-no-p "Sueles dormir bien? si o no "))
 	(send ?c put-duerme_bien ?duerme)
-	(if (eq ?duerme TRUE) then (assert (DuermeOK)))
+	(if (eq ?duerme TRUE) then 
+		(assert (DuermeOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	)
 )
 
 (defrule PREGUNTES::askSmoking
@@ -359,7 +424,11 @@
 	=>
 	(bind ?fuma (yes-or-no-p "Fumas? si o no "))
 	(send ?c put-fuma ?fuma)
-	(if (eq ?fuma FALSE) then (assert (FumaOK)))
+	(if (eq ?fuma FALSE) then
+		(assert (FumaOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	)
 )
 
 (defrule PREGUNTES::askOperations
@@ -375,10 +444,12 @@
 		(bind ?operI (yes-or-no-p "Es en el tronco inferior si o no "))
 		(send ?c put-operaciones_recientes_inferior ?operI)
 		(if (eq ?operI FALSE) then (assert (OperacionesInferiorOK)))
+		(ActBaja ?c)
 	)
 	(if (neq ?operaciones TRUE) then
 	(assert (OperacionesSuperiorOK))
 	(assert (OperacionesInferiorOK))
+	(ActAlta ?c)
 	)
 
 )
@@ -390,7 +461,11 @@
 	=>
 	(bind ?pasea (yes-or-no-p "Sueles salir a pasear con frecuencia? si o no "))
 	(send ?c put-pasea_con_frecuencia ?pasea)
-	(if (eq ?pasea TRUE) then (assert (PaseaOK)))
+	(if (eq ?pasea TRUE) then
+		(assert (PaseaOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	)
 )
 
 (defrule PREGUNTES::askMusclePull
@@ -400,7 +475,11 @@
 	=>
 	(bind ?tirones (yes-or-no-p "Sueles tener tirones con frecuencia? si o no "))
 	(send ?c put-tirones_frecuentemente ?tirones)
-	(if (eq ?tirones FALSE) then (assert (TironesOK)))
+	(if (eq ?tirones FALSE) then 
+		(assert (TironesOK))
+		(ActAlta ?c)
+	else (ActBaja ?c)
+	)
 )
 
 (defrule PREGUNTES::askPain
@@ -416,12 +495,14 @@
 		(bind ?dolorartI (yes-or-no-p "Suele ser en las articulaciones inferiores si o no "))
 		(send ?c put-dolor_articulaciones_tronco_inferior ?dolorartI)
 		(if (eq ?dolorartI FALSE) then (assert (TroncoInferiorOK)))
+		(ActBaja ?c)
 	)
 	(if (neq ?dolorart TRUE) then
 	 (assert (TroncoSuperiorOK))
 	 (assert (TroncoInferiorOK))
+	 (ActAlta ?c)
 	)
-
+	(calcIMC ?x ?c)
 )
 
 ;;PREGUNTES SOBRE POSSIBLES ENFERMETATS;;
@@ -582,13 +663,33 @@
 		(compuesto_por (find-all-instances ((?s Sesion))(neq ?s [nil])))
 	))
 	(assert(planprueba ?planPrueba))
-	(focus FILTRE_1)
+	(focus CONDFIS)
 )
 
 
 (defmodule CONDFIS (import MAIN ?ALL)(import PREGUNTES ?ALL)(export ?ALL))
 
-;(defrule decideBaja )
+(defrule decideCondicionFisica
+	(newPersona)
+	?x<-(object(is-a Persona))
+	?c<- (object(is-a CondicionFisica))
+	=>
+	(bind ?totalBaja (send ?c get-Cbaja))
+	(bind ?totalAlta (send ?c get-Calta))
+	(printout t crlf "totalBaja es :" ?totalBaja crlf)
+	(printout t crlf "totalAlta es :" ?totalAlta crlf)
+	(bind ?res (- ?totalBaja ?totalAlta))
+	(bind ?res (abs ?res))
+	(printout t crlf "res es: " ?res crlf)
+	(if (< ?res 4) then (send ?c put-CondFisica "media")
+	else 
+		(if (> ?totalAlta ?totalBaja) then (send ?c put-CondFisica "alta")
+		else (send ?c put-CondFisica "baja")
+		)
+	)
+	(printout t crlf "cond física es :" (send ?c get-CondFisica) crlf)
+	(focus FILTRE_1)
+)
 
 (defmodule FILTRE_1 (import MAIN ?ALL) (import PREGUNTES ?ALL)(export ?ALL))
 
@@ -1555,21 +1656,11 @@
 
 	(printout t crlf)
 
-	;;Calcular bmi index: (kg / m^2)
-	(bind ?pes (send ?x get-peso))
-	(bind ?altura (/ (send ?x get-altura) 100)) ;passat a metres
-	(bind ?altura2 (* ?altura ?altura) )
-	(bind ?bmiPersona (/ ?pes ?altura2))
+	(bind ?bmiPersona (send ?x get-imc))	
 	(if (< ?bmiPersona 18.5) then (bind ?resBMI " por debajo de lo saludable"))
 	(if (and (> ?bmiPersona 18.4) (< ?bmiPersona 25)) then (bind ?resBMI " saludable"))
 	(if (and (> ?bmiPersona 24)(< ?bmiPersona 30)) then (bind ?resBMI " sobrepeso"))
 	(if (> ?bmiPersona 30) then (bind ?resBMI " obesidad"))
-
-
-
-
-
-
 
 	(printout t "Hola " (send ?x get-nombre) ", con tus respuestas hemos hecho el siguiente análisis:" crlf)
 	(printout t crlf)
