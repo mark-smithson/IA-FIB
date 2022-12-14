@@ -676,22 +676,29 @@
 	=>
 	(bind ?totalBaja (send ?c get-Cbaja))
 	(bind ?totalAlta (send ?c get-Calta))
-	(printout t crlf "totalBaja es :" ?totalBaja crlf)
-	(printout t crlf "totalAlta es :" ?totalAlta crlf)
 	(bind ?res (- ?totalBaja ?totalAlta))
 	(bind ?res (abs ?res))
-	(printout t crlf "res es: " ?res crlf)
-	(if (< ?res 4) then (send ?c put-CondFisica "media")
+	(if (< ?res 4) then (send ?c put-CondFisica 5 )
 	else 
-		(if (> ?totalAlta ?totalBaja) then (send ?c put-CondFisica "alta")
-		else (send ?c put-CondFisica "baja")
+		(if (> ?totalAlta ?totalBaja) then (send ?c put-CondFisica 8)
+		else (send ?c put-CondFisica 2)
 		)
-	)
-	(printout t crlf "cond física es :" (send ?c get-CondFisica) crlf)
+	)	
+)
+
+(defrule ponderacionCondFisica 
+	(newPersona)
+	?x<- (object(is-a Persona))
+	?c<- (object(is-a CondicionFisica))
+	=>
+	(bind ?int (* (send ?x get-preferencia_intensidad) 30))
+	(bind ?cf (* (send ?c get-CondFisica) 70))
+	(bind ?suma (/(+ ?int ?cf)100) )
+	(send ?x put-preferencia_intensidad (integer ?suma))
 	(focus FILTRE_1)
 )
 
-(defmodule FILTRE_1 (import MAIN ?ALL) (import PREGUNTES ?ALL)(export ?ALL))
+(defmodule FILTRE_1 (import MAIN ?ALL) (import PREGUNTES ?ALL)(import CONDFIS ?ALL)(export ?ALL))
 
 ;Per cada exercici escull si poden formar part del plan de newPersona o no
 
@@ -1645,6 +1652,7 @@
 (defrule printPlanilla
 	(newPersona)
 	?x<-(object(is-a Persona))
+	?c<-(object(is-a CondicionFisica))
 	=>
 	(bind ?exercicis (find-all-instances ((?e Ejercicio))
 		(neq (send ?e get-parte_de)[nil])
@@ -1662,13 +1670,21 @@
 	(if (and (> ?bmiPersona 24)(< ?bmiPersona 30)) then (bind ?resBMI " sobrepeso"))
 	(if (> ?bmiPersona 30) then (bind ?resBMI " obesidad"))
 
+	(bind ?cf (send ?c get-CondFisica))
+	(if (eq ?cf 2) then (bind ?writeCf "Baja")
+	else 
+		(if (eq ?cf 5) then (bind ?writeCf "Media"))
+		else (bind ?writeCf "Alta")
+	)
+
+
 	(printout t "Hola " (send ?x get-nombre) ", con tus respuestas hemos hecho el siguiente análisis:" crlf)
 	(printout t crlf)
 
 	(printout t "---------------------------------------------------------------------------------------------------" crlf)
 	(printout t "|	Nombre: " (send ?x get-nombre) "															|" crlf)
 	(printout t "|	Índice de Masa Corporal (IMC): " ?bmiPersona " ---> " ?resBMI "								|" crlf)
-	(printout t "|	Condición física: 																			|" crlf)
+	(printout t "|	Condición física: " ?writeCf "																|" crlf)
 	(printout t "---------------------------------------------------------------------------------------------------" crlf)
 
 	(printout t crlf)

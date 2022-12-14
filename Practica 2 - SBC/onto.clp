@@ -322,7 +322,7 @@
     (role concrete)
     (pattern-match reactive)
     (slot CondFisica
-        (type STRING)
+        (type INTEGER)
         (create-accessor read-write))
     (slot ahoga_subir_escalera
         (type SYMBOL)
@@ -376,9 +376,6 @@
         (type SYMBOL)
         (create-accessor read-write))
     (slot Cbaja
-        (type INTEGER)
-        (create-accessor read-write))
-    (slot Cmedia
         (type INTEGER)
         (create-accessor read-write))
     (slot Calta
