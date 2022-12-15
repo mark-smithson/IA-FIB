@@ -1098,7 +1098,7 @@
 	)
 )
 
-(defrule ejElíptica
+(defrule ejEliptica
 	(newPersona)
 	(RedMobOK)
 	(OperacionesInferiorOK)
