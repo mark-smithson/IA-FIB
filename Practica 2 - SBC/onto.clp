@@ -541,8 +541,24 @@
 
     ;; EQUILIBRIO
 
+    ([caminar_sentado] of Equilibrio
+        (nombreEj "Simular que caminas sentado")
+    )
+
+    ([elevaciones_laterales_brazos] of Equilibrio
+        (nombreEj "Elevaciones laterales con las piernas")
+    )
+
+    ([elevaciones_laterales_piernas] of Equilibrio
+        (nombreEj "Elevaciones laterales con los brazos")
+    )
+
+    ([marcha_atras] of Equilibrio
+        (nombreEj "Caminar marcha atrás")
+    )
+
     ([hacer_el_flamenco] of Equilibrio
-        (nombreEj "Ejercicio del flamenco")
+        (nombreEj "Postura del flamenco")
     )
 
     ([caminar_recta] of Equilibrio
