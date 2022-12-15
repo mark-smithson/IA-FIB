@@ -663,11 +663,11 @@
 		(compuesto_por (find-all-instances ((?s Sesion))(neq ?s [nil])))
 	))
 	(assert(planprueba ?planPrueba))
-	(focus CONDFIS)
+	(focus ABSTRACCION)
 )
 
 
-(defmodule CONDFIS (import MAIN ?ALL)(import PREGUNTES ?ALL)(export ?ALL))
+(defmodule ABSTRACCION (import MAIN ?ALL)(import PREGUNTES ?ALL)(export ?ALL))
 
 (defrule decideCondicionFisica
 	(newPersona)
@@ -695,10 +695,10 @@
 	(bind ?cf (* (send ?c get-CondFisica) 70))
 	(bind ?suma (/(+ ?int ?cf)100) )
 	(send ?x put-preferencia_intensidad (integer ?suma))
-	(focus FILTRE_1)
+	(focus INFERENCIA)
 )
 
-(defmodule FILTRE_1 (import MAIN ?ALL) (import PREGUNTES ?ALL)(import CONDFIS ?ALL)(export ?ALL))
+(defmodule INFERENCIA (import MAIN ?ALL) (import PREGUNTES ?ALL)(import ABSTRACCION ?ALL)(export ?ALL))
 
 ;Per cada exercici escull si poden formar part del plan de newPersona o no
 
@@ -716,14 +716,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 10)
-		else (send ?exe put-duracionEj 20)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 20) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 15) ;medio
+			else (send ?exe put-duracionEj 10)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -740,14 +742,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 10)
-		else (send ?exe put-duracionEj 20)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 20) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 15) ;medio
+			else (send ?exe put-duracionEj 10)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -763,14 +767,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 10)
-		else (send ?exe put-duracionEj 20)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 20) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 15) ;medio
+			else (send ?exe put-duracionEj 10)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -787,14 +793,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 10)
-		else (send ?exe put-duracionEj 20)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 20) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 15) ;medio
+			else (send ?exe put-duracionEj 10)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -811,21 +819,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 10)
-		else (send ?exe put-duracionEj 20)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 20) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 15) ;medio
+			else (send ?exe put-duracionEj 10)) ;bajo
 	)
-
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
-	)
-
-	(bind ?dis (send ?x get-disponibilidad))
-	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -844,15 +847,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 10)
-		else (send ?exe put-duracionEj 20)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 20) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 15) ;medio
+			else (send ?exe put-duracionEj 10)) ;bajo
 	)
-
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -871,14 +875,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 5)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -897,14 +903,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 4)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 4) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -923,14 +931,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 4)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 4) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -947,14 +957,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 4)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 4) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -968,14 +980,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 10)
-		else (send ?exe put-duracionEj 20)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 20) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 15) ;medio
+			else (send ?exe put-duracionEj 10)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -994,14 +1008,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 4)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 4) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1017,14 +1033,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 4)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 4) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1041,14 +1059,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 4)
+(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 4) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1065,14 +1085,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 4)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 4) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1089,14 +1111,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 4)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 4) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1112,14 +1136,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 4)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 4) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1136,14 +1162,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 4)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 4) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1159,14 +1187,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (< ?intA 5) 
-		then (send ?exe put-duracionEj 2)
-		else (send ?exe put-duracionEj 4)
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 4) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
 	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1184,21 +1214,28 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
+    (if (< ?intA 7) ;alta
         then 
-			(send ?exe put-series 2 )
+			(send ?exe put-series 3)
 			(send ?exe put-repeticiones 8)
-			(send ?exe put-duracionEj 3)
+			(send ?exe put-duracionEj 5.5)
 		
-        else (send ?exe put-series 3) 
-			 (send ?exe put-repeticiones 8)
-		  	 (send ?exe put-duracionEj 5.5)
+        else
+			(if (> ?intA 4) then ;media
+				(send ?exe put-series 3)
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 3.5)
+			else ;baja
+				(send ?exe put-series 2) 
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 2.5)
+			)
 		
     )
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1215,21 +1252,28 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
+    (if (< ?intA 7) ;alta
         then 
-			 (send ?exe put-series 2) 
-		     (send ?exe put-repeticiones 9)
-			 (send ?exe put-duracionEj 4)
+			(send ?exe put-series 3)
+			(send ?exe put-repeticiones 8)
+			(send ?exe put-duracionEj 5.5)
 		
-        else (send ?exe put-series 3) 
-		     (send ?exe put-repeticiones 12)
-			 (send ?exe put-duracionEj 7)
+        else
+			(if (> ?intA 4) then ;media
+				(send ?exe put-series 3)
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 3.5)
+			else ;baja
+				(send ?exe put-series 2) 
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 2.5)
+			)
 		
     )
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1246,20 +1290,28 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-series 2)
-		     (send ?exe put-repeticiones 9)
-			 (send ?exe put-duracionEj 4)
+    (if (< ?intA 7) ;alta
+        then 
+			(send ?exe put-series 3)
+			(send ?exe put-repeticiones 8)
+			(send ?exe put-duracionEj 5.5)
 		
-        else (send ?exe put-series 3)
-		     (send ?exe put-repeticiones 12)
-			 (send ?exe put-duracionEj 7)
+        else
+			(if (> ?intA 4) then ;media
+				(send ?exe put-series 3)
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 3.5)
+			else ;baja
+				(send ?exe put-series 2) 
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 2.5)
+			)
 		
     )
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1275,20 +1327,27 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-series 2)
-		     (send ?exe put-repeticiones 5)
-			  (send ?exe put-duracionEj 3)
+    (if (< ?intA 7) ;alta
+        then 
+			(send ?exe put-series 3)
+			(send ?exe put-repeticiones 8)
+			(send ?exe put-duracionEj 5.5)
 		
-        else (send ?exe put-series 3)
-		     (send ?exe put-repeticiones 8)
-			 (send ?exe put-duracionEj 5.5)
-		
+        else
+			(if (> ?intA 4) then ;media
+				(send ?exe put-series 3)
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 3.5)
+			else ;baja
+				(send ?exe put-series 2) 
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 2.5)
+			)
     )
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1304,20 +1363,28 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-series 2)
-		     (send ?exe put-repeticiones 5)
-			 (send ?exe put-duracionEj 3)
+    (if (< ?intA 7) ;alta
+        then 
+			(send ?exe put-series 3)
+			(send ?exe put-repeticiones 8)
+			(send ?exe put-duracionEj 5.5)
 		
-        else (send ?exe put-series 3)
-		     (send ?exe put-repeticiones 8)
-			 (send ?exe put-duracionEj 5.5)
+        else
+			(if (> ?intA 4) then ;media
+				(send ?exe put-series 3)
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 3.5)
+			else ;baja
+				(send ?exe put-series 2) 
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 2.5)
+			)
 		
     )
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1334,20 +1401,28 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-series 2)
-		     (send ?exe put-repeticiones 12)
-			 (send ?exe put-duracionEj 2.5)
+    (if (< ?intA 7) ;alta
+        then 
+			(send ?exe put-series 3)
+			(send ?exe put-repeticiones 8)
+			(send ?exe put-duracionEj 5.5)
 		
-        else (send ?exe put-series 3) 
-		     (send ?exe put-repeticiones 15)
-			 (send ?exe put-duracionEj 5)
+        else
+			(if (> ?intA 4) then ;media
+				(send ?exe put-series 3)
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 3.5)
+			else ;baja
+				(send ?exe put-series 2) 
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 2.5)
+			)
 		
     )
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1363,20 +1438,28 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-series 2)
-		    (send ?exe put-repeticiones 12)
-			(send ?exe put-duracionEj 2.5)
-			
-        else (send ?exe put-series 3)
-		    (send ?exe put-repeticiones 15)
-			(send ?exe put-duracionEj 5)
-			
+    (if (< ?intA 7) ;alta
+        then 
+			(send ?exe put-series 3)
+			(send ?exe put-repeticiones 8)
+			(send ?exe put-duracionEj 5.5)
+		
+        else
+			(if (> ?intA 4) then ;media
+				(send ?exe put-series 3)
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 3.5)
+			else ;baja
+				(send ?exe put-series 2) 
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 2.5)
+			)
+		
     )
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1393,20 +1476,28 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-series 2) 
-		     (send ?exe put-repeticiones 9)
-		     (send ?exe put-duracionEj 4)
-			
-        else (send ?exe put-series 3) 
-		     (send ?exe put-repeticiones 12)
-		 	 (send ?exe put-duracionEj 7)
-			
+    (if (< ?intA 7) ;alta
+        then 
+			(send ?exe put-series 3)
+			(send ?exe put-repeticiones 8)
+			(send ?exe put-duracionEj 5.5)
+		
+        else
+			(if (> ?intA 4) then ;media
+				(send ?exe put-series 3)
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 3.5)
+			else ;baja
+				(send ?exe put-series 2) 
+				(send ?exe put-repeticiones 5)
+				(send ?exe put-duracionEj 2.5)
+			)
+		
     )
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1424,14 +1515,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
 	(bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-duracionEj 1)
-        else (send ?exe put-duracionEj 1)
-    )
+    (if (> ?intA 7) 
+		then (send ?exe put-duracionEj 1.5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 1) ;medio
+			else (send ?exe put-duracionEj 0.5)) ;bajo
+	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1447,14 +1540,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-duracionEj 1)
-        else (send ?exe put-duracionEj 1)
-    )
+    (if (> ?intA 7) 
+		then (send ?exe put-duracionEj 1.5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 1) ;medio
+			else (send ?exe put-duracionEj 0.5)) ;bajo
+	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1471,14 +1566,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-duracionEj 2)
-        else (send ?exe put-duracionEj 3)
-    )
+    (if (> ?intA 7) 
+		then (send ?exe put-duracionEj 1.5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 1) ;medio
+			else (send ?exe put-duracionEj 0.5)) ;bajo
+	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1495,14 +1592,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-duracionEj 2)
-        else (send ?exe put-duracionEj 3)
-    )
+    (if (> ?intA 7) 
+		then (send ?exe put-duracionEj 1.5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 1) ;medio
+			else (send ?exe put-duracionEj 0.5)) ;bajo
+	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1519,14 +1618,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-duracionEj 0.5)
-        else (send ?exe put-duracionEj 1.5)
-    )
+    (if (> ?intA 7) 
+		then (send ?exe put-duracionEj 1.5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 1) ;medio
+			else (send ?exe put-duracionEj 0.5)) ;bajo
+	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1543,14 +1644,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-duracionEj 2)
-        else (send ?exe put-duracionEj 3)
-    )
+   (if (> ?intA 7) 
+		then (send ?exe put-duracionEj 1.5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 1) ;medio
+			else (send ?exe put-duracionEj 0.5)) ;bajo
+	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1567,14 +1670,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-duracionEj 2)
-        else (send ?exe put-duracionEj 3)
-    )
+    (if (> ?intA 7) 
+		then (send ?exe put-duracionEj 1.5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 1) ;medio
+			else (send ?exe put-duracionEj 0.5)) ;bajo
+	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 ;
@@ -1591,14 +1696,16 @@
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
-    (if (< ?intA 5)
-        then (send ?exe put-duracionEj 2)
-        else (send ?exe put-duracionEj 3)
-    )
+    (if (> ?intA 7) 
+		then (send ?exe put-duracionEj 1.5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 1) ;medio
+			else (send ?exe put-duracionEj 0.5)) ;bajo
+	)
 	(bind ?dis (send ?x get-disponibilidad))
 	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1)
-		else (send ?exe put-frecuencia 3)
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
 	)
 )
 
@@ -1611,7 +1718,7 @@
 	(focus ASSIGNACIO)
 )
 
-(defmodule ASSIGNACIO (import MAIN ?ALL) (import PREGUNTES ?ALL)(import FILTRE_1 ?ALL)(export ?ALL))
+(defmodule ASSIGNACIO (import MAIN ?ALL) (import PREGUNTES ?ALL)(import INFERENCIA ?ALL)(import ABSTRACCION ?ALL)(export ?ALL))
 
 (defrule assignEnfermedad
 	(declare (salience 0))
@@ -1647,7 +1754,7 @@
 )
 
 
-(defmodule RESPOSTA (import MAIN ?ALL) (import PREGUNTES ?ALL)(import FILTRE_1 ?ALL)(import ASSIGNACIO ?ALL)(export ?ALL))
+(defmodule RESPOSTA (import MAIN ?ALL) (import PREGUNTES ?ALL)(import ABSTRACCION ?ALL)(import INFERENCIA ?ALL)(import ASSIGNACIO ?ALL)(export ?ALL))
 
 (defrule printPlanilla
 	(newPersona)
@@ -1713,7 +1820,7 @@
 		)
 
 		(printout t crlf)
-		(printout t "  " "Ejercio :" crlf)
+		(printout t "  " "Ejercicio :" crlf)
 		(printout t crlf)
 		(foreach ?ej ?principales do
 			(if (eq (class ?ej) Musculacion) then 
