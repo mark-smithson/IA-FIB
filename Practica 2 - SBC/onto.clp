@@ -480,43 +480,43 @@
     ;; AEROBICO
 
      ([golf] of Aerobico
-             (nombreEj "Golf")
+         (nombreEj "Golf")
      )
 
      ([marcha] of Aerobico
-             (nombreEj "Marcha atlética")
+         (nombreEj "Marcha atlética")
      )
 
       ([pilates] of Aerobico
-              (nombreEj "Pilates")
+          (nombreEj "Pilates")
       )
 
       ([senderismo] of Aerobico
-              (nombreEj "Senderismo")
+         (nombreEj "Senderismo")
       )
 
      ([yoga] of Aerobico
-             (nombreEj "Yoga")
+         (nombreEj "Yoga")
      )
 
      ([aquagym] of Aerobico
-             (nombreEj "Aquagym")
+        (nombreEj "Aquagym")
      )
 
      ([saltocuerda] of Aerobico
-             (nombreEj "Saltar a la cuerda")
+        (nombreEj "Saltar a la cuerda")
      )
 
      ([remo] of Aerobico
-             (nombreEj "Remar")
+        (nombreEj "Remar")
      )
 
      ([tennis] of Aerobico
-             (nombreEj "Tennis")
+        (nombreEj "Tennis")
      )
 
      ([eliptica] of Aerobico
-             (nombreEj "Eliptíca")
+        (nombreEj "Eliptíca")
      )
 
     ([caminar] of Aerobico
@@ -541,8 +541,24 @@
 
     ;; EQUILIBRIO
 
+    ([caminar_sentado] of Equilibrio
+        (nombreEj "Simular que caminas sentado")
+    )
+
+    ([elevaciones_laterales_brazos] of Equilibrio
+        (nombreEj "Elevaciones laterales con las piernas")
+    )
+
+    ([elevaciones_laterales_piernas] of Equilibrio
+        (nombreEj "Elevaciones laterales con los brazos")
+    )
+
+    ([marcha_atras] of Equilibrio
+        (nombreEj "Caminar marcha atrás")
+    )
+
     ([hacer_el_flamenco] of Equilibrio
-        (nombreEj "Ejercicio del flamenco")
+        (nombreEj "Postura del flamenco")
     )
 
     ([caminar_recta] of Equilibrio
@@ -577,6 +593,30 @@
     )
 
     ;; FLEXIBILIDAD
+    ([rotaciones_cuello] of Flexibilidad
+        (nombreEj "Rotaciones de cuello")
+    )
+
+    ([estiramientos_cuello] of Flexibilidad
+        (nombreEj "Estiramientos de cuello")
+    )
+
+    ([estiramientos_gemelos] of Flexibilidad
+        (nombreEj "Estiramientos de gemelos en pared")
+    )
+
+    ([rotacion_cintura] of Flexibilidad
+        (nombreEj "Rotaciones de cintura en el suelo")
+    )
+
+    ([estiramientos_pierna_espalda_suelo] of Flexibilidad
+        (nombreEj "Estiramiento de piernas y espalda en el suelo")
+    )
+
+    ([estiramientos_pierna_espalda_suelo] of Flexibilidad
+        (nombreEj "Estiramiento de piernas y espalda en una silla")
+    )
+
     ([estiramientos_cuadriceps] of Flexibilidad
         (nombreEj "Estiramientos de cuádriceps")
     )
@@ -584,10 +624,6 @@
     ([estiramientos_muneca] of Flexibilidad
         (nombreEj "Estiramientos de muñeca")
     )
-
-   ; ([estiramientos_cuadriceps] of Flexibilidad
-    ;    (nombreEj "Estiramientos_cuadriceps")
-    ;)
 
     ([estiramientos_pantorrillas] of Flexibilidad
         (nombreEj "Estiramientos de pantorrillas")
