@@ -268,7 +268,7 @@
 	(newPersona)
     ?x <- (object(is-a Persona))
 	=>
-	(bind ?redMob (yes-or-no-p "Eres una persona con movilidad reducida? si o no "))
+	(bind ?redMob (yes-or-no-p "Eres una persona con movilidad reducida? (si/no):  "))
     (send ?x put-mobilidad_reducida ?redMob)
 	(if (eq ?redMob FALSE) then (assert (RedMobOK)))
 )
@@ -279,7 +279,7 @@
 	(newPersona)
     ?x <- (object(is-a Persona))
 	=>
-	(bind ?stairs (yes-or-no-p "Te ahogas al subir las escaleras? si o no "))
+	(bind ?stairs (yes-or-no-p "Te ahogas al subir las escaleras? (si/no): "))
     (bind ?c (make-instance of CondicionFisica))
 	(send ?c put-ahoga_subir_escalera ?stairs)
 	(if (eq ?stairs FALSE) then
@@ -294,7 +294,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?alch (yes-or-no-p "Sueles beber alcohol con frecuencia? si o no "))
+	(bind ?alch (yes-or-no-p "Sueles beber alcohol con frecuencia? (si/no): "))
 	(send ?c put-bebe_alcohol ?alch)
 	(if (eq ?alch FALSE) then
 		(assert (AlcoholOK))
@@ -308,7 +308,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?caidas (yes-or-no-p "Tienes caídas frecuentes? si o no "))
+	(bind ?caidas (yes-or-no-p "Tienes caídas frecuentes? (si/no): "))
 	(send ?c put-caidas_frecuentemente ?caidas)
 	(if (eq ?caidas FALSE) then
 		(assert (CaidasOK))
@@ -322,7 +322,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?cansancio (yes-or-no-p "Te sueles cansar rápidamente? si o no "))
+	(bind ?cansancio (yes-or-no-p "Te sueles cansar rápidamente? (si/no): "))
 	(send ?c put-cansancio_rapido ?cansancio)
 	(if (eq ?cansancio FALSE) then
 		(assert (CansancioOK))
@@ -336,7 +336,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?cbasura (yes-or-no-p "Sueles comer comida basura con frecuencia? si o no "))
+	(bind ?cbasura (yes-or-no-p "Sueles comer comida basura con frecuencia? (si/no): "))
 	(send ?c put-comida_basura ?cbasura)
 	(if (eq ?cbasura FALSE) then
 		(assert (CBasuraOK))
@@ -350,7 +350,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?compra (yes-or-no-p "Sueles ir a comprar con frecuencia? si o no "))
+	(bind ?compra (yes-or-no-p "Sueles ir a comprar con frecuencia? (si/no): "))
 	(send ?c put-compra_con_frecuencia ?compra)
 	(if (eq ?compra TRUE) then
 		(assert (ComprasOK))
@@ -364,7 +364,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?corre (yes-or-no-p "Sueles ir a correr con frecuencia? si o no "))
+	(bind ?corre (yes-or-no-p "Sueles ir a correr con frecuencia? (si/no): "))
 	(send ?c put-corre_con_frecuencia ?corre)
 	(if (eq ?corre TRUE) then
 		(assert (RunningOK))
@@ -379,7 +379,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?deporte (yes-or-no-p "Sueles practicar algún deporte con frecuencia? si o no "))
+	(bind ?deporte (yes-or-no-p "Sueles practicar algún deporte con frecuencia? (si/no): "))
 	(send ?c put-deporte_con_frecuencia ?deporte)
 	(if (eq ?deporte TRUE) then
 		(assert (DeporteOK))
@@ -393,7 +393,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?dieta (yes-or-no-p "Tienes una dieta variada? si o no "))
+	(bind ?dieta (yes-or-no-p "Tienes una dieta variada? (si/no): "))
 	(send ?c put-dieta_variada ?dieta)
 	(if (eq ?dieta TRUE) then
 		(assert (DietaOK))
@@ -408,7 +408,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?duerme (yes-or-no-p "Sueles dormir bien? si o no "))
+	(bind ?duerme (yes-or-no-p "Sueles dormir bien? (si/no): "))
 	(send ?c put-duerme_bien ?duerme)
 	(if (eq ?duerme TRUE) then 
 		(assert (DuermeOK))
@@ -422,7 +422,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?fuma (yes-or-no-p "Fumas? si o no "))
+	(bind ?fuma (yes-or-no-p "Fumas? (si/no): "))
 	(send ?c put-fuma ?fuma)
 	(if (eq ?fuma FALSE) then
 		(assert (FumaOK))
@@ -436,7 +436,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?operaciones (yes-or-no-p "Has tenido alguna operación reciente? si o no "))
+	(bind ?operaciones (yes-or-no-p "Has tenido alguna operación reciente? (si/no): "))
 	(if (eq ?operaciones TRUE) then
 		(bind ?operS (yes-or-no-p "Es en el tronco superior si o no "))
 		(send ?c put-operaciones_recientes_superior ?operS)
@@ -459,7 +459,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?pasea (yes-or-no-p "Sueles salir a pasear con frecuencia? si o no "))
+	(bind ?pasea (yes-or-no-p "Sueles salir a pasear con frecuencia? (si/no): "))
 	(send ?c put-pasea_con_frecuencia ?pasea)
 	(if (eq ?pasea TRUE) then
 		(assert (PaseaOK))
@@ -473,7 +473,7 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?tirones (yes-or-no-p "Sueles tener tirones con frecuencia? si o no "))
+	(bind ?tirones (yes-or-no-p "Sueles tener tirones con frecuencia? (si/no): "))
 	(send ?c put-tirones_frecuentemente ?tirones)
 	(if (eq ?tirones FALSE) then 
 		(assert (TironesOK))
@@ -487,12 +487,12 @@
     ?x <- (object(is-a Persona))
 	?c <- (object(is-a CondicionFisica))
 	=>
-	(bind ?dolorart (yes-or-no-p "Te duelen las articulaciones con frecuencia? si o no "))
+	(bind ?dolorart (yes-or-no-p "Te duelen las articulaciones con frecuencia? (si/no): "))
 	(if (eq ?dolorart TRUE) then
-		(bind ?dolorartS (yes-or-no-p "Suele ser en las articulaciones superiores si o no "))
+		(bind ?dolorartS (yes-or-no-p "Suele ser en las articulaciones superiores? (si/no): "))
 		(send ?c put-dolor_articulaciones_tronco_superior ?dolorartS)
 		(if (eq ?dolorartS FALSE) then (assert (TroncoSuperiorOK)))
-		(bind ?dolorartI (yes-or-no-p "Suele ser en las articulaciones inferiores si o no "))
+		(bind ?dolorartI (yes-or-no-p "Suele ser en las articulaciones inferiores? (si/no): "))
 		(send ?c put-dolor_articulaciones_tronco_inferior ?dolorartI)
 		(if (eq ?dolorartI FALSE) then (assert (TroncoInferiorOK)))
 		(ActBaja ?c)
@@ -512,7 +512,7 @@
     ?x <- (object(is-a Persona))
 	?Eartrosis <- (object(is-a artrosis))
 	=>
-	(bind ?artrosiis (yes-or-no-p "Padeces de artrosis? si o no "))
+	(bind ?artrosiis (yes-or-no-p "Padeces de artrosis? (si/no): "))
 	
 	(if (eq ?artrosiis TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eartrosis)
@@ -526,7 +526,7 @@
     ?x <- (object(is-a Persona))
 	?Eartritis <- (object(is-a artritis))
 	=>
-	(bind ?artritis (yes-or-no-p "Padeces de artritis? si o no "))
+	(bind ?artritis (yes-or-no-p "Padeces de artritis? (si/no): "))
 	(if (eq ?artritis TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eartritis)
 		(assert(artritis))
@@ -539,7 +539,7 @@
     ?x <- (object(is-a Persona))
 	?EDepresion <- (object(is-a depresion))
 	=>
-	(bind ?depresion (yes-or-no-p "Padeces de depresión? si o no "))
+	(bind ?depresion (yes-or-no-p "Padeces de depresión? (si/no): "))
 	(if (eq ?depresion TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EDepresion)
 		(assert(depresion))
@@ -551,7 +551,7 @@
     ?x <- (object(is-a Persona))
 	?EDiabetes <- (object(is-a diabetes))
 	=>
-	(bind ?diabetes (yes-or-no-p "Padeces de diabetes? si o no "))
+	(bind ?diabetes (yes-or-no-p "Padeces de diabetes? (si/no): "))
 	(if (eq ?diabetes TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EDiabetes)
 		(assert(diabetes))
@@ -563,7 +563,7 @@
     ?x <- (object(is-a Persona))
 	?Ecoronarias <- (object(is-a enfermedades_cardiovasculares))
 	=>
-	(bind ?coronarias (yes-or-no-p "Padeces de alguna enfermedad coronaria? si o no "))
+	(bind ?coronarias (yes-or-no-p "Padeces de alguna enfermedad coronaria? (si/no): "))
 	(if (eq ?coronarias TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ecoronarias)
 		(assert(coronarias))
@@ -575,7 +575,7 @@
     ?x <- (object(is-a Persona))
 	?Ecardiovascular <- (object(is-a enfermedades_cardiovasculares))
 	=>
-	(bind ?cardiovascular (yes-or-no-p "Padeces de alguna enfermedad cardiovascular? si o no "))
+	(bind ?cardiovascular (yes-or-no-p "Padeces de alguna enfermedad cardiovascular? (si/no): "))
 	(if (eq ?cardiovascular TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ecardiovascular)
 		(assert(cardiovascular))
@@ -587,7 +587,7 @@
     ?x <- (object(is-a Persona))
 	?Eequilibrio <- (object(is-a falta_equilibrio))
 	=>
-	(bind ?faltae (yes-or-no-p "Sientes una considerable falta de equilibrio? si o no "))
+	(bind ?faltae (yes-or-no-p "Sientes una considerable falta de equilibrio? (si/no): "))
 	(if (eq ?faltae TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eequilibrio)
 		(assert(Faltaequilibrio))
@@ -599,7 +599,7 @@
     ?x <- (object(is-a Persona))
 	?EFibromialgia <- (object(is-a fibromialgia))
 	=>
-	(bind ?fibro (yes-or-no-p "Padeces de fibromialgia? si o no "))
+	(bind ?fibro (yes-or-no-p "Padeces de fibromialgia? (si/no): "))
 	(if (eq ?fibro TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EFibromialgia)
 		(assert(fibromialgia))
@@ -611,7 +611,7 @@
     ?x <- (object(is-a Persona))
 	?Ehipertension <- (object(is-a hipertension))
 	=>
-	(bind ?hipertension (yes-or-no-p "Padeces de hipertensión? si o no "))
+	(bind ?hipertension (yes-or-no-p "Padeces de hipertensión? (si/no): "))
 	(if (eq ?hipertension TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ehipertension)
 		(assert(hipertension))
@@ -624,7 +624,7 @@
     ?x <- (object(is-a Persona))
 	?Eobesidad <- (object(is-a obesidad))
 	=>
-	(bind ?obesidad (yes-or-no-p "Padeces de obesidad? si o no "))
+	(bind ?obesidad (yes-or-no-p "Padeces de obesidad? (si/no): "))
 	(if (eq ?obesidad TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eobesidad)
 		(assert(obesidad))
@@ -636,7 +636,7 @@
     ?x <- (object(is-a Persona))
 	?Eosteoporosis <- (object(is-a osteoporosis))
 	=>
-	(bind ?osteo (yes-or-no-p "Padeces de osteoporosis? si o no "))
+	(bind ?osteo (yes-or-no-p "Padeces de osteoporosis? (si/no): "))
 	(if (eq ?osteo TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eosteoporosis) ;esto no hace nada??
 		(assert(osteoporosis))
@@ -648,7 +648,7 @@
     ?x <- (object(is-a Persona))
 	?Eparkinson <- (object(is-a parkinson))
 	=>
-	(bind ?parkinson (yes-or-no-p "Padeces de parkinson? si o no "))
+	(bind ?parkinson (yes-or-no-p "Padeces de parkinson? (si/no): "))
 	(if (eq ?parkinson TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eparkinson)
 		(assert(parkinson))
@@ -1681,11 +1681,11 @@
 	(printout t "Hola " (send ?x get-nombre) ", con tus respuestas hemos hecho el siguiente análisis:" crlf)
 	(printout t crlf)
 
-	(printout t "---------------------------------------------------------------------------------------------------" crlf)
+	(printout t "-------------------------------------------------------------------------------------------------------------" crlf)
 	(printout t "|	Nombre: " (send ?x get-nombre) "															|" crlf)
 	(printout t "|	Índice de Masa Corporal (IMC): " ?bmiPersona " ---> " ?resBMI "								|" crlf)
 	(printout t "|	Condición física: " ?writeCf "																|" crlf)
-	(printout t "---------------------------------------------------------------------------------------------------" crlf)
+	(printout t "-------------------------------------------------------------------------------------------------------------" crlf)
 
 	(printout t crlf)
 	(printout t "Con este análisis, tu disponibilidad y preferencia de intensidad hemos creado el siguiente plan de entrenamiento para ti: " crlf)
