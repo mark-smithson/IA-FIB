@@ -1362,7 +1362,7 @@
 	)
 )
 
-(defrule ejCaminarLineaRecta
+(defrule ejCaminarEnLineaRecta
 	(newPersona)
 	(TroncoInferiorOK)
 	(OperacionesInferiorOK)
