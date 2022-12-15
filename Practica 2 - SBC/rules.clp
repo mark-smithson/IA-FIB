@@ -1258,6 +1258,136 @@
 	)
 )
 
+(defrule ejCaminarSentado
+	(newPersona)
+	(TroncoInferiorOK)
+	(OperacionesInferiorOK)
+	(RedMobOK)
+	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Simular que caminas sentado") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3.5) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejElevBrazos
+	(newPersona)
+	(TroncoSuperiorOK)
+	(OperacionesSuperiorOK)
+	(RedMobOK)
+	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Elevaciones laterales con los brazos") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3) ;medio
+			else (send ?exe put-duracionEj 1.5)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejMarchaAtras
+	(newPersona)
+	(TroncoInferiorOK)
+	(OperacionesInferiorOK)
+	(RedMobOK)
+	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Caminar marcha atrás") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 4) ;medio
+			else (send ?exe put-duracionEj 2.5)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejPoseFlamenco
+	(newPersona)
+	(TroncoInferiorOK)
+	(OperacionesInferiorOK)
+	(RedMobOK)
+	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Postura del flamenco") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 1.5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 1) ;medio
+			else (send ?exe put-duracionEj 0.5)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejCaminarLineaRecta
+	(newPersona)
+	(TroncoInferiorOK)
+	(OperacionesInferiorOK)
+	(RedMobOK)
+	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Caminar en línea recta") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 3.5) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
 ;Exercicis FLEXIBILITAT
 
 (defrule ejEstCuadriceps
