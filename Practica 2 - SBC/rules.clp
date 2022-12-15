@@ -860,6 +860,271 @@
 	)
 )
 
+(defrule ejGolf
+	(newPersona)
+	(TroncoSuperiorOK)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(OperacionesSuperiorOK)
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Golf") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 30) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 25) ;medio
+			else (send ?exe put-duracionEj 20)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejMarchaAtletica
+	(newPersona)
+	(TroncoInferiorOK)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Marcha atlética") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 7) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 5) ;medio
+			else (send ?exe put-duracionEj 3)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejPilates
+	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(OperacionesSuperiorOK)
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis)(fibromialgia)(parkinson))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Pilates") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 30) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 20) ;medio
+			else (send ?exe put-duracionEj 15)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejSenderismo
+	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(OperacionesSuperiorOK)
+	(TroncoInferiorOK)
+	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Senderismo") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 30) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 20) ;medio
+			else (send ?exe put-duracionEj 15)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejYoga
+	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(OperacionesSuperiorOK)
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Yoga") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 30) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 20) ;medio
+			else (send ?exe put-duracionEj 15)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejAquaGym
+	(newPersona)
+	(RedMobOK)
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis)(parkinson)(fibromialgia)(artrosis))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Aquagym") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 30) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 20) ;medio
+			else (send ?exe put-duracionEj 15)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejSaltarCuerda
+	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(OperacionesSuperiorOK)
+	(TroncoInferiorOK)
+	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Saltar a la cuerda") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 6) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 4) ;medio
+			else (send ?exe put-duracionEj 2)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejRemar
+	(newPersona)
+	(RedMobOK)
+	(OperacionesSuperiorOK)
+	(TroncoSuperiorOK)
+	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Remar") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 8.5) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 7) ;medio
+			else (send ?exe put-duracionEj 5)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejTennis
+	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(OperacionesSuperiorOK)
+	(TroncoSuperiorOK)
+	(TroncoInferiorOK)
+	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Tennis") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 30) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 20) ;medio
+			else (send ?exe put-duracionEj 15)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+(defrule ejEliptica
+	(newPersona)
+	(RedMobOK)
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(or (diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular))
+	?p<-(planprueba ?planPrueba)
+	?x<-(object(is-a Persona))
+	=>
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Elíptica") 0)))
+	(bind ?exe (nth$ 1 ?ex))
+	(send ?exe put-parte_de ?planPrueba)
+	(bind ?intA (send ?x get-preferencia_intensidad))
+	(if (> ?intA 7) 
+		then (send ?exe put-duracionEj 10) ;alto
+		else 
+			(if (> ?intA 4) then (send ?exe put-duracionEj 7) ;medio
+			else (send ?exe put-duracionEj 5)) ;bajo
+	)
+	(bind ?dis (send ?x get-disponibilidad))
+	(if (< ?dis 5) 
+		then (send ?exe put-frecuencia 1) ;menos exigente
+		else (send ?exe put-frecuencia 3) ;más exigente
+	)
+)
+
+
 ;Exercicis D'EQUILIBRI
 
 (defrule ejAndarPuntillas
