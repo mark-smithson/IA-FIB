@@ -516,7 +516,7 @@
      )
 
      ([eliptica] of Aerobico
-        (nombreEj "Eliptíca")
+        (nombreEj "Elíptica")
      )
 
     ([caminar] of Aerobico
