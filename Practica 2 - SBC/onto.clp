@@ -650,8 +650,40 @@
     )
 
     ;; MUSCULACION
+    ([sentadillas_pesas] of Musculacion
+        (nombreEj "Sentadillas con pesas")
+    )
+
+    ([fondos_triceps] of Musculacion
+        (nombreEj "Fondos de tríceps con silla")
+    )
+
+    ([abdominales_suelo] of Musculacion
+        (nombreEj "Abdominales con pesas en el suelo")
+    )
+
+    ([elevacion_goma] of Musculacion
+        (nombreEj "Elevaciones de piernas con banda elástica")
+    )
+
+    ([extension_piernas_goma] of Musculacion
+        (nombreEj "Extensiones de piernas con banda elástica")
+    )
+
+    ([extension_espalda_goma] of Musculacion
+        (nombreEj "Extensiones de espalda con banda elástica")
+    )
+
+    ([pres_hombros] of Musculacion
+        (nombreEj "Press de hombros con mancuernas")
+    )
+
+    ([sentadillas_goma] of Musculacion
+        (nombreEj "Sentadillas con banda elástica")
+    )
+
     ([curl_biceps] of Musculacion
-        (nombreEj "Curl bíceps")
+        (nombreEj "Curl bíceps con mancuernas")
     )
 
     ([elevacion_piernas_lados] of Musculacion
@@ -663,11 +695,15 @@
     )
 
     ([extension_triceps] of Musculacion
-        (nombreEj "Extensión de tríceps")
+        (nombreEj "Extensión de tríceps con mancuernas")
     )
 
     ([flexion_hombros] of Musculacion
         (nombreEj "Flexión de hombros")
+    )
+
+    ([elevaciones_hombro] of Musculacion
+        (nombreEj "Elevaciones laterales de hombro con mancuernas")
     )
 
     ([flexion_plantar] of Musculacion
