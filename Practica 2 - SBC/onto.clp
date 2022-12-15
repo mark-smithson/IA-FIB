@@ -478,6 +478,47 @@
     )
 
     ;; AEROBICO
+
+     ([golf] of Aerobico
+             (nombreEj "Golf")
+     )
+
+     ([marcha] of Aerobico
+             (nombreEj "Marcha atlética")
+     )
+
+      ([pilates] of Aerobico
+              (nombreEj "Pilates")
+      )
+
+      ([senderismo] of Aerobico
+              (nombreEj "Senderismo")
+      )
+
+     ([yoga] of Aerobico
+             (nombreEj "Yoga")
+     )
+
+     ([aquagym] of Aerobico
+             (nombreEj "Aquagym")
+     )
+
+     ([saltocuerda] of Aerobico
+             (nombreEj "Saltar a la cuerda")
+     )
+
+     ([remo] of Aerobico
+             (nombreEj "Remar")
+     )
+
+     ([tennis] of Aerobico
+             (nombreEj "Tennis")
+     )
+
+     ([eliptica] of Aerobico
+             (nombreEj "Eliptíca")
+     )
+
     ([caminar] of Aerobico
         (nombreEj "Caminar")
     )
@@ -499,8 +540,24 @@
     )
 
     ;; EQUILIBRIO
+
+    ([hacer_el_flamenco] of Equilibrio
+        (nombreEj "Ejercicio del flamenco")
+    )
+
+    ([caminar_recta] of Equilibrio
+        (nombreEj "Caminar en línea recta")
+    )
+
     ([andar_de_puntillas] of Equilibrio
         (nombreEj "Andar de puntillas")
+    )
+
+    ([yogaE] of Equilibrio
+        (nombreEj "Yoga")
+    )
+    ([pelota_suiza] of Equilibrio
+        (nombreEj "Hacer equilibrio en una pelota suiza")
     )
 
     ([flexion_de_cadera] of Equilibrio
