@@ -448,6 +448,9 @@
     (slot dia
         (type STRING)
         (create-accessor read-write))
+    (slot duracionSesion
+        (type INTEGER)
+        (create-accessor read-write))
 )
 
 (definstances instances

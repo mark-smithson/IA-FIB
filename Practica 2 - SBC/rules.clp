@@ -63,13 +63,19 @@
 		(bind ?ejsSesR (send ?sesion get-Estiramientos))
 		(bind ?ejsSes (insert$ ?ejsSes (+(length$ ?ejsSes)1)?ejercicio))
 		(bind ?ejsSesR (insert$ ?ejsSesR (+(length$ ?ejsSesR)1)?ejercicio))
+		(bind ?durCalentEstir (* (send ?ejercicio get-duracionEj) 2))
 		(send ?sesion put-Calentamiento ?ejsSes)
 		(send ?sesion put-Estiramientos ?ejsSesR)
+		(bind ?durActSes (send ?sesion get-duracionSesion))
+		(send ?sesion put-duracionSesion (+ ?durActSes ?durCalentEstir))
 		)
 		(case 2 then
 		(bind ?ejsSes (send ?sesion get-EjPrincipal))
 		(bind ?ejsSes (insert$ ?ejsSes (+(length$ ?ejsSes)1)?ejercicio))
+		(bind ?durEjPrincipal (send ?ejercicio get-duracionEj))
+		(bind ?durActSes (send ?sesion get-duracionSesion))
 		(send ?sesion put-EjPrincipal ?ejsSes)
+		(send ?sesion put-duracionSesion (+ ?durActSes ?durEjPrincipal))
 		)
 	)
 )
@@ -695,6 +701,7 @@
 	(bind ?cf (* (send ?c get-CondFisica) 70))
 	(bind ?suma (/(+ ?int ?cf)100) )
 	(send ?x put-preferencia_intensidad (integer ?suma))
+	(printout t crlf " LA INTENSIDAD FINAL ES: " (integer ?suma) crlf)
 	(focus INFERENCIA)
 )
 
@@ -2789,21 +2796,17 @@
 (defrule assignEnfermedad
 	(declare (salience 0))
 	(newPersona)
-	;?dt<- (dispt (d ?d))
 	?ej <- (object
 		(is-a ?class&: (subclassp ?class Ejercicio))
 		(parte_de ?planPrueba&:(neq ?planPrueba [nil]))
 	)
 	?ses<- (object (is-a Sesion))
 	?x <- (object (is-a Persona))
-	;?disponibilidad <- (Disp ?i&:(> ?i 0))
 	(not (done ?ej ?ses))
 	=>
-			
-			;(printout t crlf ?d crlf)
+		
 			(if (duracionOK ?ses ?ej ?x) then
 				(assert (done ?ej ?ses))
-				;llamar función assign
 				(if (eq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 1 ))
 				(if (neq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 2))
 				(bind ?frec (send ?ej get-frecuencia))
@@ -2868,7 +2871,7 @@
 
 	(foreach ?sesion ?dias do
 		
-		(printout t crlf (upcase (send ?sesion get-dia)))
+		(printout t crlf (upcase (send ?sesion get-dia)) " (" (send ?sesion get-duracionSesion) " min) ")
 		(printout t crlf)
 
 		(bind ?calentamientos (send ?sesion get-Calentamiento))
