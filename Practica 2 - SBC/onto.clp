@@ -549,10 +549,6 @@
         (nombreEj "Elevaciones laterales con las piernas")
     )
 
-    ([elevaciones_laterales_piernas] of Equilibrio
-        (nombreEj "Elevaciones laterales con los brazos")
-    )
-
     ([marcha_atras] of Equilibrio
         (nombreEj "Caminar marcha atrás")
     )
@@ -719,6 +715,34 @@
     )
 
     ;; CALENTAMIENTO
+    ([rotacion_muneca_mano] of Ejs_Calentamiento
+        (nombreEj "Rotaciones de muñecas y manos")
+    )
+
+     ([rotacion_codo_antbrazo] of Ejs_Calentamiento
+         (nombreEj "Rotaciones de codos y antebrazos")
+     )
+
+    ([flexiones_brazo] of Ejs_Calentamiento
+        (nombreEj "Flexiones de brazos")
+    )
+
+    ([saltosLL] of Ejs_Calentamiento
+        (nombreEj "Saltos hacia los lados")
+    )
+
+    ([saltosAA] of Ejs_Calentamiento
+        (nombreEj "Saltos hacia alante y hacia atrás")
+    )
+
+    ([marcha_sitio] of Ejs_Calentamiento
+        (nombreEj "Marcha en el sitio")
+    )
+
+     ([rotacion_cabezahombros] of Ejs_Calentamiento
+         (nombreEj "Rotaciones de cabeza y hombros")
+     )
+
     ([CBiceps] of Ejs_Calentamiento
         (nombreEj "Extensión de bíceps")
     )
