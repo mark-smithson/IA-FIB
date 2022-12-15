@@ -549,10 +549,6 @@
         (nombreEj "Elevaciones laterales con las piernas")
     )
 
-    ([elevaciones_laterales_piernas] of Equilibrio
-        (nombreEj "Elevaciones laterales con los brazos")
-    )
-
     ([marcha_atras] of Equilibrio
         (nombreEj "Caminar marcha atrás")
     )
@@ -650,8 +646,40 @@
     )
 
     ;; MUSCULACION
+    ([sentadillas_pesas] of Musculacion
+        (nombreEj "Sentadillas con pesas")
+    )
+
+    ([fondos_triceps] of Musculacion
+        (nombreEj "Fondos de tríceps con silla")
+    )
+
+    ([abdominales_suelo] of Musculacion
+        (nombreEj "Abdominales con pesas en el suelo")
+    )
+
+    ([elevacion_goma] of Musculacion
+        (nombreEj "Elevaciones de piernas con banda elástica")
+    )
+
+    ([extension_piernas_goma] of Musculacion
+        (nombreEj "Extensiones de piernas con banda elástica")
+    )
+
+    ([extension_espalda_goma] of Musculacion
+        (nombreEj "Extensiones de espalda con banda elástica")
+    )
+
+    ([pres_hombros] of Musculacion
+        (nombreEj "Press de hombros con mancuernas")
+    )
+
+    ([sentadillas_goma] of Musculacion
+        (nombreEj "Sentadillas con banda elástica")
+    )
+
     ([curl_biceps] of Musculacion
-        (nombreEj "Curl bíceps")
+        (nombreEj "Curl bíceps con mancuernas")
     )
 
     ([elevacion_piernas_lados] of Musculacion
@@ -663,11 +691,15 @@
     )
 
     ([extension_triceps] of Musculacion
-        (nombreEj "Extensión de tríceps")
+        (nombreEj "Extensión de tríceps con mancuernas")
     )
 
     ([flexion_hombros] of Musculacion
         (nombreEj "Flexión de hombros")
+    )
+
+    ([elevaciones_hombro] of Musculacion
+        (nombreEj "Elevaciones laterales de hombro con mancuernas")
     )
 
     ([flexion_plantar] of Musculacion
@@ -683,6 +715,34 @@
     )
 
     ;; CALENTAMIENTO
+    ([rotacion_muneca_mano] of Ejs_Calentamiento
+        (nombreEj "Rotaciones de muñecas y manos")
+    )
+
+     ([rotacion_codo_antbrazo] of Ejs_Calentamiento
+         (nombreEj "Rotaciones de codos y antebrazos")
+     )
+
+    ([flexiones_brazo] of Ejs_Calentamiento
+        (nombreEj "Flexiones de brazos")
+    )
+
+    ([saltosLL] of Ejs_Calentamiento
+        (nombreEj "Saltos hacia los lados")
+    )
+
+    ([saltosAA] of Ejs_Calentamiento
+        (nombreEj "Saltos hacia alante y hacia atrás")
+    )
+
+    ([marcha_sitio] of Ejs_Calentamiento
+        (nombreEj "Marcha en el sitio")
+    )
+
+     ([rotacion_cabezahombros] of Ejs_Calentamiento
+         (nombreEj "Rotaciones de cabeza y hombros")
+     )
+
     ([CBiceps] of Ejs_Calentamiento
         (nombreEj "Extensión de bíceps")
     )
