@@ -9,7 +9,7 @@ Relampago
 65
 F
 2
-3
+6
 n
 n
 n

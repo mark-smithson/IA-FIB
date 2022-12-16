@@ -67,7 +67,9 @@
 		(send ?sesion put-Calentamiento ?ejsSes)
 		(send ?sesion put-Estiramientos ?ejsSesR)
 		(bind ?durActSes (send ?sesion get-duracionSesion))
+		(bind ?duracionCalentamiento (send ?sesion get-duracionCalentamiento))
 		(send ?sesion put-duracionSesion (+ ?durActSes ?durCalentEstir))
+		(send ?sesion put-duracionCalentamiento (+ ?duracionCalentamiento ?durCalentEstir))
 		)
 		(case 2 then
 		(bind ?ejsSes (send ?sesion get-EjPrincipal))
@@ -138,18 +140,26 @@
 	)
 )
 
+(deffunction duracionOKCalentamiento (?sesion ?ejercicio )
+
+	(bind ?frec (send ?ejercicio get-frecuencia))
+	(if (> ?frec 0) then 
+		(bind ?duracionCalNuevo (+ (/(send ?sesion get-duracionCalentamiento) 2) (send ?ejercicio get-duracionEj)))
+		(if (< ?duracionCalNuevo 4) then return TRUE)
+	else (return FALSE)
+	)
+)
+
 (deffunction ActBaja (?cfisica)
 	(bind ?cbaja (send ?cfisica get-Cbaja))
 	(bind ?cbaja (+ ?cbaja 1))
 	(send ?cfisica put-Cbaja ?cbaja)
-	;(printout t crlf "baja ara és: " ?cbaja crlf)
 )
 
 (deffunction ActAlta (?cfisica)
 	(bind ?calta (send ?cfisica get-Calta))
 	(bind ?calta (+ ?calta 1))
 	(send ?cfisica put-Calta ?calta)
-	;(printout t crlf "alta ara és: " ?calta crlf)
 )
 
 (deffunction calcIMC (?x ?c)
@@ -701,7 +711,6 @@
 	(bind ?cf (* (send ?c get-CondFisica) 70))
 	(bind ?suma (/(+ ?int ?cf)100) )
 	(send ?x put-preferencia_intensidad (integer ?suma))
-	(printout t crlf " LA INTENSIDAD FINAL ES: " (integer ?suma) crlf)
 	(focus INFERENCIA)
 )
 
@@ -2332,7 +2341,7 @@
 	?p<-(planprueba ?planPrueba)
     ?x<-(object(is-a Persona))
 	=>
-	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Elevaciones laterales de hombros con mancuernas") 0)))
+	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj "Elevaciones laterales de hombro con mancuernas") 0)))
 	(bind ?exe (nth$ 1 ?ex))
 	(send ?exe put-parte_de ?planPrueba)
     (bind ?intA (send ?x get-preferencia_intensidad))
@@ -2807,11 +2816,19 @@
 		
 			(if (duracionOK ?ses ?ej ?x) then
 				(assert (done ?ej ?ses))
-				(if (eq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 1 ))
-				(if (neq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 2))
-				(bind ?frec (send ?ej get-frecuencia))
-				(bind ?f (- ?frec 1))
-				(send ?ej put-frecuencia ?f)
+				(if (eq (class ?ej) Ejs_Calentamiento) then 
+					(if (duracionOKCalentamiento ?ses ?ej) then 
+					(assignExercise ?ej ?ses 1) 
+					(bind ?frec (send ?ej get-frecuencia))
+					(bind ?f (- ?frec 1))
+					(send ?ej put-frecuencia ?f))
+					)
+				(if (neq (class ?ej) Ejs_Calentamiento) then (assignExercise ?ej ?ses 2)
+					(bind ?frec (send ?ej get-frecuencia))
+					(bind ?f (- ?frec 1))
+					(send ?ej put-frecuencia ?f)
+				)
+				
 			)
 			
 )
@@ -2888,16 +2905,26 @@
 			(printout t crlf)
 		)
 
+		;Para los ejercicios de musculación:
+		
+		(if (< (send ?x get-preferencia_intensidad) 4) then (bind ?rm "60%")
+		else 
+			(if (< (send ?x get-preferencia_intensidad) 7) then (bind ?rm "70%"))
+			else (bind ?rm "80%")
+		)
+		(send ?sesion put-rm ?rm)
+
 		(printout t crlf)
 		(printout t "  " "Ejercicio :" crlf)
 		(printout t crlf)
 		(foreach ?ej ?principales do
 			(if (eq (class ?ej) Musculacion) then 
-				(printout t "    " (send ?ej get-nombreEj))
-				(printout t "    " (send ?ej get-series))
-				(printout t " series")
-				(printout t "    " (send ?ej get-repeticiones))
-				(printout t " repeticiones")
+				(printout t "    " (send ?ej get-nombreEj) ": " crlf)
+				(printout t "    	" (send ?ej get-series))
+				(printout t " series" crlf)
+				(printout t "    	" (send ?ej get-repeticiones))
+				(printout t " repeticiones" crlf )
+				(printout t "    	El peso debería ser con un " (send ?sesion get-rm) " de tu 1RM")
 				(printout t crlf)
 			else 
 				(printout t "    " (send ?ej get-nombreEj))

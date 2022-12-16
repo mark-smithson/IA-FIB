@@ -448,7 +448,13 @@
     (slot dia
         (type STRING)
         (create-accessor read-write))
+    (slot rm
+        (type STRING)
+        (create-accessor read-write))
     (slot duracionSesion
+        (type INTEGER)
+        (create-accessor read-write))
+    (slot duracionCalentamiento
         (type INTEGER)
         (create-accessor read-write))
 )
@@ -549,7 +555,7 @@
     )
 
     ([elevaciones_laterales_brazos] of Equilibrio
-        (nombreEj "Elevaciones laterales con las piernas")
+        (nombreEj "Elevaciones laterales con los brazos")
     )
 
     ([marcha_atras] of Equilibrio
