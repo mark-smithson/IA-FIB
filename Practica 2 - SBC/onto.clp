@@ -11,18 +11,6 @@
     (slot parte_de
         (type INSTANCE)
         (create-accessor read-write))
-    (slot aire_libre
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot en_casa
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot gimnasio
-        (type SYMBOL)
-        (create-accessor read-write))
-    (slot intensidad
-        (type STRING)
-        (create-accessor read-write))
 
     (slot nombreEj
         (type STRING)
@@ -50,36 +38,6 @@
     
 )
 
-(defclass bailar
-    (is-a Aerobico)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass bici
-    (is-a Aerobico)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass caminar
-    (is-a Aerobico)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass correr
-    (is-a Aerobico)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass nadar
-    (is-a Aerobico)
-    (role concrete)
-    (pattern-match reactive)
-)
-
 (defclass Ejs_Calentamiento
     (is-a Ejercicio)
     (role concrete)
@@ -88,36 +46,6 @@
 
 (defclass Equilibrio
     (is-a Ejercicio)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass andar_de_puntillas
-    (is-a Equilibrio)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass extension_de_cadera
-    (is-a Equilibrio)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass flexion_de_cadera
-    (is-a Equilibrio)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass levantamiento_lateral_pierna
-    (is-a Equilibrio)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass tai_chi
-    (is-a Equilibrio)
     (role concrete)
     (pattern-match reactive)
 )
@@ -134,104 +62,9 @@
     (pattern-match reactive)
 )
 
-(defclass estiramientos_cuadriceps
-    (is-a Flexibilidad)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass estiramientos_muneca
-    (is-a Flexibilidad)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass estiramientos_pantorrillas
-    (is-a Flexibilidad)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass estiramientos_tendones_muslo
-    (is-a Flexibilidad)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass estiramientos_tobillos
-    (is-a Flexibilidad)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass estiramientos_triceps
-    (is-a Flexibilidad)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass rotacion_cadera
-    (is-a Flexibilidad)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass rotacion_hombros
-    (is-a Flexibilidad)
-    (role concrete)
-    (pattern-match reactive)
-)
 
 (defclass Musculacion
     (is-a Ejercicio)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass curl_biceps
-    (is-a Musculacion)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass elevacion_piernas_lados
-    (is-a Musculacion)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass extension_rodilla
-    (is-a Musculacion)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass extension_triceps
-    (is-a Musculacion)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass flexion_hombros
-    (is-a Musculacion)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass flexion_plantar
-    (is-a Musculacion)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass levantar_brazos
-    (is-a Musculacion)
-    (role concrete)
-    (pattern-match reactive)
-)
-
-(defclass levantarse_silla
-    (is-a Musculacion)
     (role concrete)
     (pattern-match reactive)
 )
@@ -240,9 +73,6 @@
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
-    (multislot mejorable_con
-        (type INSTANCE)
-        (create-accessor read-write))
 )
 
 (defclass artritis
@@ -461,7 +291,6 @@
 
 (definstances instances
     
-
     ([artritis] of artritis
          (mejorable_con  [ejaerobico] [ejflexibilidad] [ejmusculacion])
     )

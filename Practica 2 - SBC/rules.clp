@@ -577,7 +577,7 @@
 (defrule PREGUNTES::askCor
 	(newPersona)
     ?x <- (object(is-a Persona))
-	?Ecoronarias <- (object(is-a enfermedades_cardiovasculares))
+	?Ecoronarias <- (object(is-a enfermedades_coronarias))
 	=>
 	(bind ?coronarias (yes-or-no-p "Padeces de alguna enfermedad coronaria? (si/no): "))
 	(if (eq ?coronarias TRUE) then
