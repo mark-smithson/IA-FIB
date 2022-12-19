@@ -598,7 +598,6 @@
         (nombreEj "Extensión de gemelo")
     )
 
-
     ([faltaequilib] of falta_equilibrio
     )
 
@@ -616,5 +615,4 @@
 
     ([parkinson] of parkinson
     )
-
 )
