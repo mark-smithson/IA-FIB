@@ -50,12 +50,6 @@
     (pattern-match reactive)
 )
 
-(defclass Estiramientos
-    (is-a Ejercicio)
-    (role concrete)
-    (pattern-match reactive)
-)
-
 (defclass Flexibilidad
     (is-a Ejercicio)
     (role concrete)
@@ -73,6 +67,7 @@
     (is-a USER)
     (role concrete)
     (pattern-match reactive)
+    
 )
 
 (defclass artritis
@@ -291,28 +286,18 @@
 
 (definstances instances
     
-    ([artritis] of artritis
-         (mejorable_con  [ejaerobico] [ejflexibilidad] [ejmusculacion])
-    )
+    ([artritis] of artritis )
 
-    ([artrosis] of artrosis
-         (mejorable_con  [ejaerobico] [ejflexibilidad] [ejmusculacion])
-    )
+    ([artrosis] of artrosis )
 
-    ([cardiovasculares] of enfermedades_cardiovasculares
-         (mejorable_con  [ejaerobico] [ejequilibrio] [ejflexibilidad] [ejmusculacion])
-    )
+    ([cardiovasculares] of enfermedades_cardiovasculares)
 
-    ([coronarias] of enfermedades_coronarias
-         (mejorable_con  [ejaerobico] [ejequilibrio] [ejflexibilidad] [ejmusculacion])
-    )
+    ([coronarias] of enfermedades_coronarias   )
 
     ([depresion] of depresion
-         (mejorable_con  [ejaerobico] [ejequilibrio] [ejflexibilidad])
     )
 
     ([diabetes] of diabetes
-         (mejorable_con  [ejaerobico] [ejequilibrio] [ejmusculacion])
     )
 
     ;; AEROBICO
@@ -615,27 +600,21 @@
 
 
     ([faltaequilib] of falta_equilibrio
-         (mejorable_con  [ejaerobico] [ejequilibrio])
     )
 
     ([fibromialgia] of fibromialgia
-         (mejorable_con  [ejaerobico] [ejflexibilidad])
     )
 
     ([hipertension] of hipertension
-         (mejorable_con  [ejaerobico] [ejmusculacion])
     )
 
     ([obesidad] of obesidad
-         (mejorable_con  [ejaerobico] [ejequilibrio] [ejflexibilidad] [ejmusculacion])
     )
 
     ([osteoporosis] of osteoporosis
-         (mejorable_con  [ejaerobico] [ejequilibrio] [ejflexibilidad] [ejmusculacion])
     )
 
     ([parkinson] of parkinson
-         (mejorable_con  [ejaerobico] [ejequilibrio])
     )
 
 )

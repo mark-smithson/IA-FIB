@@ -43,13 +43,6 @@
                rdfs:range :Sesion .
 
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#mejorable_con
-:mejorable_con rdf:type owl:ObjectProperty ;
-               rdfs:subPropertyOf owl:topObjectProperty ;
-               rdfs:domain :Enfermedades ;
-               rdfs:range :Ejercicio .
-
-
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#padece_de
 :padece_de rdf:type owl:ObjectProperty ;
            rdfs:subPropertyOf owl:topObjectProperty ;
@@ -189,6 +182,20 @@
              rdfs:range xsd:boolean .
 
 
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#duracionCalentamiento
+:duracionCalentamiento rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf owl:topDataProperty ;
+                       rdfs:domain :Sesion ;
+                       rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#duracionSesion
+:duracionSesion rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain :Sesion ;
+                rdfs:range xsd:integer .
+
+
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#duracion_aerobico
 :duracion_aerobico rdf:type owl:DatatypeProperty ;
                    rdfs:subPropertyOf owl:topDataProperty ;
@@ -323,6 +330,13 @@
               rdf:type owl:FunctionalProperty ;
               rdfs:domain :Musculacion ;
               rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#rm
+:rm rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf owl:topDataProperty ;
+    rdfs:domain :Sesion ;
+    rdfs:range xsd:integer .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#sexo
@@ -626,52 +640,32 @@
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#artritis
 :artritis rdf:type owl:NamedIndividual ,
-                   :artritis ;
-          :mejorable_con :ejaerobico ,
-                         :ejflexibilidad ,
-                         :ejmusculacion .
+                   :artritis .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#artrosis
 :artrosis rdf:type owl:NamedIndividual ,
-                   :artrosis ;
-          :mejorable_con :ejaerobico ,
-                         :ejflexibilidad ,
-                         :ejmusculacion .
+                   :artrosis .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#cardiovasculares
 :cardiovasculares rdf:type owl:NamedIndividual ,
-                           :enfermedades_cardiovasculares ;
-                  :mejorable_con :ejaerobico ,
-                                 :ejequilibrio ,
-                                 :ejflexibilidad ,
-                                 :ejmusculacion .
+                           :enfermedades_cardiovasculares .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#coronarias
 :coronarias rdf:type owl:NamedIndividual ,
-                     :enfermedades_coronarias ;
-            :mejorable_con :ejaerobico ,
-                           :ejequilibrio ,
-                           :ejflexibilidad ,
-                           :ejmusculacion .
+                     :enfermedades_coronarias .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#depresion
 :depresion rdf:type owl:NamedIndividual ,
-                    :depresion ;
-           :mejorable_con :ejaerobico ,
-                          :ejequilibrio ,
-                          :ejflexibilidad .
+                    :depresion .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#diabetes
 :diabetes rdf:type owl:NamedIndividual ,
-                   :diabetes ;
-          :mejorable_con :ejaerobico ,
-                         :ejequilibrio ,
-                         :ejmusculacion .
+                   :diabetes .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#ejaerobico
@@ -696,48 +690,32 @@
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#faltaequilib
 :faltaequilib rdf:type owl:NamedIndividual ,
-                       :falta_equilibrio ;
-              :mejorable_con :ejaerobico ,
-                             :ejequilibrio .
+                       :falta_equilibrio .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#fibromialgia
 :fibromialgia rdf:type owl:NamedIndividual ,
-                       :fibromialgia ;
-              :mejorable_con :ejaerobico ,
-                             :ejflexibilidad .
+                       :fibromialgia .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#hipertension
 :hipertension rdf:type owl:NamedIndividual ,
-                       :hipertension ;
-              :mejorable_con :ejaerobico ,
-                             :ejmusculacion .
+                       :hipertension .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#obesidad
 :obesidad rdf:type owl:NamedIndividual ,
-                   :obesidad ;
-          :mejorable_con :ejaerobico ,
-                         :ejequilibrio ,
-                         :ejflexibilidad ,
-                         :ejmusculacion .
+                   :obesidad .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#osteoporosis
 :osteoporosis rdf:type owl:NamedIndividual ,
-                       :osteoporosis ;
-              :mejorable_con :ejaerobico ,
-                             :ejequilibrio ,
-                             :ejflexibilidad ,
-                             :ejmusculacion .
+                       :osteoporosis .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#parkinson
 :parkinson rdf:type owl:NamedIndividual ,
-                    :parkinson ;
-           :mejorable_con :ejaerobico ,
-                          :ejequilibrio .
+                    :parkinson .
 
 
 #################################################################

@@ -533,6 +533,8 @@
 	(if (eq ?artrosiis TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eartrosis)
 		(assert(artrosis))
+		(make-instance artrosis of artrosis)
+
 	)
 
 )
@@ -546,6 +548,8 @@
 	(if (eq ?artritis TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eartritis)
 		(assert(artritis))
+		(make-instance artritis of artritis)
+
 	)
 )
 
@@ -559,6 +563,8 @@
 	(if (eq ?depresion TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EDepresion)
 		(assert(depresion))
+		(make-instance depresion of depresion)
+
 	)
 )
 
@@ -571,6 +577,8 @@
 	(if (eq ?diabetes TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EDiabetes)
 		(assert(diabetes))
+		(make-instance diabetes of diabetes)
+
 	)
 )
 
@@ -583,6 +591,8 @@
 	(if (eq ?coronarias TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ecoronarias)
 		(assert(coronarias))
+		(make-instance coronarias of enfermedades_coronarias)
+
 	)
 )
 
@@ -595,6 +605,8 @@
 	(if (eq ?cardiovascular TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ecardiovascular)
 		(assert(cardiovascular))
+		(make-instance cardiovasculares of enfermedades_cardiovasculares)
+
 	)
 )
 
@@ -607,6 +619,8 @@
 	(if (eq ?faltae TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eequilibrio)
 		(assert(Faltaequilibrio))
+		(make-instance faltaequilibrio of falta_equilibrio)
+
 	)
 )
 
@@ -619,6 +633,8 @@
 	(if (eq ?fibro TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EFibromialgia)
 		(assert(fibromialgia))
+		(make-instance fibromialgia of fibromialgia)
+
 	)
 )
 
@@ -631,6 +647,8 @@
 	(if (eq ?hipertension TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ehipertension)
 		(assert(hipertension))
+		(make-instance hipertension of hipertension)
+
 	)
 )
 
@@ -644,6 +662,8 @@
 	(if (eq ?obesidad TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eobesidad)
 		(assert(obesidad))
+		(make-instance obesidad of obesidad)
+
 	)
 )
 
@@ -656,6 +676,8 @@
 	(if (eq ?osteo TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eosteoporosis) ;esto no hace nada??
 		(assert(osteoporosis))
+		(make-instance osteoporosis of osteoporosis)
+
 	)
 )
 
@@ -668,6 +690,8 @@
 	(if (eq ?parkinson TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eparkinson)
 		(assert(parkinson))
+		(make-instance parkinson of parkinson)
+
 	)
 	
 )
