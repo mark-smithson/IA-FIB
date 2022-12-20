@@ -145,7 +145,7 @@
 	(bind ?frec (send ?ejercicio get-frecuencia))
 	(if (> ?frec 0) then 
 		(bind ?duracionCalNuevo (+ (/(send ?sesion get-duracionCalentamiento) 2) (send ?ejercicio get-duracionEj)))
-		(if (< ?duracionCalNuevo 4) then return TRUE)
+		(if (< ?duracionCalNuevo 2) then return TRUE)
 	else (return FALSE)
 	)
 )
@@ -173,6 +173,10 @@
 	 else (ActAlta ?c))
 )
 
+(defglobal
+   ?*allok* = TRUE
+)
+
 (defmodule MAIN (export ?ALL))
 
 ;Aquí podríamos dar la bienvenida
@@ -182,7 +186,6 @@
     (printout t "----BIENVENIDOS AL SISTEMA DE RECOMENDACION DE EJERCICIOS----" crlf)
     (printout t crlf)
     (assert(newPersona))
-	;(make-instance p of Persona)
     (focus PREGUNTES)
 )
 
@@ -533,6 +536,9 @@
 	(if (eq ?artrosiis TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eartrosis)
 		(assert(artrosis))
+		(if (eq ?*allok* TRUE)
+		    then (bind ?*allok* FALSE)
+		)
 	)
 
 )
@@ -546,7 +552,9 @@
 	(if (eq ?artritis TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eartritis)
 		(assert(artritis))
-
+        (if (eq ?*allok* TRUE)
+		    then (bind ?*allok* FALSE)
+		)
 	)
 )
 
@@ -560,7 +568,9 @@
 	(if (eq ?depresion TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EDepresion)
 		(assert(depresion))
-
+        (if (eq ?*allok* TRUE)
+            then (bind ?*allok* FALSE)
+        )
 	)
 )
 
@@ -573,7 +583,9 @@
 	(if (eq ?diabetes TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EDiabetes)
 		(assert(diabetes))
-
+        (if (eq ?*allok* TRUE)
+            then (bind ?*allok* FALSE)
+        )
 	)
 )
 
@@ -586,7 +598,9 @@
 	(if (eq ?coronarias TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ecoronarias)
 		(assert(coronarias))
-
+        (if (eq ?*allok* TRUE)
+            then (bind ?*allok* FALSE)
+        )
 	)
 )
 
@@ -599,7 +613,9 @@
 	(if (eq ?cardiovascular TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ecardiovascular)
 		(assert(cardiovascular))
-
+        (if (eq ?*allok* TRUE)
+            then (bind ?*allok* FALSE)
+        )
 	)
 )
 
@@ -612,6 +628,9 @@
 	(if (eq ?faltae TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eequilibrio)
 		(assert(Faltaequilibrio))
+		(if (eq ?*allok* TRUE)
+            then (bind ?*allok* FALSE)
+        )
 	)
 )
 
@@ -624,7 +643,9 @@
 	(if (eq ?fibro TRUE) then
 		(slot-insert$ ?x padece_de 1 ?EFibromialgia)
 		(assert(fibromialgia))
-
+        (if (eq ?*allok* TRUE)
+		    then (bind ?*allok* FALSE)
+		)
 	)
 )
 
@@ -637,7 +658,9 @@
 	(if (eq ?hipertension TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Ehipertension)
 		(assert(hipertension))
-
+        (if (eq ?*allok* TRUE)
+            then (bind ?*allok* FALSE)
+        )
 	)
 )
 
@@ -651,7 +674,9 @@
 	(if (eq ?obesidad TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eobesidad)
 		(assert(obesidad))
-
+        (if (eq ?*allok* TRUE)
+            then (bind ?*allok* FALSE)
+        )
 	)
 )
 
@@ -664,7 +689,9 @@
 	(if (eq ?osteo TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eosteoporosis) ;esto no hace nada??
 		(assert(osteoporosis))
-
+        (if (eq ?*allok* TRUE)
+            then (bind ?*allok* FALSE)
+        )
 	)
 )
 
@@ -677,17 +704,20 @@
 	(if (eq ?parkinson TRUE) then
 		(slot-insert$ ?x padece_de 1 ?Eparkinson)
 		(assert(parkinson))
-
+		(if (eq ?*allok* TRUE)
+            then (bind ?*allok* FALSE)
+        )
 	)
 	
 )
 
-(defrule noMoreQuest 
+(defrule PREGUNTES::noMoreQuest
 	(newPersona)
 	=>
 	(bind ?planPrueba (make-instance planPrueba of Plan
 		(compuesto_por (find-all-instances ((?s Sesion))(neq ?s [nil])))
 	))
+	(if (eq ?*allok* TRUE) then (assert(allOk)))
 	(assert(planprueba ?planPrueba))
 	(focus ABSTRACCION)
 )
@@ -704,12 +734,12 @@
 	(bind ?totalAlta (send ?c get-Calta))
 	(bind ?res (- ?totalBaja ?totalAlta))
 	(bind ?res (abs ?res))
-	(if (< ?res 4) then (send ?c put-CondFisica 5 )
+	(if (< ?res 4) then (send ?c put-CondFisica 5)
 	else 
 		(if (> ?totalAlta ?totalBaja) then (send ?c put-CondFisica 8)
 		else (send ?c put-CondFisica 2)
 		)
-	)	
+	)
 )
 
 (defrule ponderacionCondFisica 
@@ -734,7 +764,7 @@
 	(RedMobOK)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (depresion)(diabetes)(enfermedades_coronarias)(hipertension)(obesidad))
+	(or (depresion)(diabetes)(enfermedades_coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -760,7 +790,7 @@
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(RedMobOK)
-	(or (depresion)(diabetes)(coronarias)(cardiovascular)(hipertension)(obesidad)(artritis)(fibromialgia))
+	(or (depresion)(diabetes)(coronarias)(cardiovascular)(hipertension)(obesidad)(artritis)(fibromialgia)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -785,7 +815,7 @@
 	(newPersona)
 	(TroncoSuperiorOK)
 	(OperacionesSuperiorOK)
-	(or (depresion)(diabetes)(coronarias)(cardiovascular)(hipertension)(obesidad)(artritis)(fibromialgia))
+	(or (depresion)(diabetes)(coronarias)(cardiovascular)(hipertension)(obesidad)(artritis)(fibromialgia)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -811,7 +841,7 @@
 	(TroncoInferiorOK)
 	(RedMobOK)
 	(OperacionesInferiorOK)
-	(or (depresion)(diabetes)(coronarias)(cardiovascular)(hipertension)(obesidad)(artritis)(fibromialgia)(osteoporosis)(artrosis))
+	(or (depresion)(diabetes)(coronarias)(cardiovascular)(hipertension)(obesidad)(artritis)(fibromialgia)(osteoporosis)(artrosis)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -837,7 +867,7 @@
 	(TroncoInferiorOK)
 	(RedMobOK)
 	(OperacionesInferiorOK)
-	(or (depresion)(diabetes)(coronarias)(hipertension)(obesidad))
+	(or (depresion)(diabetes)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -865,7 +895,7 @@
 	(RedMobOK)
 	(OperacionesInferiorOK)
 	(OperacionesSuperiorOK)
-	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(fibromialgia))
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(fibromialgia)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -893,7 +923,7 @@
 	(RedMobOK)
 	(OperacionesInferiorOK)
 	(OperacionesSuperiorOK)
-	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis))
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -919,7 +949,7 @@
 	(TroncoInferiorOK)
 	(RedMobOK)
 	(OperacionesInferiorOK)
-	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis))
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -945,7 +975,7 @@
 	(RedMobOK)
 	(OperacionesInferiorOK)
 	(OperacionesSuperiorOK)
-	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis)(fibromialgia)(parkinson))
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis)(fibromialgia)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -972,7 +1002,7 @@
 	(OperacionesInferiorOK)
 	(OperacionesSuperiorOK)
 	(TroncoInferiorOK)
-	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular))
+	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -998,7 +1028,7 @@
 	(RedMobOK)
 	(OperacionesInferiorOK)
 	(OperacionesSuperiorOK)
-	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis))
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1022,7 +1052,7 @@
 (defrule ejAquaGym
 	(newPersona)
 	(RedMobOK)
-	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis)(parkinson)(fibromialgia)(artrosis))
+	(or (depresion)(diabetes)(hipertension)(obesidad)(artritis)(coronarias)(Faltaequilibrio)(cardiovascular)(osteoporosis)(parkinson)(fibromialgia)(artrosis)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1049,7 +1079,7 @@
 	(OperacionesInferiorOK)
 	(OperacionesSuperiorOK)
 	(TroncoInferiorOK)
-	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias))
+	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1075,7 +1105,7 @@
 	(RedMobOK)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular))
+	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1103,7 +1133,7 @@
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
 	(TroncoInferiorOK)
-	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular))
+	(or (depresion)(diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1129,7 +1159,7 @@
 	(RedMobOK)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular))
+	(or (diabetes)(hipertension)(obesidad)(coronarias)(cardiovascular)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1158,7 +1188,7 @@
 	(TroncoInferiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (diabetes)(hipertension)(obesidad)(osteoporosis)(fibromialgia)(Faltaequilibrio))
+	(or (diabetes)(hipertension)(obesidad)(osteoporosis)(fibromialgia)(Faltaequilibrio)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1186,7 +1216,7 @@
 	(OperacionesSuperiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(Faltaequilibrio))
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(Faltaequilibrio)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1214,7 +1244,7 @@
 	(OperacionesSuperiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(Faltaequilibrio))
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(Faltaequilibrio)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<- (object(is-a Persona))
 	=>
@@ -1240,7 +1270,7 @@
 	(TroncoInferiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(osteoporosis)(Faltaequilibrio))
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(osteoporosis)(Faltaequilibrio)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1263,7 +1293,7 @@
 
 (defrule ejTaiChi
 	(newPersona)
-	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(osteoporosis)(parkinson)(depresion)(Faltaequilibrio))
+	(or (diabetes)(hipertension)(obesidad)(fibromialgia)(osteoporosis)(parkinson)(depresion)(Faltaequilibrio)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1289,7 +1319,7 @@
 	(TroncoInferiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis))
+	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1315,7 +1345,7 @@
 	(TroncoSuperiorOK)
 	(OperacionesSuperiorOK)
 	(RedMobOK)
-	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis))
+	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1341,7 +1371,7 @@
 	(TroncoInferiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis))
+	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1367,7 +1397,7 @@
 	(TroncoInferiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis))
+	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1393,7 +1423,7 @@
 	(TroncoInferiorOK)
 	(OperacionesInferiorOK)
 	(RedMobOK)
-	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis))
+	(or (fibromialgia)(osteoporosis)(Faltaequilibrio)(parkinson)(artritis)(artrosis)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1421,7 +1451,7 @@
 	(RedMobOK)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1446,7 +1476,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1472,7 +1502,7 @@
 	(RedMobOK)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1498,7 +1528,7 @@
 	(RedMobOK)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1524,7 +1554,7 @@
 	(RedMobOK)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1549,7 +1579,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1575,7 +1605,7 @@
 	(RedMobOK)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1600,7 +1630,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1625,7 +1655,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(parkinson)(Faltaequilibrio))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(parkinson)(Faltaequilibrio)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1650,7 +1680,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(parkinson))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1675,7 +1705,7 @@
 	(newPersona)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1700,7 +1730,7 @@
 	(newPersona)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1721,41 +1751,13 @@
 	)
 )
 
-(defrule ejEstEspPiernaSuelo
-	(newPersona)
-	(OperacionesInferiorOK)
-	(TroncoInferiorOK)
-	(OperacionesSuperiorOK)
-	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
-	?p<-(planprueba ?planPrueba)
-	?x<-(object(is-a Persona))
-	=>
-	(bind ?ex (find-instance ((?e Ejercicio)) (eq (str-compare ?e:nombreEj  "Estiramiento de piernas y espalda en el suelo") 0)))
-	(bind ?exe (nth$ 1 ?ex))
-	(send ?exe put-parte_de ?planPrueba)
-	(bind ?intA (send ?x get-preferencia_intensidad))
-	(if (> ?intA 7) 
-		then (send ?exe put-duracionEj 2) ;alto
-		else 
-			(if (> ?intA 4) then (send ?exe put-duracionEj 1.5) ;medio
-			else (send ?exe put-duracionEj 1)) ;bajo
-	)
-	(bind ?dis (send ?x get-disponibilidad))
-	(if (< ?dis 5) 
-		then (send ?exe put-frecuencia 1) ;menos exigente
-		else (send ?exe put-frecuencia 3) ;más exigente
-	)
-)
-
-
 (defrule ejEstEspEspaldaSilla
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
 	(TroncoInferiorOK)
 	(OperacionesInferiorOK)
-	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad))
+	(or (artritis)(artrosis)(cardiovasculares)(coronarias)(fibromialgia)(osteoporosis)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1782,7 +1784,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
     ?x<-(object(is-a Persona))
 	=>
@@ -1820,7 +1822,7 @@
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(RedMobOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1858,7 +1860,7 @@
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(RedMobOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1895,7 +1897,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1931,7 +1933,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -1969,7 +1971,7 @@
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(RedMobOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2006,7 +2008,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2044,7 +2046,7 @@
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(RedMobOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2082,7 +2084,7 @@
 	(newPersona)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(depresion)(diabetes))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(depresion)(diabetes)(allOk))
 	?p<-(planprueba ?planPrueba)
     ?x<-(object(is-a Persona))
 	=>
@@ -2120,7 +2122,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
     ?x<-(object(is-a Persona))
 	=>
@@ -2158,7 +2160,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
     ?x<-(object(is-a Persona))
 	=>
@@ -2196,7 +2198,7 @@
 	(newPersona)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(diabetes))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(diabetes)(allOk))
 	?p<-(planprueba ?planPrueba)
     ?x<-(object(is-a Persona))
 	=>
@@ -2234,7 +2236,7 @@
 	(newPersona)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
     ?x<-(object(is-a Persona))
 	=>
@@ -2272,7 +2274,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
     ?x<-(object(is-a Persona))
 	=>
@@ -2310,7 +2312,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
     ?x<-(object(is-a Persona))
 	=>
@@ -2347,7 +2349,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
     ?x<-(object(is-a Persona))
 	=>
@@ -2386,7 +2388,7 @@
 	(TroncoSuperiorOK)
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
-	(or (cardiovasculares)(coronarias)(hipertension)(obesidad))
+	(or (cardiovasculares)(coronarias)(hipertension)(obesidad)(allOk))
 	?p<-(planprueba ?planPrueba)
     ?x<-(object(is-a Persona))
 	=>
@@ -2424,7 +2426,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2449,7 +2451,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2475,7 +2477,7 @@
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(RedMobOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2501,7 +2503,7 @@
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(RedMobOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2527,7 +2529,7 @@
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(RedMobOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2553,7 +2555,7 @@
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(RedMobOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2579,7 +2581,7 @@
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(RedMobOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2605,7 +2607,7 @@
 	(OperacionesInferiorOK)
 	(TroncoInferiorOK)
 	(RedMobOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2630,7 +2632,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2655,7 +2657,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2680,7 +2682,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2703,9 +2705,9 @@
 
 (defrule ejCSaltosLados
 	(newPersona)
-	(OperacionesSuperiorOK)
-	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2728,9 +2730,9 @@
 
 (defrule ejCSaltosDelanteAtras
 	(newPersona)
-	(OperacionesSuperiorOK)
-	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(OperacionesInferiorOK)
+	(TroncoInferiorOK)
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2755,7 +2757,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2780,7 +2782,7 @@
 	(newPersona)
 	(OperacionesSuperiorOK)
 	(TroncoSuperiorOK)
-	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson))
+	(or (artritis)(artrosis)(depresion)(diabetes)(cardiovasculares)(coronarias)(Faltaequilibrio)(hipertension)(obesidad)(osteoporosis)(parkinson)(allOk))
 	?p<-(planprueba ?planPrueba)
 	?x<-(object(is-a Persona))
 	=>
@@ -2870,14 +2872,14 @@
 	(bind ?bmiPersona (send ?x get-imc))	
 	(if (< ?bmiPersona 18.5) then (bind ?resBMI " por debajo de lo saludable"))
 	(if (and (> ?bmiPersona 18.4) (< ?bmiPersona 25)) then (bind ?resBMI " saludable"))
-	(if (and (> ?bmiPersona 24)(< ?bmiPersona 30)) then (bind ?resBMI " sobrepeso"))
+	(if (and (> ?bmiPersona 26)(< ?bmiPersona 30)) then (bind ?resBMI " sobrepeso"))
 	(if (> ?bmiPersona 30) then (bind ?resBMI " obesidad"))
 
 	(bind ?cf (send ?c get-CondFisica))
 	(if (eq ?cf 2) then (bind ?writeCf "Baja")
 	else 
-		(if (eq ?cf 5) then (bind ?writeCf "Media"))
-		else (bind ?writeCf "Alta")
+		(if (eq ?cf 5) then (bind ?writeCf "Media")
+		else (bind ?writeCf "Alta"))
 	)
 
 

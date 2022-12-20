@@ -2,13 +2,13 @@
 (load rules.clp)
 (reset)
 (run)
-Alex
-67
-171
-59
+Sergio
+81
+182
+79
 M
-6
-4
+9
+7
 n
 n
 n
@@ -27,7 +27,7 @@ n
 n
 n
 n
-s
+n
 n
 n
 n
