@@ -32,8 +32,7 @@
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Estiramientos
 :Estiramientos rdf:type owl:ObjectProperty ;
                rdfs:subPropertyOf owl:topObjectProperty ;
-               rdfs:domain :Sesion ;
-               rdfs:range :Estiramientos .
+               rdfs:domain :Sesion .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#compuesto_por
@@ -62,20 +61,31 @@
 #    Data properties
 #################################################################
 
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Calta
+:Calta rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty ;
+       rdfs:domain :CondicionFisica ;
+       rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Cbaja
+:Cbaja rdf:type owl:DatatypeProperty ;
+       rdfs:subPropertyOf owl:topDataProperty ;
+       rdfs:domain :CondicionFisica ;
+       rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#CondFisica
+:CondFisica rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty .
+
+
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#ahoga_subir_escalera
 :ahoga_subir_escalera rdf:type owl:DatatypeProperty ;
                       rdfs:subPropertyOf owl:topDataProperty ;
                       rdf:type owl:FunctionalProperty ;
                       rdfs:domain :CondicionFisica ;
                       rdfs:range xsd:boolean .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#aire_libre
-:aire_libre rdf:type owl:DatatypeProperty ;
-            rdfs:subPropertyOf owl:topDataProperty ;
-            rdf:type owl:FunctionalProperty ;
-            rdfs:domain :Ejercicio ;
-            rdfs:range xsd:boolean .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#altura
@@ -158,6 +168,13 @@
                rdfs:range xsd:boolean .
 
 
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#disponibilidad
+:disponibilidad rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain :Persona ;
+                rdfs:range xsd:integer .
+
+
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#dolor_articulaciones_tronco_inferior
 :dolor_articulaciones_tronco_inferior rdf:type owl:DatatypeProperty ;
                                       rdfs:subPropertyOf owl:topDataProperty ;
@@ -228,14 +245,6 @@
       rdfs:range xsd:integer .
 
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#en_casa
-:en_casa rdf:type owl:DatatypeProperty ;
-         rdfs:subPropertyOf owl:topDataProperty ;
-         rdf:type owl:FunctionalProperty ;
-         rdfs:domain :Ejercicio ;
-         rdfs:range xsd:boolean .
-
-
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#frecuencia
 :frecuencia rdf:type owl:DatatypeProperty ;
             rdfs:subPropertyOf owl:topDataProperty ;
@@ -252,20 +261,11 @@
       rdfs:range xsd:boolean .
 
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#gimnasio
-:gimnasio rdf:type owl:DatatypeProperty ;
-          rdfs:subPropertyOf owl:topDataProperty ;
-          rdf:type owl:FunctionalProperty ;
-          rdfs:domain :Ejercicio ;
-          rdfs:range xsd:boolean .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#intensidad
-:intensidad rdf:type owl:DatatypeProperty ;
-            rdfs:subPropertyOf owl:topDataProperty ;
-            rdf:type owl:FunctionalProperty ;
-            rdfs:domain :Ejercicio ;
-            rdfs:range xsd:string .
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#imc
+:imc rdf:type owl:DatatypeProperty ;
+     rdfs:subPropertyOf owl:topDataProperty ;
+     rdfs:domain :Persona ;
+     rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#mobilidad_reducida
@@ -282,6 +282,13 @@
         rdf:type owl:FunctionalProperty ;
         rdfs:domain :Persona ;
         rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#nombreEj
+:nombreEj rdf:type owl:DatatypeProperty ;
+          rdfs:subPropertyOf owl:topDataProperty ;
+          rdfs:domain :Ejercicio ;
+          rdfs:range xsd:string .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#operaciones_recientes
@@ -328,7 +335,7 @@
 :repeticiones rdf:type owl:DatatypeProperty ;
               rdfs:subPropertyOf owl:topDataProperty ;
               rdf:type owl:FunctionalProperty ;
-              rdfs:domain :Musculacion ;
+              rdfs:domain :Ejercicio ;
               rdfs:range xsd:integer .
 
 
@@ -337,6 +344,13 @@
     rdfs:subPropertyOf owl:topDataProperty ;
     rdfs:domain :Sesion ;
     rdfs:range xsd:integer .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#series
+:series rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdfs:domain :Ejercicio ;
+        rdfs:range xsd:integer .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#sexo
@@ -353,6 +367,11 @@
                         rdf:type owl:FunctionalProperty ;
                         rdfs:domain :CondicionFisica ;
                         rdfs:range xsd:boolean .
+
+
+###  http://www.w3.org/2002/07/owl#topDataProperty
+owl:topDataProperty rdfs:domain :CondicionFisica ;
+                    rdfs:range xsd:integer .
 
 
 #################################################################
@@ -386,11 +405,6 @@
             rdfs:subClassOf :Ejercicio .
 
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Estiramientos
-:Estiramientos rdf:type owl:Class ;
-               rdfs:subClassOf :Ejercicio .
-
-
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Flexibilidad
 :Flexibilidad rdf:type owl:Class ;
               rdfs:subClassOf :Ejercicio .
@@ -413,11 +427,6 @@
 :Sesion rdf:type owl:Class .
 
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#andar_de_puntillas
-:andar_de_puntillas rdf:type owl:Class ;
-                    rdfs:subClassOf :Equilibrio .
-
-
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#artritis
 :artritis rdf:type owl:Class ;
           rdfs:subClassOf :Enfermedades .
@@ -426,31 +435,6 @@
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#artrosis
 :artrosis rdf:type owl:Class ;
           rdfs:subClassOf :Enfermedades .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#bailar
-:bailar rdf:type owl:Class ;
-        rdfs:subClassOf :Aerobico .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#bici
-:bici rdf:type owl:Class ;
-      rdfs:subClassOf :Aerobico .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#caminar
-:caminar rdf:type owl:Class ;
-         rdfs:subClassOf :Aerobico .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#correr
-:correr rdf:type owl:Class ;
-        rdfs:subClassOf :Aerobico .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#curl_biceps
-:curl_biceps rdf:type owl:Class ;
-             rdfs:subClassOf :Musculacion .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#depresion
@@ -463,11 +447,6 @@
           rdfs:subClassOf :Enfermedades .
 
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#elevacion_piernas_lados
-:elevacion_piernas_lados rdf:type owl:Class ;
-                         rdfs:subClassOf :Musculacion .
-
-
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#enfermedades_cardiovasculares
 :enfermedades_cardiovasculares rdf:type owl:Class ;
                                rdfs:subClassOf :Enfermedades .
@@ -476,51 +455,6 @@
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#enfermedades_coronarias
 :enfermedades_coronarias rdf:type owl:Class ;
                          rdfs:subClassOf :Enfermedades .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estiramientos_cuadriceps
-:estiramientos_cuadriceps rdf:type owl:Class ;
-                          rdfs:subClassOf :Flexibilidad .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estiramientos_muneca
-:estiramientos_muneca rdf:type owl:Class ;
-                      rdfs:subClassOf :Flexibilidad .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estiramientos_pantorrillas
-:estiramientos_pantorrillas rdf:type owl:Class ;
-                            rdfs:subClassOf :Flexibilidad .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estiramientos_tendones_muslo
-:estiramientos_tendones_muslo rdf:type owl:Class ;
-                              rdfs:subClassOf :Flexibilidad .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estiramientos_tobillos
-:estiramientos_tobillos rdf:type owl:Class ;
-                        rdfs:subClassOf :Flexibilidad .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estiramientos_triceps
-:estiramientos_triceps rdf:type owl:Class ;
-                       rdfs:subClassOf :Flexibilidad .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#extension_de_cadera
-:extension_de_cadera rdf:type owl:Class ;
-                     rdfs:subClassOf :Equilibrio .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#extension_rodilla
-:extension_rodilla rdf:type owl:Class ;
-                   rdfs:subClassOf :Musculacion .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#extension_triceps
-:extension_triceps rdf:type owl:Class ;
-                   rdfs:subClassOf :Musculacion .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#falta_equilibrio
@@ -533,44 +467,9 @@
               rdfs:subClassOf :Enfermedades .
 
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#flexion_de_cadera
-:flexion_de_cadera rdf:type owl:Class ;
-                   rdfs:subClassOf :Equilibrio .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#flexion_hombros
-:flexion_hombros rdf:type owl:Class ;
-                 rdfs:subClassOf :Musculacion .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#flexion_plantar
-:flexion_plantar rdf:type owl:Class ;
-                 rdfs:subClassOf :Musculacion .
-
-
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#hipertension
 :hipertension rdf:type owl:Class ;
               rdfs:subClassOf :Enfermedades .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#levantamiento_lateral_pierna
-:levantamiento_lateral_pierna rdf:type owl:Class ;
-                              rdfs:subClassOf :Equilibrio .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#levantar_brazos
-:levantar_brazos rdf:type owl:Class ;
-                 rdfs:subClassOf :Musculacion .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#levantarse_silla
-:levantarse_silla rdf:type owl:Class ;
-                  rdfs:subClassOf :Musculacion .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#nadar
-:nadar rdf:type owl:Class ;
-       rdfs:subClassOf :Aerobico .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#obesidad
@@ -588,54 +487,23 @@
            rdfs:subClassOf :Enfermedades .
 
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#rotacion_cadera
-:rotacion_cadera rdf:type owl:Class ;
-                 rdfs:subClassOf :Flexibilidad .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#rotacion_hombros
-:rotacion_hombros rdf:type owl:Class ;
-                  rdfs:subClassOf :Flexibilidad .
-
-
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#tai_chi
-:tai_chi rdf:type owl:Class ;
-         rdfs:subClassOf :Equilibrio .
-
-
 #################################################################
 #    Individuals
 #################################################################
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Marta
-:Marta rdf:type owl:NamedIndividual ,
-                :Persona ;
-       :tiene :Media ;
-       :altura 167 ;
-       :edad 70 ;
-       :nombre "Marta" ;
-       :peso 70 ;
-       :sexo "F" .
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#absuelo
+:absuelo rdf:type owl:NamedIndividual ,
+                  :Musculacion .
 
 
-###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#Media
-:Media rdf:type owl:NamedIndividual ,
-                :CondicionFisica ;
-       :ahoga_subir_escalera "true"^^xsd:boolean ;
-       :bebe_alcohol "true"^^xsd:boolean ;
-       :caidas_frecuentemente "false"^^xsd:boolean ;
-       :cansancio_rapido "false"^^xsd:boolean ;
-       :comida_basura "false"^^xsd:boolean ;
-       :compra_con_frecuencia "true"^^xsd:boolean ;
-       :corre_con_frecuencia "false"^^xsd:boolean ;
-       :deporte_con_frecuencia "true"^^xsd:boolean ;
-       :dieta_variada "true"^^xsd:boolean ;
-       :duerme_bien "true"^^xsd:boolean ;
-       :fuma "true"^^xsd:boolean ;
-       :mobilidad_reducida "false"^^xsd:boolean ;
-       :operaciones_recientes "false"^^xsd:boolean ;
-       :pasea_con_frecuencia "true"^^xsd:boolean ;
-       :tirones_frecuentemente "false"^^xsd:boolean .
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#andarpuntillas
+:andarpuntillas rdf:type owl:NamedIndividual ,
+                         :Equilibrio .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#aquagym
+:aquagym rdf:type owl:NamedIndividual ,
+                  :Aerobico .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#artritis
@@ -648,14 +516,89 @@
                    :artrosis .
 
 
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#bailar
+:bailar rdf:type owl:NamedIndividual ,
+                 :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#bici
+:bici rdf:type owl:NamedIndividual ,
+               :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#bicisuperior
+:bicisuperior rdf:type owl:NamedIndividual ,
+                       :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#camianrSentado
+:camianrSentado rdf:type owl:NamedIndividual ,
+                         :Equilibrio .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#caminar
+:caminar rdf:type owl:NamedIndividual ,
+                  :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#caminarRecta
+:caminarRecta rdf:type owl:NamedIndividual ,
+                       :Equilibrio .
+
+
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#cardiovasculares
 :cardiovasculares rdf:type owl:NamedIndividual ,
                            :enfermedades_cardiovasculares .
 
 
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#cbic
+:cbic rdf:type owl:NamedIndividual ,
+               :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#cespalda
+:cespalda rdf:type owl:NamedIndividual ,
+                   :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#cgemelo
+:cgemelo rdf:type owl:NamedIndividual ,
+                  :Ejs_Calentamiento .
+
+
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#coronarias
 :coronarias rdf:type owl:NamedIndividual ,
                      :enfermedades_coronarias .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#correr
+:correr rdf:type owl:NamedIndividual ,
+                 :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#cquad
+:cquad rdf:type owl:NamedIndividual ,
+                :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#cspinning
+:cspinning rdf:type owl:NamedIndividual ,
+                    :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#ctobillo
+:ctobillo rdf:type owl:NamedIndividual ,
+                   :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#ctrice
+:ctrice rdf:type owl:NamedIndividual ,
+                 :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#curlbi
+:curlbi rdf:type owl:NamedIndividual ,
+                 :Musculacion .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#depresion
@@ -688,6 +631,96 @@
                         :Musculacion .
 
 
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#elevbrazos
+:elevbrazos rdf:type owl:NamedIndividual ,
+                     :Equilibrio .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#elevgoma
+:elevgoma rdf:type owl:NamedIndividual ,
+                   :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#elevp
+:elevp rdf:type owl:NamedIndividual ,
+                :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#eliptica
+:eliptica rdf:type owl:NamedIndividual ,
+                   :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estcuadriceps
+:estcuadriceps rdf:type owl:NamedIndividual ,
+                        :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estcuello
+:estcuello rdf:type owl:NamedIndividual ,
+                    :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estgemelo
+:estgemelo rdf:type owl:NamedIndividual ,
+                    :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estmuneca
+:estmuneca rdf:type owl:NamedIndividual ,
+                    :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estpant
+:estpant rdf:type owl:NamedIndividual ,
+                  :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#estpespalda
+:estpespalda rdf:type owl:NamedIndividual ,
+                      :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#esttend
+:esttend rdf:type owl:NamedIndividual ,
+                  :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#esttob
+:esttob rdf:type owl:NamedIndividual ,
+                 :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#esttric
+:esttric rdf:type owl:NamedIndividual ,
+                  :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#extensioncadera
+:extensioncadera rdf:type owl:NamedIndividual ,
+                          :Equilibrio .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#extes
+:extes rdf:type owl:NamedIndividual ,
+                :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#extpierna
+:extpierna rdf:type owl:NamedIndividual ,
+                    :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#extrod
+:extrod rdf:type owl:NamedIndividual ,
+                 :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#exttric
+:exttric rdf:type owl:NamedIndividual ,
+                  :Musculacion .
+
+
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#faltaequilib
 :faltaequilib rdf:type owl:NamedIndividual ,
                        :falta_equilibrio .
@@ -698,9 +731,79 @@
                        :fibromialgia .
 
 
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#flamenco
+:flamenco rdf:type owl:NamedIndividual ,
+                   :Equilibrio .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#flexb
+:flexb rdf:type owl:NamedIndividual ,
+                :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#flexh
+:flexh rdf:type owl:NamedIndividual ,
+                :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#flexioncadera
+:flexioncadera rdf:type owl:NamedIndividual ,
+                        :Equilibrio .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#flexplantar
+:flexplantar rdf:type owl:NamedIndividual ,
+                      :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#fontri
+:fontri rdf:type owl:NamedIndividual ,
+                 :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#golf
+:golf rdf:type owl:NamedIndividual ,
+               :Aerobico .
+
+
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#hipertension
 :hipertension rdf:type owl:NamedIndividual ,
                        :hipertension .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#levbrazos
+:levbrazos rdf:type owl:NamedIndividual ,
+                    :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#levlatpierna
+:levlatpierna rdf:type owl:NamedIndividual ,
+                       :Equilibrio .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#levsilla
+:levsilla rdf:type owl:NamedIndividual ,
+                   :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#marcha
+:marcha rdf:type owl:NamedIndividual ,
+                 :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#marchaatras
+:marchaatras rdf:type owl:NamedIndividual ,
+                      :Equilibrio .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#marchasitio
+:marchasitio rdf:type owl:NamedIndividual ,
+                      :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#nadar
+:nadar rdf:type owl:NamedIndividual ,
+                :Aerobico .
 
 
 ###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#obesidad
@@ -718,6 +821,106 @@
                     :parkinson .
 
 
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#pelotasuiza
+:pelotasuiza rdf:type owl:NamedIndividual ,
+                      :Equilibrio .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#pilates
+:pilates rdf:type owl:NamedIndividual ,
+                  :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#preshombros
+:preshombros rdf:type owl:NamedIndividual ,
+                      :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#remar
+:remar rdf:type owl:NamedIndividual ,
+                :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#rotcabh
+:rotcabh rdf:type owl:NamedIndividual ,
+                  :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#rotcadera
+:rotcadera rdf:type owl:NamedIndividual ,
+                    :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#rotcintura
+:rotcintura rdf:type owl:NamedIndividual ,
+                     :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#rotcodo
+:rotcodo rdf:type owl:NamedIndividual ,
+                  :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#rotcuello
+:rotcuello rdf:type owl:NamedIndividual ,
+                    :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#rothombros
+:rothombros rdf:type owl:NamedIndividual ,
+                     :Flexibilidad .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#rotmun
+:rotmun rdf:type owl:NamedIndividual ,
+                 :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#saltocuerda
+:saltocuerda rdf:type owl:NamedIndividual ,
+                      :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#saltosaa
+:saltosaa rdf:type owl:NamedIndividual ,
+                   :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#saltoslat
+:saltoslat rdf:type owl:NamedIndividual ,
+                    :Ejs_Calentamiento .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#senderismo
+:senderismo rdf:type owl:NamedIndividual ,
+                     :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#sentgoma
+:sentgoma rdf:type owl:NamedIndividual ,
+                   :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#sentpesas
+:sentpesas rdf:type owl:NamedIndividual ,
+                    :Musculacion .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#taichi
+:taichi rdf:type owl:NamedIndividual ,
+                 :Equilibrio .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#tennis
+:tennis rdf:type owl:NamedIndividual ,
+                 :Aerobico .
+
+
+###  http://www.semanticweb.org/mark/ontologies/2022/10/practicaIA#yoga
+:yoga rdf:type owl:NamedIndividual ,
+               :Aerobico .
+
+
 #################################################################
 #    General axioms
 #################################################################
@@ -727,16 +930,6 @@
                 :Equilibrio
                 :Flexibilidad
                 :Musculacion
-              )
-] .
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :andar_de_puntillas
-                :extension_de_cadera
-                :flexion_de_cadera
-                :levantamiento_lateral_pierna
-                :tai_chi
               )
 ] .
 
@@ -754,42 +947,6 @@
                 :obesidad
                 :osteoporosis
                 :parkinson
-              )
-] .
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :bailar
-                :bici
-                :caminar
-                :correr
-                :nadar
-              )
-] .
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :curl_biceps
-                :elevacion_piernas_lados
-                :extension_rodilla
-                :extension_triceps
-                :flexion_hombros
-                :flexion_plantar
-                :levantar_brazos
-                :levantarse_silla
-              )
-] .
-
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( :estiramientos_cuadriceps
-                :estiramientos_muneca
-                :estiramientos_pantorrillas
-                :estiramientos_tendones_muslo
-                :estiramientos_tobillos
-                :estiramientos_triceps
-                :rotacion_cadera
-                :rotacion_hombros
               )
 ] .
 
