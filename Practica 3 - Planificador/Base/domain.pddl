@@ -11,14 +11,14 @@
     (estacionado ?r - rover ?b - base)                  ; El rover se encuentra estacionado en esa base
     (camino ?b1 - base ?b2 - base)                      ; Existe un camino entre ambas bases
     (peticion-abierta ?p - peticion ?a - asentamiento)  ; Petición realizada por un asentamiento
-    (peticion-subministros ?p - peticion)               ; La petición es un subministro
+    (peticion-suministros ?p - peticion)               ; La petición es un suministro
     (peticion-personal ?p - peticion)                   ; La petición es personal
 )
 
 (:functions
-    (subministros-rover ?r - rover)             ; Subministros que está transportando el rover
+    (suministros-rover ?r - rover)             ; suministros que está transportando el rover
     (personal-rover ?r - rover)                 ; Personal que está transportando el rover
-    (subministros-almacen ?b - almacen)         ; Subministros en el almacén
+    (suministros-almacen ?b - almacen)         ; suministros en el almacén
     (personal-asentamiento ?b - asentamiento)   ; Personal disponible en el asentamiento
     (peticiones-cerradas)                       ; Número de peticiones cerradas
 )
@@ -35,15 +35,15 @@
     )
 )
 
-(:action cargar-subministros ; Carga al rover todos los subministros disponibles en el almacén
+(:action cargar-suministros ; Carga al rover todos los suministros disponibles en el almacén
     :parameters (?r - rover ?a - almacen)
     :precondition (and 
         (estacionado ?r ?a)
-        (> (subministros-almacen ?a) 0)
+        (> (suministros-almacen ?a) 0)
     )
     :effect (and 
-        (increase (subministros-rover ?r) (subministros-almacen ?a))
-        (assign (subministros-almacen ?a) 0)
+        (increase (suministros-rover ?r) (suministros-almacen ?a))
+        (assign (suministros-almacen ?a) 0)
     )
 )
 
@@ -59,16 +59,16 @@
     )
 )
 
-(:action satisfacer-peticion-subministros ; Satisface las peticiones de subministros de los asentamientos
+(:action satisfacer-peticion-suministros ; Satisface las peticiones de suministros de los asentamientos
     :parameters (?r - rover ?a - asentamiento ?p - peticion)
     :precondition (and 
         (estacionado ?r ?a)
         (peticion-abierta ?p ?a)
-        (peticion-subministros ?p)
-        (> (subministros-rover ?r) 0)
+        (peticion-suministros ?p)
+        (> (suministros-rover ?r) 0)
     )
     :effect (and
-        (decrease (subministros-rover ?r) 1)
+        (decrease (suministros-rover ?r) 1)
         (not (peticion-abierta ?p ?a))
         (increase (peticiones-cerradas) 1)
     )

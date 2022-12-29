@@ -9,8 +9,8 @@
 (:init
     ;escenario inicial
     (= (peticiones-cerradas) 0)
-    (= (subministros-almacen al1) 0)
-    (= (subministros-almacen al2) 1)
+    (= (suministros-almacen al1) 0)
+    (= (suministros-almacen al2) 1)
     (= (personal-asentamiento as1) 1)    
     (= (personal-asentamiento as2) 0)    
     (= (personal-asentamiento as3) 0)    
@@ -22,7 +22,7 @@
     (camino as3 as4)
     (camino as4 as5)
     (camino as5 al2)
-    (= (subministros-rover r) 0)
+    (= (suministros-rover r) 0)
     (= (personal-rover r) 0)
     (estacionado r al1)
 
@@ -30,7 +30,7 @@
     (peticion-abierta p1 as2)
     (peticion-personal p1)
     (peticion-abierta p2 as1)
-    (peticion-subministros p2)
+    (peticion-suministros p2)
 )
 
 (:goal

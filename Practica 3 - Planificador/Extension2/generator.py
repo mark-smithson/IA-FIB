@@ -72,10 +72,10 @@ def get_init(rovers, petitions, load, nBases, bases, G):
     # Add supplies
     j = 0
     for i in bases['almacenes']:
-        init += '    (= (subministros-base b'+str(i) + ') ' + str(supplies_lst[j]) + ')\n'
+        init += '    (= (suministros-base b'+str(i) + ') ' + str(supplies_lst[j]) + ')\n'
         j += 1
     for i in bases['asentamientos']:
-        init += '    (= (subministros-base b'+str(i) + ') 0)\n'
+        init += '    (= (suministros-base b'+str(i) + ') 0)\n'
     # Distribute staff between settlements
     m = len(bases['asentamientos'])
     staff_lst = [0] * m
@@ -92,7 +92,7 @@ def get_init(rovers, petitions, load, nBases, bases, G):
     for i in range(rovers):
         r = 'r' + str(i)
         init += '    ' +\
-            '(= (subministros-rover ' + r + ') 0) ' +\
+            '(= (suministros-rover ' + r + ') 0) ' +\
             '(= (personal-rover ' + r + ') 0) ' +\
             '(= (combustible ' + r + ') ' + str(3*nBases) + ') ' +\
             '(estacionado ' + r + ' b' + str(random.randint(0, nBases)) + ')\n'
@@ -101,7 +101,7 @@ def get_init(rovers, petitions, load, nBases, bases, G):
         p = 'p' + str(i)
         init += '    '+\
             '(peticion-abierta ' + p + ' b' + str(random.choice(bases['asentamientos'])) + ') ' +\
-            '(peticion-subministros ' + p + ')\n'
+            '(peticion-suministros ' + p + ')\n'
     for i in range(petitions_staff):
         p = 'p' + str(i + petitions_supplies)
         init += '    '+\
