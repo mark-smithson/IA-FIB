@@ -9,13 +9,20 @@
 (:init
     ;escenario inicial
     (= (peticiones-cerradas) 0)
-    (= (subministros-almacen al1) 0)
-    (= (subministros-almacen al2) 1)
-    (= (personal-asentamiento as1) 3)    
-    (= (personal-asentamiento as2) 0)    
-    (= (personal-asentamiento as3) 0)    
-    (= (personal-asentamiento as4) 0)    
-    (= (personal-asentamiento as5) 0)
+    (= (subministros-base al1) 0)
+    (= (subministros-base al2) 1)
+    (= (subministros-base as1) 0)
+    (= (subministros-base as2) 0)
+    (= (subministros-base as3) 0)
+    (= (subministros-base as4) 0)
+    (= (subministros-base as5) 0)
+    (= (personal-base al1) 0)
+    (= (personal-base al2) 0)
+    (= (personal-base as1) 3)
+    (= (personal-base as2) 0)    
+    (= (personal-base as3) 0)    
+    (= (personal-base as4) 0)    
+    (= (personal-base as5) 0)
     (camino al1 as1)
     (camino as1 as2)
     (camino as2 as3)
@@ -40,7 +47,4 @@
 (:goal
     (= (peticiones-cerradas) 4)
 )
-
-;un-comment the following line if metric is needed
-;(:metric maximize (peticiones-cerradas))
 )

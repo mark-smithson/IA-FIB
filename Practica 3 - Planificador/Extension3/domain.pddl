@@ -24,6 +24,8 @@
     (peticiones-cerradas)                       ; Número de peticiones cerradas
     (combustible ?r - rover)                    ; Combustible del rover
     (combustible-total)                             ; Combustible usado de todos los rovers
+    (prioridad-peticion ?p - peticion)                  ; Prioridad de una peticion
+    (prioridades-totales)                               ; Suma de las prioridades de las peticiones hechas
 )
 
 (:action mover ; Mueve el rover de una base a otra
@@ -108,6 +110,9 @@
         (decrease (subministros-rover ?r) 1)
         (not (peticion-abierta ?p ?a))
         (increase (peticiones-cerradas) 1)
+        (when (= (prioridad-peticion ?p) 1) (increase (prioridades-totales) 3))
+        (when (= (prioridad-peticion ?p) 2) (increase (prioridades-totales) 2))
+        (when (= (prioridad-peticion ?p) 3) (increase (prioridades-totales) 1))
     )
 )
 
@@ -123,6 +128,9 @@
         (decrease (personal-rover ?r) 1)
         (not (peticion-abierta ?p ?a))
         (increase (peticiones-cerradas) 1)
+        (when (= (prioridad-peticion ?p) 1) (increase (prioridades-totales) 3))
+        (when (= (prioridad-peticion ?p) 2) (increase (prioridades-totales) 2))
+        (when (= (prioridad-peticion ?p) 3) (increase (prioridades-totales) 1))
     )
 )
 )

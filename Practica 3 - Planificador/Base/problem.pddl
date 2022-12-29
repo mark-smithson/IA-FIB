@@ -36,7 +36,4 @@
 (:goal
     (= (peticiones-cerradas) 2)
 )
-
-;un-comment the following line if metric is needed
-;(:metric maximize (peticiones-cerradas))
 )

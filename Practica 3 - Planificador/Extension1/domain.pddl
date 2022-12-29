@@ -19,8 +19,8 @@
 (:functions
     (subministros-rover ?r - rover)             ; Subministros que está transportando el rover
     (personal-rover ?r - rover)                 ; Personal que está transportando el rover
-    (subministros-almacen ?b - almacen)         ; Subministros en el almacén
-    (personal-asentamiento ?b - asentamiento)   ; Personal disponible en el asentamiento
+    (subministros-base ?b - base)         ; Subministros en el almacén
+    (personal-base ?b - base)   ; Personal disponible en el asentamiento
     (peticiones-cerradas)                       ; Número de peticiones cerradas
 )
 
@@ -37,37 +37,59 @@
 )
 
 (:action cargar-subministros ; Carga al rover todos los subministros disponibles en el almacén
-    :parameters (?r - rover ?a - almacen)
+    :parameters (?r - rover ?b - base)
     :precondition (and 
-        (estacionado ?r ?a)
-        (> (subministros-almacen ?a) 0)
+        (estacionado ?r ?b)
+        (> (subministros-base ?b) 0)
         (= (subministros-rover ?r) 0)
         (= (personal-rover ?r) 0)
     )
     :effect (and 
         (increase (subministros-rover ?r) 1)
-        (decrease (subministros-almacen ?a) 1)
+        (decrease (subministros-base ?b) 1)
     )
 )
 
-(:action embarcar-personal ; Embarca al rover todo el personal disponible en el asentamiento
-    :parameters (?r - rover ?a - asentamiento)
+(:action descargar-subministros ; Descargar los subministros del rover
+    :parameters (?r - rover ?b - base)
     :precondition (and 
-        (estacionado ?r ?a)
-        (> (personal-asentamiento ?a) 0)
+        (estacionado ?r ?b)
+        (> (subministros-rover ?r) 0)
+    )
+    :effect (and 
+        (decrease (subministros-rover ?r) 1)
+        (increase (subministros-base ?b) 1)
+    )
+)
+
+
+(:action embarcar-personal ; Embarca al rover todo el personal disponible en el asentamiento
+    :parameters (?r - rover ?b - base)
+    :precondition (and 
+        (estacionado ?r ?b)
+        (> (personal-base ?b) 0)
         (< (personal-rover ?r) 2)
         (= (subministros-rover ?r) 0)
     )
     
     :effect (and 
-        (when
-            (and (= (personal-rover ?r) 0) (>= (personal-asentamiento ?a) 1))
-            (and (increase (personal-rover ?r) 1) (decrease (personal-asentamiento ?a) 1))
-        )
         (increase (personal-rover ?r) 1) 
-        (decrease (personal-asentamiento ?a) 1)
+        (decrease (personal-base ?b) 1)
     )
 )
+
+(:action desembarcar-personal ; Desembarca el personal del rover
+    :parameters (?r - rover ?b - base)
+    :precondition (and 
+        (estacionado ?r ?b)
+        (> (personal-rover ?r) 0)
+    )
+    :effect (and 
+        (increase (personal-base ?b) (personal-rover ?r))
+        (assign (personal-rover ?r) 0)
+    )
+)
+
 
 (:action satisfacer-peticion-subministros ; Satisface las peticiones de subministros de los asentamientos
     :parameters (?r - rover ?a - asentamiento ?p - peticion)
