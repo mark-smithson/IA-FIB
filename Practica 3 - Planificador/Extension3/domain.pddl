@@ -2,14 +2,13 @@
 
 (:requirements :adl :fluents :typing)
 
-
 (:types
     rover base peticion - object
     asentamiento almacen - base
 )
 
 (:predicates
-    (estacionado ?r - rover ?b - base)                  ;El rover se encuentra estacionado en esa base
+    (estacionado ?r - rover ?b - base)                  ; El rover se encuentra estacionado en esa base
     (camino ?b1 - base ?b2 - base)                      ; Existe un camino entre ambas bases
     (peticion-abierta ?p - peticion ?a - asentamiento)  ; Petición realizada por un asentamiento
     (peticion-subministros ?p - peticion)               ; La petición es un subministro
@@ -19,13 +18,13 @@
 (:functions
     (subministros-rover ?r - rover)             ; Subministros que está transportando el rover
     (personal-rover ?r - rover)                 ; Personal que está transportando el rover
-    (subministros-base ?b - base)         ; Subministros en el almacén
-    (personal-base ?b - base)   ; Personal disponible en el asentamiento
+    (subministros-base ?b - base)               ; Subministros en el almacén
+    (personal-base ?b - base)                   ; Personal disponible en el asentamiento
     (peticiones-cerradas)                       ; Número de peticiones cerradas
     (combustible ?r - rover)                    ; Combustible del rover
-    (combustible-total)                             ; Combustible usado de todos los rovers
-    (prioridad-peticion ?p - peticion)                  ; Prioridad de una peticion
-    (prioridades-totales)                               ; Suma de las prioridades de las peticiones hechas
+    (combustible-total)                         ; Combustible usado de todos los rovers
+    (prioridad-peticion ?p - peticion)          ; Prioridad de una peticion
+    (prioridades-totales)                       ; Suma de las prioridades de las peticiones hechas
 )
 
 (:action mover ; Mueve el rover de una base a otra

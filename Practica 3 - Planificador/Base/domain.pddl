@@ -2,14 +2,13 @@
 
 (:requirements :adl :fluents :typing)
 
-
 (:types
     rover base peticion - object
     asentamiento almacen - base
 )
 
 (:predicates
-    (estacionado ?r - rover ?b - base)                  ;El rover se encuentra estacionado en esa base
+    (estacionado ?r - rover ?b - base)                  ; El rover se encuentra estacionado en esa base
     (camino ?b1 - base ?b2 - base)                      ; Existe un camino entre ambas bases
     (peticion-abierta ?p - peticion ?a - asentamiento)  ; Petición realizada por un asentamiento
     (peticion-subministros ?p - peticion)               ; La petición es un subministro
