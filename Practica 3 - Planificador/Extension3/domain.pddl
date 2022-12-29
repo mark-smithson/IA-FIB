@@ -1,4 +1,4 @@
-(define (domain domain_name)
+(define (domain peticionador)
 
 (:requirements :adl :fluents :typing)
 

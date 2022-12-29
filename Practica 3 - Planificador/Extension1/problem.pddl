@@ -1,4 +1,4 @@
-(define (problem problem_name) (:domain domain_name)
+(define (problem problem_name) (:domain peticionador)
 (:objects 
     r - rover
     al1 al2 - almacen
