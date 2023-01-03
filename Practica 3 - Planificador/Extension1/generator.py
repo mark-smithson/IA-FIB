@@ -94,7 +94,7 @@ def get_init(rovers, petitions, load, nBases, bases, G):
         init += '    ' +\
             '(= (suministros-rover ' + r + ') 0) ' +\
             '(= (personal-rover ' + r + ') 0) ' +\
-            '(estacionado ' + r + ' b' + str(random.randint(0, nBases)) + ')\n'
+            '(estacionado ' + r + ' b' + str(random.randint(0, nBases-1)) + ')\n'
     # Add petitions
     for i in range(petitions_supplies):
         p = 'p' + str(i)
