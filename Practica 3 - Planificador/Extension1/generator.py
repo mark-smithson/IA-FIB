@@ -75,8 +75,6 @@ def get_init(rovers, petitions, load, nBases, bases, G):
     for i in bases['almacenes']:
         init += '    (= (suministros-base b'+str(i) + ') ' + str(supplies_lst[j]) + ')\n'
         j += 1
-    for i in bases['asentamientos']:
-        init += '    (= (suministros-base b'+str(i) + ') 0)\n'
     # Distribute staff between settlements
     m = len(bases['asentamientos'])
     staff_lst = [0] * m
@@ -87,8 +85,6 @@ def get_init(rovers, petitions, load, nBases, bases, G):
     for i in bases['asentamientos']:
         init += '    (= (personal-base b'+str(i) + ') ' + str(staff_lst[j]) + ')\n'
         j += 1
-    for i in bases['almacenes']:
-        init += '    (= (personal-base b'+str(i) + ') 0)\n'
     # Add rovers
     for i in range(rovers):
         r = 'r' + str(i)

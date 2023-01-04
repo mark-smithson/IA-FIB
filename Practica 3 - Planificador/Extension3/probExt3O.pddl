@@ -1,0 +1,48 @@
+(define (problem probExt3O) (:domain peticionador)
+(:objects
+    r0 r1 r2 r3 - rover
+    b1 b3 - almacen
+    b0 b2 b4 b5 b6 - asentamiento
+    p0 p1 p2 p3 p4 p5 - peticion
+)
+(:init
+    (= (prioridades-totales) 0) (= (combustible-total) 0) (= (peticiones-cerradas) 0)
+    (camino b0 b1)
+    (camino b1 b4)
+    (camino b1 b6)
+    (camino b2 b6)
+    (camino b2 b3)
+    (camino b3 b5)
+    (camino b4 b5)
+    (= (suministros-base b1) 0)
+    (= (suministros-base b3) 0)
+    (= (suministros-base b0) 0)
+    (= (suministros-base b2) 0)
+    (= (suministros-base b4) 0)
+    (= (suministros-base b5) 0)
+    (= (suministros-base b6) 0)
+    (= (personal-base b0) 0)
+    (= (personal-base b2) 1)
+    (= (personal-base b4) 1)
+    (= (personal-base b5) 0)
+    (= (personal-base b6) 0)
+    (= (personal-base b1) 0)
+    (= (personal-base b3) 0)
+    (= (suministros-rover r0) 0) (= (personal-rover r0) 0) (= (combustible r0) 21) (estacionado r0 b5)
+    (= (suministros-rover r1) 0) (= (personal-rover r1) 0) (= (combustible r1) 21) (estacionado r1 b1)
+    (= (suministros-rover r2) 0) (= (personal-rover r2) 0) (= (combustible r2) 21) (estacionado r2 b3)
+    (= (suministros-rover r3) 0) (= (personal-rover r3) 0) (= (combustible r3) 21) (estacionado r3 b5)
+    (peticion-abierta p0 b0) (peticion-personal p0) (= (prioridad-peticion p0) 2)
+    (peticion-abierta p1 b2) (peticion-personal p1) (= (prioridad-peticion p1) 3)
+    (peticion-abierta p2 b4) (peticion-personal p2) (= (prioridad-peticion p2) 2)
+    (peticion-abierta p3 b5) (peticion-personal p3) (= (prioridad-peticion p3) 2)
+    (peticion-abierta p4 b4) (peticion-personal p4) (= (prioridad-peticion p4) 2)
+    (peticion-abierta p5 b2) (peticion-personal p5) (= (prioridad-peticion p5) 3)
+)
+(:goal
+    (= (peticiones-cerradas) 2)
+)
+(:metric minimize (+
+   (* (prioridades-totales) 2)
+    (* (combustible-total) 3)
+)))
