@@ -72,10 +72,8 @@ def get_init(rovers, petitions, load, nBases, bases, G):
     # Add supplies
     j = 0
     for i in bases['almacenes']:
-        init += '    (= (suministros-base b'+str(i) + ') ' + str(supplies_lst[j]) + ')\n'
+        init += '    (= (suministros-almacen b'+str(i) + ') ' + str(supplies_lst[j]) + ')\n'
         j += 1
-    for i in bases['asentamientos']:
-        init += '    (= (suministros-base b'+str(i) + ') 0)\n'
     # Distribute staff between settlements
     m = len(bases['asentamientos'])
     staff_lst = [0] * m
@@ -84,10 +82,8 @@ def get_init(rovers, petitions, load, nBases, bases, G):
     # Add supplies
     j = 0
     for i in bases['asentamientos']:
-        init += '    (= (personal-base b'+str(i) + ') ' + str(staff_lst[j]) + ')\n'
+        init += '    (= (personal-asentamiento b'+str(i) + ') ' + str(staff_lst[j]) + ')\n'
         j += 1
-    for i in bases['almacenes']:
-        init += '    (= (personal-base b'+str(i) + ') 0)\n'
     # Add rovers
     for i in range(rovers):
         r = 'r' + str(i)
@@ -110,8 +106,7 @@ def get_init(rovers, petitions, load, nBases, bases, G):
 
     return init
 
-def write_file(rovers, petitions, load, nBases, seed, 
-                fuelFactor, priorityFactor, problem):
+def write_file(rovers, petitions, load, nBases, seed, problem):
     # Set the seed for random cases
     random.seed(seed)
 
@@ -144,13 +139,7 @@ def main():
     # Add an argument to the seed for random generator
     parser.add_argument('--seed', type=int, 
         help='Seed of the graph', default=0)
-    # Add an argument to the priority factor
-    parser.add_argument('--priority', type=int, 
-        help='Priority factor to optimize', default=1)
-    # Add an argument to the fuel factor
-    parser.add_argument('--fuel', type=int, 
-        help='Fuel factor to optimize', default=1)
-    # Add an argument to the fuel factor
+    # Add an argument to the name of the problem
     parser.add_argument('--problem', type=str, 
         help='Name of the problem', required=True)
     
@@ -163,8 +152,6 @@ def main():
     load = args.load
     bases = args.bases
     seed = args.seed
-    priority = args.priority
-    fuel = args.fuel
     problem = args.problem
 
     if (rovers < 1):
@@ -177,12 +164,8 @@ def main():
         raise Error('The number of petittions must be at least 2')
     if (petitions < load):
         raise Error('Number of personal/stuff is creater than the number of petitions')
-    if (priority < 0):
-        raise Error('The priority factor must be a positive integer')
-    if (fuel < 0):
-        raise Error('The fuel factor must be a positive integer')
 
-    write_file(rovers, petitions, load, bases, seed, fuel, priority, problem)
+    write_file(rovers, petitions, load, bases, seed, problem)
 
 if __name__ == '__main__':
     main()

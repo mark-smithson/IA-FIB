@@ -152,7 +152,7 @@ def main():
     # Add an argument to the fuel factor
     parser.add_argument('--fuel', type=int, 
         help='Fuel factor to optimize', default=1)
-    # Add an argument to the fuel factor
+    # Add an argument to the name of the problem
     parser.add_argument('--problem', type=str, 
         help='Name of the problem', required=True)
     
