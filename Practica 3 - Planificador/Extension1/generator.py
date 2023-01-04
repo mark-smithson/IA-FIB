@@ -2,6 +2,7 @@ import argparse
 import random
 import networkx as nx
 
+# Throw an exception with a custom message
 class Error(Exception):
     def __init__(self, message):
         self.message = message
